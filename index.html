@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PlanPin — Travel, trusted.</title>
+<meta name="description" content="Plan trips from creators you trust. Creator-curated recommendations, AI-powered itineraries. Apply for early access.">
+<meta property="og:title" content="PlanPin — Travel, trusted.">
+<meta property="og:description" content="Plan trips from creators you trust. Creator-curated recommendations, AI-powered itineraries.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://planpins.com">
+<link rel="icon" type="image/png" href="favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+@font-face{font-family:'Karrik';src:url('/fonts/Karrik-Regular.woff2') format('woff2'),url('/fonts/Karrik-Regular.woff') format('woff');font-weight:normal;font-style:normal;font-display:swap}
+
+:root{
+    --amber:#FFC752;--green:#8CDD88;--blue:#71ACFE;--purple:#A990FE;
+    --dark:#0D0D0D;--light:#FAFAFA;--muted:rgba(255,255,255,0.5);
+    --card:#141414;--border:rgba(255,255,255,0.06);
+    --font-h:'Karrik',Georgia,serif;--font-b:'Poppins',-apple-system,sans-serif;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:var(--font-b);background:var(--dark);color:var(--light);-webkit-font-smoothing:antialiased;overflow-x:hidden;line-height:1.6;position:relative}
+
+/* Subtle noise texture overlay for depth */
+body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:9999;opacity:.03;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+
+.container{max-width:1100px;margin:0 auto;padding:0 clamp(1.5rem,5vw,4rem);width:100%}
+.container-wide{max-width:1360px;margin:0 auto;padding:0 clamp(1.5rem,4vw,3rem);width:100%}
+
+/* ═══════════════════════════════════════
+   HERO
+   ═══════════════════════════════════════ */
+.hero{text-align:center;position:relative;z-index:3;background:var(--dark)}
+.hero-text{padding:clamp(5rem,10vh,7rem) 0 0;position:relative;z-index:2}
+
+.logo{width:auto;height:120px;margin:0 auto 2rem;opacity:0;animation:fadeUp .6s ease forwards}
+.logo img{height:100%;width:auto}
+
+.hero h1{font-family:var(--font-h);font-size:clamp(2rem,5.5vw,3.4rem);line-height:1.08;margin-bottom:.75rem;letter-spacing:-.02em;opacity:0;animation:fadeUp .6s ease .1s forwards}
+.hero .sub{font-size:clamp(.85rem,1.3vw,1.05rem);color:var(--muted);margin-bottom:2rem;opacity:0;animation:fadeUp .6s ease .2s forwards}
+
+/* Form */
+.form-wrap{opacity:0;animation:fadeUp .6s ease .3s forwards}
+.form{display:flex;gap:.6rem;max-width:380px;margin:0 auto}
+.form input{flex:1;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);border-radius:10px;padding:.8rem 1.1rem;color:var(--light);font-family:var(--font-b);font-size:.88rem;outline:none;transition:border-color .2s}
+.form input:focus{border-color:var(--amber)}
+.form input::placeholder{color:rgba(255,255,255,.28)}
+.form button{background:var(--amber);color:var(--dark);border:none;border-radius:10px;padding:.8rem 1.5rem;font-family:var(--font-b);font-size:.82rem;font-weight:600;cursor:pointer;white-space:nowrap;transition:all .15s}
+.form button:hover{opacity:.88;transform:translateY(-1px)}
+.form button:active{transform:translateY(0);opacity:.95}
+.form-note{font-size:.68rem;color:rgba(255,255,255,.25);margin-top:.65rem;opacity:0;animation:fadeUp .6s ease .4s forwards}
+
+/* Success */
+.success{display:none;text-align:center;max-width:480px;margin:0 auto}
+.success.show{display:block}
+.form-wrap.hide{display:none}
+.success-check{width:52px;height:52px;background:var(--amber);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 1.2rem;animation:scaleIn .4s ease}
+.success-check svg{width:26px;height:26px}
+.success h2{font-family:var(--font-h);font-size:1.5rem;margin-bottom:.6rem}
+.success p{font-size:.88rem;color:var(--muted);margin-bottom:1.5rem}
+.survey-q{font-size:.78rem;font-weight:500;color:rgba(255,255,255,.6);margin-bottom:.7rem}
+.survey-options{display:flex;flex-wrap:wrap;gap:.45rem;justify-content:center}
+.survey-opt{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:8px;padding:.45rem .9rem;font-size:.78rem;font-family:var(--font-b);color:rgba(255,255,255,.6);cursor:pointer;transition:all .2s}
+.survey-opt:hover{border-color:var(--amber);color:var(--amber)}
+.survey-opt.selected{background:rgba(255,199,82,.1);border-color:var(--amber);color:var(--amber)}
+.survey-thanks{display:none;font-size:.78rem;color:var(--amber);margin-top:.65rem}
+
+/* Hero-to-video gradient bridge */
+.hero-bridge{height:80px;background:var(--dark);position:relative;z-index:2;pointer-events:none}
+
+/* ═══════════════════════════════════════
+   HERO VIDEO (pinned scroll-through)
+   ═══════════════════════════════════════ */
+.hero-video-section{position:relative;z-index:1}
+.hero-video-pin{height:100vh;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:clamp(1rem,2vh,2rem)}
+.hero-video-text{text-align:center;position:relative;height:2.5rem}
+.hero-video-text span{font-family:var(--font-h);font-size:clamp(1.2rem,2.5vw,1.8rem);color:var(--light);position:absolute;left:50%;transform:translateX(-50%);white-space:nowrap;transition:none}
+#videoText1{opacity:1}
+#videoText2{opacity:0}
+.hero-video-inner{width:100%;max-width:900px;padding:0 clamp(1rem,3vw,2rem)}
+.hero-video-inner video{width:100%;max-height:calc(100vh - 6rem);height:auto;display:block;object-fit:contain}
+
+/* ═══════════════════════════════════════
+   BENTO GRID
+   ═══════════════════════════════════════ */
+.bento{padding:clamp(4rem,8vh,7rem) 0}
+.bento-header{font-family:var(--font-h);font-size:clamp(1.3rem,2.8vw,1.9rem);text-align:center;margin-bottom:clamp(1.5rem,3vh,2.5rem);line-height:1.15}
+.bento-top{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:1rem}
+.bento-bottom{display:grid;grid-template-columns:1fr 1fr 1fr;gap:1rem;align-items:stretch}
+.bento-bottom .b-card{display:flex;flex-direction:column}
+.bento-bottom .b-card>*:last-child{margin-top:auto}
+
+.b-card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:clamp(1.2rem,2vw,1.8rem);transition:all .3s ease;overflow:hidden}
+.b-card:hover{border-color:rgba(255,199,82,.18);transform:translateY(-2px);box-shadow:0 8px 32px rgba(0,0,0,.2)}
+
+/* FIX: Card headings use Karrik for editorial consistency */
+.b-card h3{font-family:var(--font-h);font-size:1.05rem;margin-bottom:.4rem}
+/* FIX: Body text margin only on bottom cards, not large cards */
+.b-card p{font-size:.82rem;color:var(--muted);line-height:1.55}
+.bento-bottom .b-card p{margin-bottom:.8rem}
+
+/* Large card inner layout */
+.b-card-lg{display:flex;gap:1.5rem;align-items:center;min-height:320px}
+.b-card-lg .b-text{flex:1}
+.b-card-lg .b-text p{margin-bottom:0}
+.b-card-lg .b-mock{flex-shrink:0;width:200px}
+
+/* Phone frame */
+.b-iphone{position:relative;width:100%}
+.b-iphone-frame{background:#222;border-radius:clamp(14px,2vw,20px);padding:clamp(3px,0.4vw,4px);box-shadow:0 0 0 1px rgba(255,255,255,.06),0 10px 32px rgba(0,0,0,.35)}
+.b-iphone-frame.white{background:#e8e8e8;box-shadow:0 0 0 1px rgba(255,255,255,.1),0 10px 32px rgba(0,0,0,.25)}
+.b-iphone-screen{border-radius:clamp(11px,1.6vw,16px);overflow:hidden;background:#f7f3ee}
+.b-iphone-screen.dark-s{background:#0D0D0D}
+.b-iphone-screen img{width:100%;height:auto;display:block}
+
+/* Booking logos (Card 5) */
+.booking-logos{display:grid;grid-template-columns:1fr 1fr;gap:1.2rem 1.5rem;margin-top:1rem;padding:1rem;align-items:center;justify-items:center}
+.booking-logos img{height:32px;width:auto;max-width:100%;object-fit:contain;filter:brightness(0) invert(1);opacity:.4;transition:opacity .2s}
+.booking-logos img:hover{opacity:.65}
+.booking-logos img.logo-expedia{height:44px}
+
+/* Mini trip board (Card 4) */
+.mini-board{margin-top:.8rem;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.06);border-radius:10px;padding:.7rem;overflow:hidden}
+.mini-board-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:.6rem}
+.mini-board-title{font-size:.78rem;font-weight:600;color:var(--light)}
+.mini-board-count{font-size:.6rem;color:rgba(255,255,255,.3)}
+.mini-board-btn{font-size:.55rem;font-weight:600;background:var(--light);color:var(--dark);padding:4px 10px;border-radius:10px;letter-spacing:.03em}
+.mini-spot-row{display:flex;align-items:center;gap:.5rem;padding:.4rem 0;border-top:1px solid rgba(255,255,255,.04)}
+.mini-spot-thumb{width:32px;height:32px;border-radius:5px;flex-shrink:0;overflow:hidden}
+.mini-spot-thumb img{width:100%;height:100%;object-fit:cover}
+.mini-spot-info{flex:1;min-width:0}
+.mini-spot-name{font-size:.68rem;font-weight:600;color:rgba(255,255,255,.8);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.mini-spot-loc{font-size:.55rem;color:rgba(255,255,255,.35)}
+.mini-spot-type{font-size:.5rem;color:rgba(255,255,255,.25)}
+
+/* Import badges (Card 3) */
+.import-badges{display:grid;grid-template-columns:1fr 1fr;gap:.4rem;margin-top:.6rem;flex:1}
+.import-badge{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.35rem;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);border-radius:8px;padding:.6rem .4rem;font-size:.65rem;color:rgba(255,255,255,.45);transition:border-color .2s}
+.import-badge:hover{border-color:rgba(255,199,82,.2)}
+.import-badge img{width:36px;height:36px;object-fit:contain;border-radius:6px}
+
+/* ═══════════════════════════════════════
+   MAX SECTION
+   ═══════════════════════════════════════ */
+.max-section{padding:clamp(4rem,8vh,7rem) 0;background:rgba(255,255,255,.015);border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
+.max-inner{display:grid;grid-template-columns:auto 1fr;gap:clamp(2.5rem,5vw,5rem);align-items:center;max-width:1000px;margin:0 auto}
+.max-photo{width:clamp(220px,26vw,320px);height:clamp(220px,26vw,320px);border-radius:50%;flex-shrink:0;overflow:hidden}
+.max-photo img{width:100%;height:100%;object-fit:cover}
+.max-label{font-size:.65rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--amber);margin-bottom:.5rem}
+.max-name{font-family:var(--font-h);font-size:clamp(1.4rem,2.5vw,2rem);line-height:1.15;margin-bottom:.3rem}
+.max-subtitle{font-size:.85rem;color:var(--muted);margin-bottom:1.2rem}
+.max-quote{font-style:italic;font-size:.88rem;color:rgba(255,255,255,.65);line-height:1.65;border-left:3px solid var(--amber);padding-left:1.2rem;margin-bottom:.5rem}
+.max-attr{font-size:.75rem;color:var(--muted);margin-bottom:1.2rem;padding-left:1.2rem}
+.max-bio{font-size:.82rem;color:var(--muted);line-height:1.6;margin-bottom:1rem}
+.max-socials{display:flex;gap:1.2rem;font-size:.78rem;color:var(--muted)}
+.max-socials a{color:var(--muted);text-decoration:none;display:flex;align-items:center;gap:.35rem;transition:color .2s}
+.max-socials a:hover{color:var(--amber)}
+.max-socials svg{width:16px;height:16px}
+
+/* ═══════════════════════════════════════
+   BOTTOM CTA
+   ═══════════════════════════════════════ */
+.bottom-cta{padding:clamp(4rem,8vh,7rem) 0;text-align:center}
+.bottom-cta h2{font-family:var(--font-h);font-size:clamp(1.2rem,2.5vw,1.6rem);margin-bottom:1rem}
+.bottom-cta .form-wrap{opacity:1;animation:none}
+
+/* ═══════════════════════════════════════
+   FOOTER
+   ═══════════════════════════════════════ */
+.footer{padding:3rem 0;text-align:center;border-top:1px solid var(--border);font-size:.72rem;color:rgba(255,255,255,.2)}
+.footer a{color:rgba(255,255,255,.35);text-decoration:none;transition:color .2s}
+.footer a:hover{color:var(--amber)}
+.footer-brand{font-family:var(--font-h);font-size:.85rem;color:rgba(255,255,255,.3);margin-bottom:.4rem}
+.footer-links{display:flex;justify-content:center;gap:1.5rem;margin-top:.6rem}
+
+/* ═══════════════════════════════════════
+   ANIMATIONS
+   ═══════════════════════════════════════ */
+@keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+@keyframes scaleIn{from{transform:scale(0)}to{transform:scale(1)}}
+.reveal{opacity:0;transform:translateY(16px);transition:opacity .5s ease,transform .5s ease}
+.reveal.visible{opacity:1;transform:translateY(0)}
+.rd1{transition-delay:.06s}.rd2{transition-delay:.12s}.rd3{transition-delay:.18s}.rd4{transition-delay:.24s}.rd5{transition-delay:.3s}
+
+/* ═══════════════════════════════════════
+   RESPONSIVE
+   ═══════════════════════════════════════ */
+/* === TABLET (800px and below) === */
+@media(max-width:800px){
+    /* Hero */
+    .hero-text{padding:clamp(4rem,8vh,6rem) 0 0}
+    .logo{height:80px}
+    .hero h1{font-size:2rem}
+
+    /* Video */
+    .hero-video-text span{font-size:1rem}
+    .hero-video-inner{max-width:100%;padding:0 1rem}
+    .hero-video-pin{gap:.5rem}
+    .hero-bridge{height:16px}
+
+    /* Bento */
+    .bento{padding:clamp(3rem,6vh,5rem) 0}
+    .bento-top{grid-template-columns:1fr}
+    .bento-bottom{grid-template-columns:1fr;gap:.75rem}
+    .bento-bottom .b-card{min-height:auto}
+    .b-card-lg{flex-direction:column;min-height:auto;gap:1.2rem}
+    .b-card-lg .b-mock{width:180px;margin:0 auto}
+    .b-card{padding:1.2rem}
+
+    /* Import badges — stay 2x2 on tablet */
+    .import-badges{gap:.5rem}
+
+    /* Booking logos */
+    .booking-logos{gap:1rem;padding:.8rem}
+
+    /* Max section */
+    .max-inner{grid-template-columns:1fr;text-align:center;gap:2rem}
+    .max-photo{margin:0 auto;width:200px;height:200px}
+    .max-quote{border-left:none;padding-left:0;text-align:center;font-size:.82rem}
+    .max-attr{padding-left:0;text-align:center}
+    .max-bio{text-align:center}
+    .max-socials{justify-content:center;flex-wrap:wrap;gap:.8rem}
+}
+
+/* === MOBILE (500px and below) === */
+@media(max-width:500px){
+    /* Hero */
+    .hero-text{padding:3rem 0 0}
+    .logo{height:90px;margin-bottom:1.2rem}
+    .hero h1{font-size:1.6rem;margin-bottom:.5rem}
+    .hero .sub{font-size:.82rem;margin-bottom:1.5rem}
+
+    /* Form */
+    .form{flex-direction:column;gap:.5rem;max-width:280px}
+    .form button{width:100%;padding:.75rem}
+    .form input{padding:.75rem .9rem;font-size:.85rem}
+
+    /* Video */
+    .hero-video-pin{height:auto;min-height:50vh;padding:1rem 0}
+    .hero-video-text{height:1.5rem}
+    .hero-video-text span{font-size:.85rem}
+    .hero-video-inner video{max-height:60vh}
+    .hero-bridge{height:0}
+
+    /* Bento */
+    .bento-header{font-size:1.2rem;margin-bottom:1.2rem}
+    .b-card h3{font-size:.9rem}
+    .b-card p{font-size:.78rem}
+    .b-card-lg .b-mock{width:150px}
+
+    /* Import badges */
+    .import-badges{gap:.35rem}
+    .import-badge{padding:.5rem .3rem;font-size:.6rem}
+    .import-badge img{width:28px;height:28px}
+
+    /* Booking logos */
+    .booking-logos{gap:.6rem .8rem;padding:.6rem}
+    .booking-logos img{height:20px}
+    .booking-logos img.logo-expedia{height:28px}
+
+    /* Mini board */
+    .mini-board{padding:.6rem}
+    .mini-board-title{font-size:.7rem}
+    .mini-spot-thumb{width:28px;height:28px}
+
+    /* Max section */
+    .max-photo{width:160px;height:160px}
+    .max-name{font-size:1.3rem}
+    .max-subtitle{font-size:.78rem;margin-bottom:.8rem}
+    .max-quote{font-size:.78rem;line-height:1.6}
+    .max-bio{font-size:.75rem}
+    .max-socials{font-size:.72rem;gap:.6rem}
+
+    /* Bottom CTA */
+    .bottom-cta h2{font-size:1.15rem}
+
+    /* Footer */
+    .footer-links{gap:1rem}
+}
+
+/* === SMALL MOBILE (380px and below) === */
+@media(max-width:380px){
+    .hero h1{font-size:1.4rem}
+    .logo{height:56px}
+    .b-card-lg .b-mock{width:130px}
+    .max-photo{width:140px;height:140px}
+    .booking-logos{grid-template-columns:1fr 1fr}
+    .booking-logos img{height:18px}
+    .booking-logos img.logo-expedia{height:24px}
+}
+
+@media(prefers-reduced-motion:reduce){
+    *{animation-duration:.01ms!important;transition-duration:.15s!important}
+    .reveal{opacity:1;transform:none}
+}
+</style>
+</head>
+<body>
+
+<!-- ═══════════════════ HERO ═══════════════════ -->
+<section class="hero">
+    <div class="container hero-text">
+        <div class="logo">
+            <img src="logo.png" alt="PlanPin">
+        </div>
+        <h1>Plan trips from creators you trust.</h1>
+        <p class="sub">Creator-curated recommendations, turned into your perfect trip by AI.</p>
+
+        <div class="form-wrap" id="formWrap">
+            <form class="form" id="waitlistForm">
+                <input type="email" id="emailInput" placeholder="Enter your email" required autocomplete="email">
+                <button type="submit">Apply for early access</button>
+            </form>
+            <p class="form-note">Launching summer 2026.</p>
+        </div>
+
+        <div class="success" id="successState">
+            <div class="success-check"><svg viewBox="0 0 24 24" fill="none" stroke="#0D0D0D" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
+            <h2>You're in.</h2>
+            <p>We'll reach out when it's your turn. In the meantime, we'd love to know a bit about you.</p>
+            <div class="survey-q">What kind of traveller are you?</div>
+            <div class="survey-options">
+                <div class="survey-opt" onclick="selectOpt(this)">Solo</div>
+                <div class="survey-opt" onclick="selectOpt(this)">Couple</div>
+                <div class="survey-opt" onclick="selectOpt(this)">Group / Friends</div>
+                <div class="survey-opt" onclick="selectOpt(this)">Family</div>
+                <div class="survey-opt" onclick="selectOpt(this)">Frequent (5+ trips/yr)</div>
+            </div>
+            <p class="survey-thanks" id="surveyThanks">Thanks — this helps us build PlanPin for you.</p>
+        </div>
+    </div>
+</section>
+
+<!-- Gradient bridge between hero and video -->
+<div class="hero-bridge"></div>
+
+<!-- Pinned video section — stays locked while video scrubs, then releases -->
+<section class="hero-video-section">
+    <div class="hero-video-pin">
+        <div class="hero-video-text">
+            <span id="videoText1">Save what inspires you.</span>
+            <span id="videoText2">We'll plan the rest.</span>
+        </div>
+        <div class="hero-video-inner">
+            <video id="heroVideo" muted playsinline preload="auto">
+                <source src="full-video-scrub.mp4" type="video/mp4">
+            </video>
+        </div>
+    </div>
+</section>
+
+<!-- ═══════════════════ BENTO GRID ═══════════════════ -->
+<section class="bento">
+    <div class="container">
+        <h2 class="bento-header reveal">Travel planning, rebuilt on trust.</h2>
+    </div>
+    <div class="container-wide">
+        <div class="bento-top">
+            <!-- Card 1: Creator Curation -->
+            <div class="b-card reveal rd1">
+                <div class="b-card-lg">
+                    <div class="b-text">
+                        <h3>Curated by creators.</h3>
+                        <p>Every spot on PlanPin comes from a real travel creator — someone who's stayed at the hotel, eaten at the restaurant, walked the street. Browse their profiles, read their reviews, save what inspires you.</p>
+                    </div>
+                    <div class="b-mock">
+                        <div class="b-iphone">
+                            <div class="b-iphone-frame white">
+                                <div class="b-iphone-screen">
+                                    <img src="new max.png" alt="Creator Profile">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 2: AI Itinerary -->
+            <div class="b-card reveal rd2">
+                <div class="b-card-lg">
+                    <div class="b-text">
+                        <h3>AI itinerary builder.</h3>
+                        <p>Our AI takes your saved recommendations and builds a personalised day-by-day itinerary. Every spot is creator-vetted. Edit by chatting or clicking directly on the plan.</p>
+                    </div>
+                    <div class="b-mock">
+                        <div class="b-iphone">
+                            <div class="b-iphone-frame">
+                                <div class="b-iphone-screen dark-s">
+                                    <img src="ai screenshot .png" alt="AI Itinerary">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="bento-bottom">
+            <!-- Card 3: Save from Anywhere -->
+            <div class="b-card reveal rd3">
+                <h3>Save from anywhere.</h3>
+                <p>Save spots from Instagram reels, TikTok videos, Google Maps links, or type them manually.</p>
+                <div class="import-badges">
+                    <span class="import-badge"><img src="badge-instagram.png" alt="Instagram">Instagram</span>
+                    <span class="import-badge"><img src="Tiktok_icon.svg.webp" alt="TikTok">TikTok</span>
+                    <span class="import-badge"><img src="badge-googleMaps.png" alt="Google Maps">Google Maps</span>
+                    <span class="import-badge"><img src="badge-notes.png" alt="Notes">Notes</span>
+                </div>
+            </div>
+
+            <!-- Card 4: Trip Boards -->
+            <div class="b-card reveal rd4">
+                <h3>Save to a trip board.</h3>
+                <p>Save spots from different creators and destinations into trip boards. When you're ready, hit "Plan the trip."</p>
+                <div class="mini-board">
+                    <div class="mini-board-header">
+                        <div>
+                            <div class="mini-board-title">Maldives Trip</div>
+                            <div class="mini-board-count">5 spots saved</div>
+                        </div>
+                        <div class="mini-board-btn">Plan the trip</div>
+                    </div>
+                    <div class="mini-spot-row">
+                        <div class="mini-spot-thumb"><img src="https://images.unsplash.com/photo-1439066615861-d1af74d74000?w=80&h=80&fit=crop" alt=""></div>
+                        <div class="mini-spot-info">
+                            <div class="mini-spot-name">Soneva Fushi</div>
+                            <div class="mini-spot-loc">Baa Atoll, Maldives</div>
+                            <div class="mini-spot-type">Hotel &middot; Luxury</div>
+                        </div>
+                    </div>
+                    <div class="mini-spot-row">
+                        <div class="mini-spot-thumb"><img src="https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?w=80&h=80&fit=crop" alt=""></div>
+                        <div class="mini-spot-info">
+                            <div class="mini-spot-name">Gili Lankanfushi</div>
+                            <div class="mini-spot-loc">North Male Atoll</div>
+                            <div class="mini-spot-type">Hotel &middot; Luxury</div>
+                        </div>
+                    </div>
+                    <div class="mini-spot-row">
+                        <div class="mini-spot-thumb"><img src="https://images.unsplash.com/photo-1551918120-9739cb430c6d?w=80&h=80&fit=crop" alt=""></div>
+                        <div class="mini-spot-info">
+                            <div class="mini-spot-name">Ithaa Undersea</div>
+                            <div class="mini-spot-loc">Rangali Island</div>
+                            <div class="mini-spot-type">Restaurant &middot; Fine Dining</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 5: Book Directly -->
+            <div class="b-card reveal rd5">
+                <h3>Book directly.</h3>
+                <p>Book every hotel, restaurant, and experience in your itinerary — without leaving the app.</p>
+                <div class="booking-logos">
+                    <img src="partners/Booking.com_logo.svg.png" alt="Booking.com">
+                    <img src="partners/hotels_com_red.png" alt="Hotels.com">
+                    <img src="partners/expedia_white_trimmed.png" alt="Expedia" class="logo-expedia">
+                    <img src="partners/viator222.png" alt="Viator">
+                    <img src="partners/Skyscanner_Logo_LockupHorizontal_SkyBlue_RGB.svg.png" alt="Skyscanner">
+                    <img src="partners/g adventures.png" alt="G Adventures">
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ═══════════════════ MAX SECTION ═══════════════════ -->
+<section class="max-section">
+    <div class="container">
+        <div class="max-inner reveal">
+            <div class="max-photo"><img src="max image.png" alt="Max Zaharenkov"></div>
+            <div>
+                <div class="max-label">Built by</div>
+                <h2 class="max-name">Max Zaharenkov</h2>
+                <p class="max-subtitle">Travel Creator & PlanPin Co-Creator</p>
+                <blockquote class="max-quote">"I've reviewed over 400 hotels and restaurants across 70 countries. My followers trust me because I've actually been there. PlanPin changes that — every recommendation comes from someone who's stood in the room, eaten the food, walked the street."</blockquote>
+                <p class="max-attr">— Max Zaharenkov</p>
+                <p class="max-bio">With over 1 million followers and 400+ travel videos from 70+ destinations, Max built PlanPin to turn trusted creator recommendations into real trips.</p>
+                <div class="max-socials">
+                    <a href="https://instagram.com/maxzaharenkov" target="_blank" rel="noopener">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+                        @maxzaharenkov
+                    </a>
+                    <a href="#" target="_blank" rel="noopener">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2" ry="2"/></svg>
+                        YouTube
+                    </a>
+                    <a href="https://www.tiktok.com/@maxzaharenkov" target="_blank" rel="noopener">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 12a4 4 0 1 0 4 4V4a5 5 0 0 0 5 5"/></svg>
+                        @maxzaharenkov
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ═══════════════════ BOTTOM CTA ═══════════════════ -->
+<section class="bottom-cta">
+    <div class="container">
+        <h2 class="reveal">Your next trip deserves better than a Google Doc.</h2>
+        <div class="form-wrap reveal rd1" id="formWrap2">
+            <form class="form" id="waitlistForm2">
+                <input type="email" placeholder="Enter your email" required autocomplete="email">
+                <button type="submit">Apply for early access</button>
+            </form>
+        </div>
+    </div>
+</section>
+
+<!-- ═══════════════════ FOOTER ═══════════════════ -->
+<footer class="footer">
+    <div class="container">
+        <div class="footer-brand">planpin</div>
+        <p>By Affinity Labs</p>
+        <div class="footer-links">
+            <a href="https://instagram.com/planpinhq" target="_blank" rel="noopener">Instagram</a>
+            <a href="mailto:hello@planpins.com">Contact</a>
+        </div>
+    </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+<script>
+gsap.registerPlugin(ScrollTrigger);
+
+// Reveal on scroll
+const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+}, { threshold: 0.12 });
+document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+
+// Pinned video scrub — GSAP tween pattern
+const heroVideo = document.getElementById('heroVideo');
+const videoText1 = document.getElementById('videoText1');
+const videoText2 = document.getElementById('videoText2');
+
+heroVideo.addEventListener('loadedmetadata', () => {
+    heroVideo.currentTime = 0;
+
+    const tl = gsap.timeline({
+        scrollTrigger: {
+            trigger: '.hero-video-section',
+            start: 'top top',
+            end: '+=300%',
+            scrub: 0.5,
+            pin: '.hero-video-pin',
+        }
+    });
+
+    tl.to(heroVideo, { currentTime: heroVideo.duration, ease: 'none', duration: 1 }, 0);
+    tl.to(videoText1, { opacity: 0, y: -15, duration: 0.1, ease: 'power2.in' }, 0.4);
+    tl.fromTo(videoText2, { opacity: 0, y: 15 }, { opacity: 1, y: 0, duration: 0.1, ease: 'power2.out' }, 0.5);
+});
+
+// Form submission
+function handleSubmit(e) {
+    e.preventDefault();
+    const email = e.target.querySelector('input[type="email"]').value;
+    console.log('Waitlist signup:', email);
+    document.getElementById('formWrap').classList.add('hide');
+    document.getElementById('successState').classList.add('show');
+    const f2 = document.getElementById('formWrap2');
+    if (f2) f2.innerHTML = '<p style="color:var(--amber);font-size:.88rem;font-weight:500;">You\'re already on the list.</p>';
+}
+document.getElementById('waitlistForm').addEventListener('submit', handleSubmit);
+document.getElementById('waitlistForm2').addEventListener('submit', handleSubmit);
+
+// Survey
+function selectOpt(el) {
+    document.querySelectorAll('.survey-opt').forEach(o => o.classList.remove('selected'));
+    el.classList.add('selected');
+    document.getElementById('surveyThanks').style.display = 'block';
+    console.log('Traveller type:', el.textContent);
+}
+</script>
+</body>
+</html>
