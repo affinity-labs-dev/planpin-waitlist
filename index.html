@@ -122,12 +122,13 @@ body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:100;op
 .b-card-lg{display:flex;gap:1.5rem;align-items:flex-start;min-height:320px}
 .b-card-lg .b-text{flex:1}
 .b-card-lg .b-text p{margin-bottom:0}
-.b-card-lg .b-mock{flex-shrink:0;width:260px}
+.b-card-lg .b-mock{flex-shrink:0;width:260px;max-width:100%}
 
 /* Phone frame — iPhone 15 PNG overlay */
 .b-iphone{position:relative;width:100%}
 .b-iphone-frame{position:relative}
-.b-iphone-frame-img{position:absolute;inset:0;width:100%;height:100%;z-index:2;pointer-events:none}
+.b-iphone-frame picture{position:absolute;inset:0;width:100%;height:100%;z-index:2;pointer-events:none}
+.b-iphone-frame-img{width:100%;height:100%}
 .b-iphone-screen{position:relative;z-index:1;overflow:hidden;margin:0.5% 1.5% 0.8% 1.5%;border-radius:clamp(18px,5.3vw,46px)}
 .b-iphone-screen img{width:100%;height:auto;display:block}
 .book-btn{font-size:.5rem;font-weight:700;letter-spacing:.04em;text-transform:uppercase;background:var(--amber);color:var(--dark);padding:.2rem .5rem;border-radius:6px;white-space:nowrap;flex-shrink:0;cursor:pointer;transition:opacity .15s}
