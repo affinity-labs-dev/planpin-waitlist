@@ -12,7 +12,7 @@
 <link rel="icon" type="image/png" href="favicon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
 <style>
 @font-face{font-family:'Karrik';src:url('/fonts/Karrik-Regular.woff2') format('woff2'),url('/fonts/Karrik-Regular.woff') format('woff');font-weight:normal;font-style:normal;font-display:swap}
 
@@ -47,7 +47,7 @@ body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:9999;o
 /* Form */
 .form-wrap{opacity:0;animation:fadeUp .6s ease .3s forwards}
 .form{display:flex;gap:.6rem;max-width:380px;margin:0 auto}
-.form input{flex:1;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);border-radius:10px;padding:.8rem 1.1rem;color:var(--light);font-family:var(--font-b);font-size:1rem;outline:none;transition:border-color .2s}
+.form input{flex:1;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);border-radius:10px;padding:.8rem 1.1rem;color:var(--light);font-family:var(--font-b);font-size:.88rem;outline:none;transition:border-color .2s}
 .form input:focus{border-color:var(--amber)}
 .form input::placeholder{color:rgba(255,255,255,.28)}
 .form button{background:var(--amber);color:var(--dark);border:none;border-radius:10px;padding:.8rem 1.5rem;font-family:var(--font-b);font-size:.82rem;font-weight:600;cursor:pointer;white-space:nowrap;transition:all .15s}
@@ -83,7 +83,7 @@ body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:9999;o
 #videoText1{opacity:1}
 #videoText2{opacity:0}
 .hero-video-inner{width:100%;max-width:900px;padding:0 clamp(1rem,3vw,2rem)}
-.hero-video-inner canvas{width:100%;max-height:calc(100vh - 6rem);height:auto;display:block}
+.hero-video-inner video{width:100%;max-height:calc(100vh - 6rem);height:auto;display:block;object-fit:contain}
 
 /* ═══════════════════════════════════════
    BENTO GRID
@@ -192,18 +192,12 @@ body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:9999;o
    ═══════════════════════════════════════ */
 /* === TABLET (800px and below) === */
 @media(max-width:800px){
-    /* Remove noise texture overlay — causes constant repaints on mobile */
-    body::after{display:none}
-
-    /* Disable hover effects on touch devices */
-    .b-card:hover{box-shadow:none;transform:none}
-
     /* Hero */
     .hero-text{padding:clamp(4rem,8vh,6rem) 0 0}
     .logo{height:80px}
     .hero h1{font-size:2rem}
 
-    /* Canvas scrub */
+    /* Video */
     .hero-video-text span{font-size:1rem}
     .hero-video-inner{max-width:100%;padding:0 1rem}
     .hero-video-pin{gap:.5rem}
@@ -244,12 +238,13 @@ body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:9999;o
     /* Form */
     .form{flex-direction:column;gap:.5rem;max-width:280px}
     .form button{width:100%;padding:.75rem}
-    .form input{padding:.75rem .9rem;font-size:1rem}
+    .form input{padding:.75rem .9rem;font-size:.85rem}
 
-    /* Canvas scrub */
+    /* Video */
+    .hero-video-pin{height:auto;min-height:50vh;padding:1rem 0}
     .hero-video-text{height:1.5rem}
     .hero-video-text span{font-size:.85rem}
-    .hero-video-inner canvas{max-height:60vh}
+    .hero-video-inner video{max-height:60vh}
     .hero-bridge{height:0}
 
     /* Bento */
@@ -311,10 +306,7 @@ body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:9999;o
 <section class="hero">
     <div class="container hero-text">
         <div class="logo">
-            <picture>
-                <source srcset="logo.webp" type="image/webp">
-                <img src="logo.png" alt="PlanPin" width="240" height="120">
-            </picture>
+            <img src="logo.png" alt="PlanPin">
         </div>
         <h1>Plan trips from creators you trust.</h1>
         <p class="sub">Creator-curated recommendations, turned into your perfect trip by AI.</p>
@@ -355,7 +347,9 @@ body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:9999;o
             <span id="videoText2">We'll plan the rest.</span>
         </div>
         <div class="hero-video-inner">
-            <canvas id="heroCanvas"></canvas>
+            <video id="heroVideo" muted playsinline preload="auto">
+                <source src="full-video-scrub.mp4" type="video/mp4">
+            </video>
         </div>
     </div>
 </section>
@@ -378,10 +372,7 @@ body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:9999;o
                         <div class="b-iphone">
                             <div class="b-iphone-frame white">
                                 <div class="b-iphone-screen">
-                                    <picture>
-                                        <source srcset="new-max.webp" type="image/webp">
-                                        <img src="new max.png" alt="Creator Profile" width="400" height="867" loading="lazy">
-                                    </picture>
+                                    <img src="new max.png" alt="Creator Profile">
                                 </div>
                             </div>
                         </div>
@@ -400,10 +391,7 @@ body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:9999;o
                         <div class="b-iphone">
                             <div class="b-iphone-frame">
                                 <div class="b-iphone-screen dark-s">
-                                    <picture>
-                                        <source srcset="ai-screenshot.webp" type="image/webp">
-                                        <img src="ai screenshot .png" alt="AI Itinerary" width="400" height="867" loading="lazy">
-                                    </picture>
+                                    <img src="ai screenshot .png" alt="AI Itinerary">
                                 </div>
                             </div>
                         </div>
@@ -418,10 +406,10 @@ body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:9999;o
                 <h3>Save from anywhere.</h3>
                 <p>Save spots from Instagram reels, TikTok videos, Google Maps links, or type them manually.</p>
                 <div class="import-badges">
-                    <span class="import-badge"><picture><source srcset="badge-instagram.webp" type="image/webp"><img src="badge-instagram.png" alt="Instagram" width="36" height="36" loading="lazy"></picture>Instagram</span>
-                    <span class="import-badge"><img src="Tiktok_icon.svg.webp" alt="TikTok" width="36" height="36" loading="lazy">TikTok</span>
-                    <span class="import-badge"><picture><source srcset="badge-googleMaps.webp" type="image/webp"><img src="badge-googleMaps.png" alt="Google Maps" width="36" height="36" loading="lazy"></picture>Google Maps</span>
-                    <span class="import-badge"><picture><source srcset="badge-notes.webp" type="image/webp"><img src="badge-notes.png" alt="Notes" width="36" height="36" loading="lazy"></picture>Notes</span>
+                    <span class="import-badge"><img src="badge-instagram.png" alt="Instagram">Instagram</span>
+                    <span class="import-badge"><img src="Tiktok_icon.svg.webp" alt="TikTok">TikTok</span>
+                    <span class="import-badge"><img src="badge-googleMaps.png" alt="Google Maps">Google Maps</span>
+                    <span class="import-badge"><img src="badge-notes.png" alt="Notes">Notes</span>
                 </div>
             </div>
 
@@ -438,7 +426,7 @@ body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:9999;o
                         <div class="mini-board-btn">Plan the trip</div>
                     </div>
                     <div class="mini-spot-row">
-                        <div class="mini-spot-thumb"><img src="https://images.unsplash.com/photo-1439066615861-d1af74d74000?w=80&h=80&fit=crop" alt="" width="32" height="32" loading="lazy"></div>
+                        <div class="mini-spot-thumb"><img src="https://images.unsplash.com/photo-1439066615861-d1af74d74000?w=80&h=80&fit=crop" alt=""></div>
                         <div class="mini-spot-info">
                             <div class="mini-spot-name">Soneva Fushi</div>
                             <div class="mini-spot-loc">Baa Atoll, Maldives</div>
@@ -446,7 +434,7 @@ body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:9999;o
                         </div>
                     </div>
                     <div class="mini-spot-row">
-                        <div class="mini-spot-thumb"><img src="https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?w=80&h=80&fit=crop" alt="" width="32" height="32" loading="lazy"></div>
+                        <div class="mini-spot-thumb"><img src="https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?w=80&h=80&fit=crop" alt=""></div>
                         <div class="mini-spot-info">
                             <div class="mini-spot-name">Gili Lankanfushi</div>
                             <div class="mini-spot-loc">North Male Atoll</div>
@@ -454,7 +442,7 @@ body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:9999;o
                         </div>
                     </div>
                     <div class="mini-spot-row">
-                        <div class="mini-spot-thumb"><img src="https://images.unsplash.com/photo-1551918120-9739cb430c6d?w=80&h=80&fit=crop" alt="" width="32" height="32" loading="lazy"></div>
+                        <div class="mini-spot-thumb"><img src="https://images.unsplash.com/photo-1551918120-9739cb430c6d?w=80&h=80&fit=crop" alt=""></div>
                         <div class="mini-spot-info">
                             <div class="mini-spot-name">Ithaa Undersea</div>
                             <div class="mini-spot-loc">Rangali Island</div>
@@ -469,12 +457,12 @@ body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:9999;o
                 <h3>Book directly.</h3>
                 <p>Book every hotel, restaurant, and experience in your itinerary — without leaving the app.</p>
                 <div class="booking-logos">
-                    <img src="partners/Booking.com_logo.svg.png" alt="Booking.com" height="32" loading="lazy">
-                    <img src="partners/hotels_com_red.png" alt="Hotels.com" height="32" loading="lazy">
-                    <img src="partners/expedia_white_trimmed.png" alt="Expedia" class="logo-expedia" height="44" loading="lazy">
-                    <img src="partners/viator222.png" alt="Viator" height="32" loading="lazy">
-                    <img src="partners/Skyscanner_Logo_LockupHorizontal_SkyBlue_RGB.svg.png" alt="Skyscanner" height="32" loading="lazy">
-                    <img src="partners/g adventures.png" alt="G Adventures" height="32" loading="lazy">
+                    <img src="partners/Booking.com_logo.svg.png" alt="Booking.com">
+                    <img src="partners/hotels_com_red.png" alt="Hotels.com">
+                    <img src="partners/expedia_white_trimmed.png" alt="Expedia" class="logo-expedia">
+                    <img src="partners/viator222.png" alt="Viator">
+                    <img src="partners/Skyscanner_Logo_LockupHorizontal_SkyBlue_RGB.svg.png" alt="Skyscanner">
+                    <img src="partners/g adventures.png" alt="G Adventures">
                 </div>
             </div>
         </div>
@@ -485,7 +473,7 @@ body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:9999;o
 <section class="max-section">
     <div class="container">
         <div class="max-inner reveal">
-            <div class="max-photo"><picture><source srcset="max-image.webp" type="image/webp"><img src="max image.png" alt="Max Zaharenkov" width="640" height="640" loading="lazy"></picture></div>
+            <div class="max-photo"><img src="max image.png" alt="Max Zaharenkov"></div>
             <div>
                 <div class="max-label">Built by</div>
                 <h2 class="max-name">Max Zaharenkov</h2>
@@ -548,47 +536,13 @@ const obs = new IntersectionObserver(entries => {
 }, { threshold: 0.12 });
 document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
 
-// Canvas image-sequence scrub (Apple-style technique)
+// Pinned video scrub — GSAP tween pattern
+const heroVideo = document.getElementById('heroVideo');
 const videoText1 = document.getElementById('videoText1');
 const videoText2 = document.getElementById('videoText2');
-const canvas = document.getElementById('heroCanvas');
-const ctx = canvas.getContext('2d');
-const frameCount = 121;
-const frameImages = [];
-let framesLoaded = 0;
 
-for (let i = 1; i <= frameCount; i++) {
-    const img = new Image();
-    img.src = 'frames/frame-' + String(i).padStart(4, '0') + '.jpg';
-    img.onload = () => {
-        framesLoaded++;
-        if (framesLoaded === 1) {
-            canvas.width = img.naturalWidth;
-            canvas.height = img.naturalHeight;
-            ctx.drawImage(img, 0, 0);
-        }
-        if (framesLoaded === frameCount) initScrollScrub();
-    };
-    frameImages.push(img);
-}
-
-function initScrollScrub() {
-    const scrub = { frame: 0 };
-    gsap.to(scrub, {
-        frame: frameCount - 1,
-        snap: 'frame',
-        ease: 'none',
-        scrollTrigger: {
-            trigger: '.hero-video-section',
-            start: 'top top',
-            end: '+=300%',
-            scrub: 0.5,
-            pin: '.hero-video-pin',
-        },
-        onUpdate: () => {
-            ctx.drawImage(frameImages[Math.round(scrub.frame)], 0, 0);
-        }
-    });
+heroVideo.addEventListener('loadedmetadata', () => {
+    heroVideo.currentTime = 0;
 
     const tl = gsap.timeline({
         scrollTrigger: {
@@ -596,11 +550,14 @@ function initScrollScrub() {
             start: 'top top',
             end: '+=300%',
             scrub: 0.5,
+            pin: '.hero-video-pin',
         }
     });
+
+    tl.to(heroVideo, { currentTime: heroVideo.duration, ease: 'none', duration: 1 }, 0);
     tl.to(videoText1, { opacity: 0, y: -15, duration: 0.1, ease: 'power2.in' }, 0.4);
     tl.fromTo(videoText2, { opacity: 0, y: 15 }, { opacity: 1, y: 0, duration: 0.1, ease: 'power2.out' }, 0.5);
-}
+});
 
 // Form submission
 function handleSubmit(e) {
