@@ -127,8 +127,7 @@ body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:100;op
 /* Phone frame — iPhone 15 PNG overlay */
 .b-iphone{position:relative;width:100%}
 .b-iphone-frame{position:relative}
-.b-iphone-frame picture{position:absolute;inset:0;width:100%;height:100%;z-index:2;pointer-events:none}
-.b-iphone-frame-img{width:100%;height:100%}
+.b-iphone-frame-img{position:absolute;inset:0;width:100%;height:100%;z-index:2;pointer-events:none}
 .b-iphone-screen{position:relative;z-index:1;overflow:hidden;margin:0.5% 1.5% 0.8% 1.5%;border-radius:clamp(18px,5.3vw,46px)}
 .b-iphone-screen img{width:100%;height:auto;display:block}
 .book-btn{font-size:.5rem;font-weight:700;letter-spacing:.04em;text-transform:uppercase;background:var(--amber);color:var(--dark);padding:.2rem .5rem;border-radius:6px;white-space:nowrap;flex-shrink:0;cursor:pointer;transition:opacity .15s}
@@ -517,7 +516,7 @@ body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:100;op
                     <div class="b-mock">
                         <div class="b-iphone">
                             <div class="b-iphone-frame">
-                                <picture><source srcset="iphone-frame.webp" type="image/webp"><img class="b-iphone-frame-img" src="iphone-frame.png" alt="" width="855" height="1736"></picture>
+                                <img class="b-iphone-frame-img" src="iphone-frame.png" alt="" width="855" height="1736">
                                 <div class="b-iphone-screen">
                                     <picture>
                                         <source srcset="new-max.webp" type="image/webp">
@@ -547,7 +546,7 @@ body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:100;op
                     <div class="b-mock">
                         <div class="b-iphone">
                             <div class="b-iphone-frame">
-                                <picture><source srcset="iphone-frame.webp" type="image/webp"><img class="b-iphone-frame-img" src="iphone-frame.png" alt="" width="855" height="1736"></picture>
+                                <img class="b-iphone-frame-img" src="iphone-frame.png" alt="" width="855" height="1736">
                                 <div class="b-iphone-screen">
                                     <picture><source srcset="card-2-image-cropped.webp" type="image/webp"><img src="card-2-image-cropped.png" alt="Share to PlanPin" width="393" height="800" loading="lazy"></picture>
                                 </div>
