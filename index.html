@@ -252,8 +252,8 @@ body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:9999;o
     /* Canvas scrub */
     .hero-video-text{height:1.5rem}
     .hero-video-text span{font-size:.85rem}
-    .hero-video-inner{padding:0}
-    .hero-video-inner canvas{max-height:75vh}
+    .hero-video-inner{padding:0;max-width:100%;overflow:hidden}
+    .hero-video-inner canvas{max-height:80vh;width:100%;max-width:none;object-fit:cover}
     .hero-bridge{height:0}
 
     /* Bento — bigger text on mobile */
