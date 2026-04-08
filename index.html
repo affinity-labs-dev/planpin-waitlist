@@ -3,28 +3,29 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>PlanPin — Travel, trusted.</title>
+<title>PlanPin. Travel, trusted.</title>
 <meta name="description" content="Plan trips from creators you trust. Creator-curated recommendations, AI-powered itineraries. Apply for early access.">
-<meta property="og:title" content="PlanPin — Travel, trusted.">
+<meta property="og:title" content="PlanPin. Travel, trusted.">
 <meta property="og:description" content="Plan trips from creators you trust. Creator-curated recommendations, AI-powered itineraries.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://planpins.com">
 <link rel="icon" type="image/png" href="favicon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="preload" href="frames/frame-0001.jpg" as="image">
 <style>
 @font-face{font-family:'Karrik';src:url('/fonts/Karrik-Regular.woff2') format('woff2'),url('/fonts/Karrik-Regular.woff') format('woff');font-weight:normal;font-style:normal;font-display:swap}
 
 :root{
     --amber:#FFC752;--green:#8CDD88;--blue:#71ACFE;--purple:#A990FE;
-    --dark:#0D0D0D;--light:#FAFAFA;--muted:rgba(255,255,255,0.5);
-    --card:#141414;--border:rgba(255,255,255,0.06);
+    --dark:#0D0D0D;--light:#efefe7;--muted:rgba(0,0,0,0.45);
+    --card:#FFFFFF;--border:rgba(0,0,0,0.08);
     --font-h:'Karrik',Georgia,serif;--font-b:'Poppins',-apple-system,sans-serif;
 }
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
-body{font-family:var(--font-b);background:var(--dark);color:var(--light);-webkit-font-smoothing:antialiased;overflow-x:hidden;line-height:1.6;position:relative}
+body{font-family:var(--font-b);background:var(--light);color:var(--dark);-webkit-font-smoothing:antialiased;overflow-x:hidden;line-height:1.6;position:relative}
 
 /* Subtle noise texture overlay for depth */
 body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:9999;opacity:.03;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
@@ -35,8 +36,8 @@ body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:9999;o
 /* ═══════════════════════════════════════
    HERO
    ═══════════════════════════════════════ */
-.hero{text-align:center;position:relative;z-index:3;background:var(--dark)}
-.hero-text{padding:clamp(5rem,10vh,7rem) 0 0;position:relative;z-index:2}
+.hero{text-align:center;position:relative;z-index:3;background:var(--light)}
+.hero-text{padding:clamp(5rem,10vh,7rem) 0 3rem;position:relative;z-index:2}
 
 .logo{width:auto;height:120px;margin:0 auto 2rem;opacity:0;animation:fadeUp .6s ease forwards}
 .logo img{height:100%;width:auto}
@@ -47,13 +48,13 @@ body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:9999;o
 /* Form */
 .form-wrap{opacity:0;animation:fadeUp .6s ease .3s forwards}
 .form{display:flex;gap:.6rem;max-width:380px;margin:0 auto}
-.form input{flex:1;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);border-radius:10px;padding:.8rem 1.1rem;color:var(--light);font-family:var(--font-b);font-size:.88rem;outline:none;transition:border-color .2s}
+.form input{flex:1;background:rgba(0,0,0,.04);border:1px solid rgba(0,0,0,.2);border-radius:10px;padding:.8rem 1.1rem;color:var(--dark);font-family:var(--font-b);font-size:1rem;outline:none;transition:border-color .2s}
 .form input:focus{border-color:var(--amber)}
-.form input::placeholder{color:rgba(255,255,255,.28)}
+.form input::placeholder{color:rgba(0,0,0,.3)}
 .form button{background:var(--amber);color:var(--dark);border:none;border-radius:10px;padding:.8rem 1.5rem;font-family:var(--font-b);font-size:.82rem;font-weight:600;cursor:pointer;white-space:nowrap;transition:all .15s}
 .form button:hover{opacity:.88;transform:translateY(-1px)}
 .form button:active{transform:translateY(0);opacity:.95}
-.form-note{font-size:.68rem;color:rgba(255,255,255,.25);margin-top:.65rem;opacity:0;animation:fadeUp .6s ease .4s forwards}
+.form-note{font-size:.68rem;color:rgba(0,0,0,.3);margin-top:.65rem;opacity:0;animation:fadeUp .6s ease .4s forwards}
 
 /* Success */
 .success{display:none;text-align:center;max-width:480px;margin:0 auto}
@@ -63,27 +64,29 @@ body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:9999;o
 .success-check svg{width:26px;height:26px}
 .success h2{font-family:var(--font-h);font-size:1.5rem;margin-bottom:.6rem}
 .success p{font-size:.88rem;color:var(--muted);margin-bottom:1.5rem}
-.survey-q{font-size:.78rem;font-weight:500;color:rgba(255,255,255,.6);margin-bottom:.7rem}
+.survey-q{font-size:.78rem;font-weight:500;color:rgba(0,0,0,.5);margin-bottom:.7rem}
 .survey-options{display:flex;flex-wrap:wrap;gap:.45rem;justify-content:center}
-.survey-opt{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:8px;padding:.45rem .9rem;font-size:.78rem;font-family:var(--font-b);color:rgba(255,255,255,.6);cursor:pointer;transition:all .2s}
+.survey-opt{background:rgba(0,0,0,.03);border:1px solid rgba(0,0,0,.1);border-radius:8px;padding:.45rem .9rem;font-size:.78rem;font-family:var(--font-b);color:rgba(0,0,0,.5);cursor:pointer;transition:all .2s}
 .survey-opt:hover{border-color:var(--amber);color:var(--amber)}
 .survey-opt.selected{background:rgba(255,199,82,.1);border-color:var(--amber);color:var(--amber)}
 .survey-thanks{display:none;font-size:.78rem;color:var(--amber);margin-top:.65rem}
 
 /* Hero-to-video gradient bridge */
-.hero-bridge{height:80px;background:var(--dark);position:relative;z-index:2;pointer-events:none}
+.hero-bridge{height:80px;background:var(--light);position:relative;z-index:2;pointer-events:none}
 
 /* ═══════════════════════════════════════
    HERO VIDEO (pinned scroll-through)
    ═══════════════════════════════════════ */
-.hero-video-section{position:relative;z-index:1}
+.hero-video-section{position:relative;z-index:1;background:transparent}
 .hero-video-pin{height:100vh;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:clamp(1rem,2vh,2rem)}
 .hero-video-text{text-align:center;position:relative;height:2.5rem}
-.hero-video-text span{font-family:var(--font-h);font-size:clamp(1.2rem,2.5vw,1.8rem);color:var(--light);position:absolute;left:50%;transform:translateX(-50%);white-space:nowrap;transition:none}
+.hero-video-text span{font-family:var(--font-h);font-size:clamp(1.2rem,2.5vw,1.8rem);color:var(--dark);position:absolute;left:50%;transform:translateX(-50%);white-space:nowrap;transition:none}
 #videoText1{opacity:1}
 #videoText2{opacity:0}
-.hero-video-inner{width:100%;max-width:900px;padding:0 clamp(1rem,3vw,2rem)}
-.hero-video-inner video{width:100%;max-height:calc(100vh - 6rem);height:auto;display:block;object-fit:contain}
+.hero-video-inner{width:100%;max-width:900px;padding:0 clamp(1rem,3vw,2rem);position:relative}
+.hero-video-inner canvas{max-height:calc(100vh - 6rem);height:auto;width:auto;max-width:100%;display:block;margin:0 auto}
+/* Vignette fade overlay (disabled) */
+.hero-video-fade{display:none}
 
 /* ═══════════════════════════════════════
    BENTO GRID
@@ -96,12 +99,12 @@ body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:9999;o
 .bento-bottom .b-card>*:last-child{margin-top:auto}
 
 .b-card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:clamp(1.2rem,2vw,1.8rem);transition:all .3s ease;overflow:hidden}
-.b-card:hover{border-color:rgba(255,199,82,.18);transform:translateY(-2px);box-shadow:0 8px 32px rgba(0,0,0,.2)}
+.b-card:hover{border-color:rgba(255,199,82,.3);transform:translateY(-3px);box-shadow:0 12px 40px rgba(0,0,0,.12)}
 
 /* FIX: Card headings use Karrik for editorial consistency */
-.b-card h3{font-family:var(--font-h);font-size:1.05rem;margin-bottom:.4rem}
+.b-card h3{font-family:var(--font-h);font-size:1.3rem;margin-bottom:.5rem}
 /* FIX: Body text margin only on bottom cards, not large cards */
-.b-card p{font-size:.82rem;color:var(--muted);line-height:1.55}
+.b-card p{font-size:.95rem;color:var(--muted);line-height:1.55}
 .bento-bottom .b-card p{margin-bottom:.8rem}
 
 /* Large card inner layout */
@@ -112,70 +115,70 @@ body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:9999;o
 
 /* Phone frame */
 .b-iphone{position:relative;width:100%}
-.b-iphone-frame{background:#222;border-radius:clamp(14px,2vw,20px);padding:clamp(3px,0.4vw,4px);box-shadow:0 0 0 1px rgba(255,255,255,.06),0 10px 32px rgba(0,0,0,.35)}
-.b-iphone-frame.white{background:#e8e8e8;box-shadow:0 0 0 1px rgba(255,255,255,.1),0 10px 32px rgba(0,0,0,.25)}
+.b-iphone-frame{background:#222;border-radius:clamp(14px,2vw,20px);padding:clamp(3px,0.4vw,4px);box-shadow:0 0 0 1px rgba(0,0,0,.08),0 10px 32px rgba(0,0,0,.12)}
+.b-iphone-frame.white{background:#e8e8e8;box-shadow:0 0 0 1px rgba(0,0,0,.06),0 10px 32px rgba(0,0,0,.1)}
 .b-iphone-screen{border-radius:clamp(11px,1.6vw,16px);overflow:hidden;background:#f7f3ee}
 .b-iphone-screen.dark-s{background:#0D0D0D}
 .b-iphone-screen img{width:100%;height:auto;display:block}
 
 /* Booking logos (Card 5) */
-.booking-logos{display:grid;grid-template-columns:1fr 1fr;gap:1.2rem 1.5rem;margin-top:1rem;padding:1rem;align-items:center;justify-items:center}
-.booking-logos img{height:32px;width:auto;max-width:100%;object-fit:contain;filter:brightness(0) invert(1);opacity:.4;transition:opacity .2s}
-.booking-logos img:hover{opacity:.65}
+.booking-logos{display:grid;grid-template-columns:1fr 1fr;gap:2rem 1.5rem;margin-top:1rem;padding:1rem;align-items:center;justify-items:center}
+.booking-logos img{height:32px;width:auto;max-width:100%;object-fit:contain;filter:brightness(0);opacity:.3;transition:opacity .2s}
+.booking-logos img:hover{opacity:.5}
 .booking-logos img.logo-expedia{height:44px}
 
 /* Mini trip board (Card 4) */
-.mini-board{margin-top:.8rem;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.06);border-radius:10px;padding:.7rem;overflow:hidden}
+.mini-board{margin-top:.8rem;background:rgba(0,0,0,.02);border:1px solid rgba(0,0,0,.06);border-radius:10px;padding:.7rem;overflow:hidden}
 .mini-board-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:.6rem}
-.mini-board-title{font-size:.78rem;font-weight:600;color:var(--light)}
-.mini-board-count{font-size:.6rem;color:rgba(255,255,255,.3)}
-.mini-board-btn{font-size:.55rem;font-weight:600;background:var(--light);color:var(--dark);padding:4px 10px;border-radius:10px;letter-spacing:.03em}
-.mini-spot-row{display:flex;align-items:center;gap:.5rem;padding:.4rem 0;border-top:1px solid rgba(255,255,255,.04)}
+.mini-board-title{font-size:.78rem;font-weight:600;color:var(--dark)}
+.mini-board-count{font-size:.6rem;color:rgba(0,0,0,.35)}
+.mini-board-btn{font-size:.55rem;font-weight:600;background:var(--dark);color:var(--light);padding:4px 10px;border-radius:10px;letter-spacing:.03em}
+.mini-spot-row{display:flex;align-items:center;gap:.5rem;padding:.4rem 0;border-top:1px solid rgba(0,0,0,.05)}
 .mini-spot-thumb{width:32px;height:32px;border-radius:5px;flex-shrink:0;overflow:hidden}
 .mini-spot-thumb img{width:100%;height:100%;object-fit:cover}
 .mini-spot-info{flex:1;min-width:0}
-.mini-spot-name{font-size:.68rem;font-weight:600;color:rgba(255,255,255,.8);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.mini-spot-loc{font-size:.55rem;color:rgba(255,255,255,.35)}
-.mini-spot-type{font-size:.5rem;color:rgba(255,255,255,.25)}
+.mini-spot-name{font-size:.68rem;font-weight:600;color:rgba(0,0,0,.75);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.mini-spot-loc{font-size:.55rem;color:rgba(0,0,0,.4)}
+.mini-spot-type{font-size:.5rem;color:rgba(0,0,0,.3)}
 
 /* Import badges (Card 3) */
-.import-badges{display:grid;grid-template-columns:1fr 1fr;gap:.4rem;margin-top:.6rem;flex:1}
-.import-badge{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.35rem;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);border-radius:8px;padding:.6rem .4rem;font-size:.65rem;color:rgba(255,255,255,.45);transition:border-color .2s}
+.import-badges{display:grid;grid-template-columns:1fr 1fr;gap:.5rem;margin-top:.6rem;flex:1}
+.import-badge{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.4rem;background:rgba(0,0,0,.02);border:1px solid rgba(0,0,0,.07);border-radius:10px;padding:.75rem .5rem;font-size:.8rem;color:rgba(0,0,0,.45);transition:border-color .2s}
 .import-badge:hover{border-color:rgba(255,199,82,.2)}
-.import-badge img{width:36px;height:36px;object-fit:contain;border-radius:6px}
+.import-badge img{width:48px;height:48px;object-fit:contain;border-radius:8px}
 
 /* ═══════════════════════════════════════
    MAX SECTION
    ═══════════════════════════════════════ */
-.max-section{padding:clamp(4rem,8vh,7rem) 0;background:rgba(255,255,255,.015);border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
+.max-section{padding:clamp(4rem,8vh,7rem) 0;background:rgba(0,0,0,.015);border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
 .max-inner{display:grid;grid-template-columns:auto 1fr;gap:clamp(2.5rem,5vw,5rem);align-items:center;max-width:1000px;margin:0 auto}
 .max-photo{width:clamp(220px,26vw,320px);height:clamp(220px,26vw,320px);border-radius:50%;flex-shrink:0;overflow:hidden}
 .max-photo img{width:100%;height:100%;object-fit:cover}
 .max-label{font-size:.65rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--amber);margin-bottom:.5rem}
 .max-name{font-family:var(--font-h);font-size:clamp(1.4rem,2.5vw,2rem);line-height:1.15;margin-bottom:.3rem}
 .max-subtitle{font-size:.85rem;color:var(--muted);margin-bottom:1.2rem}
-.max-quote{font-style:italic;font-size:.88rem;color:rgba(255,255,255,.65);line-height:1.65;border-left:3px solid var(--amber);padding-left:1.2rem;margin-bottom:.5rem}
+.max-quote{font-style:italic;font-size:.88rem;color:rgba(0,0,0,.55);line-height:1.65;border-left:3px solid var(--amber);padding-left:1.2rem;margin-bottom:.5rem}
 .max-attr{font-size:.75rem;color:var(--muted);margin-bottom:1.2rem;padding-left:1.2rem}
 .max-bio{font-size:.82rem;color:var(--muted);line-height:1.6;margin-bottom:1rem}
 .max-socials{display:flex;gap:1.2rem;font-size:.78rem;color:var(--muted)}
-.max-socials a{color:var(--muted);text-decoration:none;display:flex;align-items:center;gap:.35rem;transition:color .2s}
+.max-socials a{color:rgba(0,0,0,.4);text-decoration:none;display:flex;align-items:center;gap:.35rem;transition:color .2s}
 .max-socials a:hover{color:var(--amber)}
 .max-socials svg{width:16px;height:16px}
 
 /* ═══════════════════════════════════════
    BOTTOM CTA
    ═══════════════════════════════════════ */
-.bottom-cta{padding:clamp(4rem,8vh,7rem) 0;text-align:center}
-.bottom-cta h2{font-family:var(--font-h);font-size:clamp(1.2rem,2.5vw,1.6rem);margin-bottom:1rem}
+.bottom-cta{padding:clamp(5rem,10vh,8rem) 0;text-align:center;background:var(--card);border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
+.bottom-cta h2{font-family:var(--font-h);font-size:clamp(1.3rem,2.8vw,1.8rem);margin-bottom:1.2rem}
 .bottom-cta .form-wrap{opacity:1;animation:none}
 
 /* ═══════════════════════════════════════
    FOOTER
    ═══════════════════════════════════════ */
-.footer{padding:3rem 0;text-align:center;border-top:1px solid var(--border);font-size:.72rem;color:rgba(255,255,255,.2)}
-.footer a{color:rgba(255,255,255,.35);text-decoration:none;transition:color .2s}
+.footer{padding:3rem 0;text-align:center;border-top:1px solid var(--border);font-size:.72rem;color:rgba(0,0,0,.25)}
+.footer a{color:rgba(0,0,0,.4);text-decoration:none;transition:color .2s}
 .footer a:hover{color:var(--amber)}
-.footer-brand{font-family:var(--font-h);font-size:.85rem;color:rgba(255,255,255,.3);margin-bottom:.4rem}
+.footer-brand{font-family:var(--font-h);font-size:.85rem;color:rgba(0,0,0,.35);margin-bottom:.4rem}
 .footer-links{display:flex;justify-content:center;gap:1.5rem;margin-top:.6rem}
 
 /* ═══════════════════════════════════════
@@ -192,12 +195,18 @@ body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:9999;o
    ═══════════════════════════════════════ */
 /* === TABLET (800px and below) === */
 @media(max-width:800px){
+    /* Remove noise texture overlay — causes constant repaints on mobile */
+    body::after{display:none}
+
+    /* Disable hover effects on touch devices */
+    .b-card:hover{box-shadow:none;transform:none}
+
     /* Hero */
     .hero-text{padding:clamp(4rem,8vh,6rem) 0 0}
     .logo{height:80px}
     .hero h1{font-size:2rem}
 
-    /* Video */
+    /* Canvas scrub */
     .hero-video-text span{font-size:1rem}
     .hero-video-inner{max-width:100%;padding:0 1rem}
     .hero-video-pin{gap:.5rem}
@@ -238,19 +247,19 @@ body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:9999;o
     /* Form */
     .form{flex-direction:column;gap:.5rem;max-width:280px}
     .form button{width:100%;padding:.75rem}
-    .form input{padding:.75rem .9rem;font-size:.85rem}
+    .form input{padding:.75rem .9rem;font-size:1rem}
 
-    /* Video */
-    .hero-video-pin{height:auto;min-height:50vh;padding:1rem 0}
+    /* Canvas scrub */
     .hero-video-text{height:1.5rem}
     .hero-video-text span{font-size:.85rem}
-    .hero-video-inner video{max-height:60vh}
+    .hero-video-inner{padding:0}
+    .hero-video-inner canvas{max-height:75vh}
     .hero-bridge{height:0}
 
-    /* Bento */
+    /* Bento — bigger text on mobile */
     .bento-header{font-size:1.2rem;margin-bottom:1.2rem}
-    .b-card h3{font-size:.9rem}
-    .b-card p{font-size:.78rem}
+    .b-card h3{font-size:1.05rem}
+    .b-card p{font-size:.88rem}
     .b-card-lg .b-mock{width:150px}
 
     /* Import badges */
@@ -306,7 +315,7 @@ body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:9999;o
 <section class="hero">
     <div class="container hero-text">
         <div class="logo">
-            <img src="logo.png" alt="PlanPin">
+            <img src="logo.svg" alt="PlanPin" width="240" height="120">
         </div>
         <h1>Plan trips from creators you trust.</h1>
         <p class="sub">Creator-curated recommendations, turned into your perfect trip by AI.</p>
@@ -331,7 +340,7 @@ body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:9999;o
                 <div class="survey-opt" onclick="selectOpt(this)">Family</div>
                 <div class="survey-opt" onclick="selectOpt(this)">Frequent (5+ trips/yr)</div>
             </div>
-            <p class="survey-thanks" id="surveyThanks">Thanks — this helps us build PlanPin for you.</p>
+            <p class="survey-thanks" id="surveyThanks">Thanks, this helps us build PlanPin for you.</p>
         </div>
     </div>
 </section>
@@ -347,9 +356,8 @@ body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:9999;o
             <span id="videoText2">We'll plan the rest.</span>
         </div>
         <div class="hero-video-inner">
-            <video id="heroVideo" muted playsinline preload="auto">
-                <source src="full-video-scrub.mp4" type="video/mp4">
-            </video>
+            <canvas id="heroCanvas"></canvas>
+            <div class="hero-video-fade"></div>
         </div>
     </div>
 </section>
@@ -357,7 +365,7 @@ body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:9999;o
 <!-- ═══════════════════ BENTO GRID ═══════════════════ -->
 <section class="bento">
     <div class="container">
-        <h2 class="bento-header reveal">Travel planning, rebuilt on trust.</h2>
+        <h2 class="bento-header reveal">Never lose a place again.</h2>
     </div>
     <div class="container-wide">
         <div class="bento-top">
@@ -366,13 +374,16 @@ body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:9999;o
                 <div class="b-card-lg">
                     <div class="b-text">
                         <h3>Curated by creators.</h3>
-                        <p>Every spot on PlanPin comes from a real travel creator — someone who's stayed at the hotel, eaten at the restaurant, walked the street. Browse their profiles, read their reviews, save what inspires you.</p>
+                        <p>Every spot on PlanPin comes from a real travel creator. Browse their profiles, read their reviews, save what inspires you.</p>
                     </div>
                     <div class="b-mock">
                         <div class="b-iphone">
                             <div class="b-iphone-frame white">
                                 <div class="b-iphone-screen">
-                                    <img src="new max.png" alt="Creator Profile">
+                                    <picture>
+                                        <source srcset="new-max.webp" type="image/webp">
+                                        <img src="old%20screens/new%20max.png" alt="Creator Profile" width="400" height="867" loading="lazy">
+                                    </picture>
                                 </div>
                             </div>
                         </div>
@@ -385,13 +396,16 @@ body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:9999;o
                 <div class="b-card-lg">
                     <div class="b-text">
                         <h3>AI itinerary builder.</h3>
-                        <p>Our AI takes your saved recommendations and builds a personalised day-by-day itinerary. Every spot is creator-vetted. Edit by chatting or clicking directly on the plan.</p>
+                        <p>Our AI takes your saved spots and builds a personalised day-by-day itinerary. Edit by chatting or clicking directly on the plan.</p>
                     </div>
                     <div class="b-mock">
                         <div class="b-iphone">
                             <div class="b-iphone-frame">
                                 <div class="b-iphone-screen dark-s">
-                                    <img src="ai screenshot .png" alt="AI Itinerary">
+                                    <picture>
+                                        <source srcset="ai-screenshot.webp" type="image/webp">
+                                        <img src="old%20screens/ai%20screenshot%20.png" alt="AI Itinerary" width="400" height="867" loading="lazy">
+                                    </picture>
                                 </div>
                             </div>
                         </div>
@@ -404,19 +418,19 @@ body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:9999;o
             <!-- Card 3: Save from Anywhere -->
             <div class="b-card reveal rd3">
                 <h3>Save from anywhere.</h3>
-                <p>Save spots from Instagram reels, TikTok videos, Google Maps links, or type them manually.</p>
+                <p>Save spots from Instagram, TikTok, Google, notes, or creator pages.</p>
                 <div class="import-badges">
-                    <span class="import-badge"><img src="badge-instagram.png" alt="Instagram">Instagram</span>
-                    <span class="import-badge"><img src="Tiktok_icon.svg.webp" alt="TikTok">TikTok</span>
-                    <span class="import-badge"><img src="badge-googleMaps.png" alt="Google Maps">Google Maps</span>
-                    <span class="import-badge"><img src="badge-notes.png" alt="Notes">Notes</span>
+                    <span class="import-badge"><picture><source srcset="badge-instagram.webp" type="image/webp"><img src="badge-instagram.png" alt="Instagram" width="36" height="36" loading="lazy"></picture>Instagram</span>
+                    <span class="import-badge"><img src="Tiktok_icon.svg.webp" alt="TikTok" width="36" height="36" loading="lazy">TikTok</span>
+                    <span class="import-badge"><picture><source srcset="badge-googleMaps.webp" type="image/webp"><img src="badge-googleMaps.png" alt="Google Maps" width="36" height="36" loading="lazy"></picture>Google Maps</span>
+                    <span class="import-badge"><picture><source srcset="badge-notes.webp" type="image/webp"><img src="badge-notes.png" alt="Notes" width="36" height="36" loading="lazy"></picture>Notes</span>
                 </div>
             </div>
 
             <!-- Card 4: Trip Boards -->
             <div class="b-card reveal rd4">
                 <h3>Save to a trip board.</h3>
-                <p>Save spots from different creators and destinations into trip boards. When you're ready, hit "Plan the trip."</p>
+                <p>Save all your spots in a trip board. Then hit "Plan the trip" to start planning.</p>
                 <div class="mini-board">
                     <div class="mini-board-header">
                         <div>
@@ -426,7 +440,7 @@ body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:9999;o
                         <div class="mini-board-btn">Plan the trip</div>
                     </div>
                     <div class="mini-spot-row">
-                        <div class="mini-spot-thumb"><img src="https://images.unsplash.com/photo-1439066615861-d1af74d74000?w=80&h=80&fit=crop" alt=""></div>
+                        <div class="mini-spot-thumb"><img src="https://images.unsplash.com/photo-1439066615861-d1af74d74000?w=80&h=80&fit=crop" alt="" width="32" height="32" loading="lazy"></div>
                         <div class="mini-spot-info">
                             <div class="mini-spot-name">Soneva Fushi</div>
                             <div class="mini-spot-loc">Baa Atoll, Maldives</div>
@@ -434,7 +448,7 @@ body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:9999;o
                         </div>
                     </div>
                     <div class="mini-spot-row">
-                        <div class="mini-spot-thumb"><img src="https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?w=80&h=80&fit=crop" alt=""></div>
+                        <div class="mini-spot-thumb"><img src="https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?w=80&h=80&fit=crop" alt="" width="32" height="32" loading="lazy"></div>
                         <div class="mini-spot-info">
                             <div class="mini-spot-name">Gili Lankanfushi</div>
                             <div class="mini-spot-loc">North Male Atoll</div>
@@ -442,7 +456,7 @@ body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:9999;o
                         </div>
                     </div>
                     <div class="mini-spot-row">
-                        <div class="mini-spot-thumb"><img src="https://images.unsplash.com/photo-1551918120-9739cb430c6d?w=80&h=80&fit=crop" alt=""></div>
+                        <div class="mini-spot-thumb"><img src="https://images.unsplash.com/photo-1551918120-9739cb430c6d?w=80&h=80&fit=crop" alt="" width="32" height="32" loading="lazy"></div>
                         <div class="mini-spot-info">
                             <div class="mini-spot-name">Ithaa Undersea</div>
                             <div class="mini-spot-loc">Rangali Island</div>
@@ -455,14 +469,14 @@ body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:9999;o
             <!-- Card 5: Book Directly -->
             <div class="b-card reveal rd5">
                 <h3>Book directly.</h3>
-                <p>Book every hotel, restaurant, and experience in your itinerary — without leaving the app.</p>
+                <p>Book every hotel, restaurant, and experience in your itinerary.</p>
                 <div class="booking-logos">
-                    <img src="partners/Booking.com_logo.svg.png" alt="Booking.com">
-                    <img src="partners/hotels_com_red.png" alt="Hotels.com">
-                    <img src="partners/expedia_white_trimmed.png" alt="Expedia" class="logo-expedia">
-                    <img src="partners/viator222.png" alt="Viator">
-                    <img src="partners/Skyscanner_Logo_LockupHorizontal_SkyBlue_RGB.svg.png" alt="Skyscanner">
-                    <img src="partners/g adventures.png" alt="G Adventures">
+                    <img src="partners/Booking.com_logo.svg.png" alt="Booking.com" height="32" loading="lazy">
+                    <img src="partners/hotels_com_red.png" alt="Hotels.com" height="32" loading="lazy">
+                    <img src="partners/expedia_white_trimmed.png" alt="Expedia" class="logo-expedia" height="44" loading="lazy">
+                    <img src="partners/viator222.png" alt="Viator" height="32" loading="lazy">
+                    <img src="partners/Skyscanner_Logo_LockupHorizontal_SkyBlue_RGB.svg.png" alt="Skyscanner" height="32" loading="lazy">
+                    <img src="partners/g adventures.png" alt="G Adventures" height="32" loading="lazy">
                 </div>
             </div>
         </div>
@@ -473,13 +487,13 @@ body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:9999;o
 <section class="max-section">
     <div class="container">
         <div class="max-inner reveal">
-            <div class="max-photo"><img src="max image.png" alt="Max Zaharenkov"></div>
+            <div class="max-photo"><picture><source srcset="max-image.webp" type="image/webp"><img src="max image.png" alt="Max Zaharenkov" width="640" height="640" loading="lazy"></picture></div>
             <div>
                 <div class="max-label">Built by</div>
                 <h2 class="max-name">Max Zaharenkov</h2>
                 <p class="max-subtitle">Travel Creator & PlanPin Co-Creator</p>
-                <blockquote class="max-quote">"I've reviewed over 400 hotels and restaurants across 70 countries. My followers trust me because I've actually been there. PlanPin changes that — every recommendation comes from someone who's stood in the room, eaten the food, walked the street."</blockquote>
-                <p class="max-attr">— Max Zaharenkov</p>
+                <blockquote class="max-quote">"I've reviewed over 400 hotels and restaurants across 70 countries. My followers trust me because I've actually been there. PlanPin changes that. Every recommendation comes from someone who's stood in the room, eaten the food, walked the street."</blockquote>
+                <p class="max-attr">Max Zaharenkov</p>
                 <p class="max-bio">With over 1 million followers and 400+ travel videos from 70+ destinations, Max built PlanPin to turn trusted creator recommendations into real trips.</p>
                 <div class="max-socials">
                     <a href="https://instagram.com/maxzaharenkov" target="_blank" rel="noopener">
@@ -536,13 +550,74 @@ const obs = new IntersectionObserver(entries => {
 }, { threshold: 0.12 });
 document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
 
-// Pinned video scrub — GSAP tween pattern
-const heroVideo = document.getElementById('heroVideo');
+// Canvas image-sequence scrub (Apple-style technique)
 const videoText1 = document.getElementById('videoText1');
 const videoText2 = document.getElementById('videoText2');
+const canvas = document.getElementById('heroCanvas');
+const ctx = canvas.getContext('2d');
+const frameCount = 121;
+const frameImages = new Array(frameCount);
+const frameLoaded = new Array(frameCount).fill(false);
+let scrubReady = false;
 
-heroVideo.addEventListener('loadedmetadata', () => {
-    heroVideo.currentTime = 0;
+// Load frame 1 immediately for instant display
+const firstImg = new Image();
+firstImg.src = 'frames/frame-0001.jpg';
+firstImg.onload = () => {
+    canvas.width = firstImg.naturalWidth;
+    canvas.height = firstImg.naturalHeight;
+    ctx.drawImage(firstImg, 0, 0);
+    frameImages[0] = firstImg;
+    frameLoaded[0] = true;
+    // Start scroll scrub right away — draws whatever frames are ready
+    initScrollScrub();
+    // Then load remaining frames in small batches
+    loadRemainingFrames();
+};
+
+function loadRemainingFrames() {
+    let i = 1; // start from frame 2 (index 1)
+    function loadBatch() {
+        const batchEnd = Math.min(i + 4, frameCount);
+        for (; i < batchEnd; i++) {
+            const idx = i;
+            const img = new Image();
+            img.src = 'frames/frame-' + String(idx + 1).padStart(4, '0') + '.jpg';
+            img.onload = () => { frameImages[idx] = img; frameLoaded[idx] = true; };
+            frameImages[idx] = img;
+        }
+        if (i < frameCount) requestAnimationFrame(loadBatch);
+    }
+    loadBatch();
+}
+
+const frameBgColors = ["#efefe7","#f1f0e8","#f1f1e9","#f1f1e9","#f1f2e9","#f2f2ea","#f3f3ea","#f3f3eb","#f4f3eb","#f4f3eb","#f4f3eb","#f4f3eb","#f4f4eb","#f4f4eb","#f4f4eb","#f4f4eb","#f4f4eb","#f4f4eb","#f3f4eb","#f3f4eb","#f3f4eb","#f3f4eb","#f3f4eb","#f3f5eb","#f3f5eb","#f3f4eb","#f3f4eb","#f3f4eb","#f2f4ea","#f3f4ea","#f3f4ea","#f3f4eb","#f4f4eb","#f3f4ea","#f3f4eb","#f3f3ea","#f3f3eb","#f3f4eb","#f4f3eb","#f4f3eb","#f4f4eb","#f3f4eb","#f3f4eb","#f3f3eb","#f2f4eb","#f2f4eb","#f3f4eb","#f3f4eb","#f3f4eb","#f2f4ea","#f3f3ea","#f3f4ea","#f3f3ea","#f2f4ea","#f2f4ea","#f3f3ea","#f3f4eb","#f2f3ea","#f2f3e9","#f2f3ea","#f2f3ea","#f2f4ea","#f3f3e9","#f2f3ea","#f2f3ea","#f2f4ea","#f2f4ea","#f2f4ea","#f2f3ea","#f2f4eb","#f2f4eb","#f2f4eb","#f2f4eb","#f2f4eb","#f2f3eb","#f2f3eb","#f2f4eb","#f3f4eb","#f3f4eb","#f3f4ec","#f3f4eb","#f2f4eb","#f2f4ea","#f2f4ea","#f2f3eb","#f2f4eb","#f2f3eb","#f2f4eb","#f2f3eb","#f2f3ea","#f1f2e8","#eff1e8","#f0f0e7","#f0efe7","#eeede5","#edede5","#ecece4","#ebece3","#e9ebe2","#e8eae1","#e8e9e1","#e8e9e1","#e8e9e0","#e8e8e0","#e8e8e0","#e6e8df","#e5e7de","#e5e6de","#e6e5dd","#e5e5dd","#e5e5dd","#e5e5dd","#e5e4dc","#e4e4dc","#e4e4dc","#e4e3db","#e4e3db","#e4e3db","#e3e3dc","#e2e4dc","#e3e4dc"];
+
+function initScrollScrub() {
+    const scrub = { frame: 0 };
+    let lastDrawn = 0;
+    gsap.to(scrub, {
+        frame: frameCount - 1,
+        snap: 'frame',
+        ease: 'none',
+        scrollTrigger: {
+            trigger: '.hero-video-section',
+            start: 'top top',
+            end: '+=300%',
+            scrub: 0.5,
+            pin: '.hero-video-pin',
+        },
+        onUpdate: () => {
+            let f = Math.round(scrub.frame);
+            // Find nearest loaded frame if target isn't ready
+            if (!frameLoaded[f]) { for (let d = 1; d < frameCount; d++) { if (frameLoaded[f - d]) { f = f - d; break; } if (frameLoaded[f + d]) { f = f + d; break; } } }
+            if (frameLoaded[f] && f !== lastDrawn) {
+                ctx.drawImage(frameImages[f], 0, 0);
+                lastDrawn = f;
+            }
+            document.body.style.backgroundColor = frameBgColors[Math.round(scrub.frame)];
+        }
+    });
 
     const tl = gsap.timeline({
         scrollTrigger: {
@@ -550,14 +625,11 @@ heroVideo.addEventListener('loadedmetadata', () => {
             start: 'top top',
             end: '+=300%',
             scrub: 0.5,
-            pin: '.hero-video-pin',
         }
     });
-
-    tl.to(heroVideo, { currentTime: heroVideo.duration, ease: 'none', duration: 1 }, 0);
     tl.to(videoText1, { opacity: 0, y: -15, duration: 0.1, ease: 'power2.in' }, 0.4);
     tl.fromTo(videoText2, { opacity: 0, y: 15 }, { opacity: 1, y: 0, duration: 0.1, ease: 'power2.out' }, 0.5);
-});
+}
 
 // Form submission
 function handleSubmit(e) {
