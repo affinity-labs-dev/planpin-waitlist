@@ -19,7 +19,7 @@
 
 :root{
     --amber:#FFC752;--green:#8CDD88;--blue:#71ACFE;--purple:#A990FE;
-    --dark:#0D0D0D;--light:#efefe7;--muted:rgba(0,0,0,0.45);
+    --dark:#0D0D0D;--light:#efefe7;--muted:rgba(0,0,0,0.55);
     --card:#FFFFFF;--border:rgba(0,0,0,0.08);
     --font-h:'Karrik',Georgia,serif;--font-b:'Poppins',-apple-system,sans-serif;
 }
@@ -28,15 +28,25 @@ html{scroll-behavior:smooth}
 body{font-family:var(--font-b);background:var(--light);color:var(--dark);-webkit-font-smoothing:antialiased;overflow-x:hidden;line-height:1.6;position:relative}
 
 /* Subtle noise texture overlay for depth */
-body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:9999;opacity:.03;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:100;opacity:.03;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
 
 .container{max-width:1100px;margin:0 auto;padding:0 clamp(1.5rem,5vw,4rem);width:100%}
 .container-wide{max-width:1360px;margin:0 auto;padding:0 clamp(1.5rem,4vw,3rem);width:100%}
 
 /* ═══════════════════════════════════════
+   STICKY HEADER
+   ═══════════════════════════════════════ */
+.sticky-header{position:fixed;top:1rem;left:50%;z-index:50;display:flex;align-items:center;justify-content:space-between;gap:1.5rem;padding:.55rem .6rem .55rem .8rem;max-width:480px;width:calc(100% - 2rem);background:rgba(255,255,255,.65);backdrop-filter:blur(20px) saturate(1.8);-webkit-backdrop-filter:blur(20px) saturate(1.8);border:1px solid rgba(255,255,255,.5);border-radius:50px;box-shadow:0 4px 24px rgba(0,0,0,.08),0 1px 3px rgba(0,0,0,.04);transform:translateX(-50%) translateY(-140%);opacity:0;transition:transform .5s cubic-bezier(.22,1,.36,1),opacity .4s cubic-bezier(.22,1,.36,1)}
+.sticky-header.visible{transform:translateX(-50%) translateY(0);opacity:1}
+.sticky-header-logo{height:42px;width:auto;display:block}
+.sticky-header-btn{background:var(--amber);color:var(--dark);border:none;border-radius:50px;padding:.45rem 1rem;font-family:var(--font-b);font-size:.75rem;font-weight:600;cursor:pointer;white-space:nowrap;transition:opacity .15s,transform .15s}
+.sticky-header-btn:hover{opacity:.88;transform:translateY(-1px)}
+.sticky-header-btn:active{transform:translateY(0);opacity:.95}
+
+/* ═══════════════════════════════════════
    HERO
    ═══════════════════════════════════════ */
-.hero{text-align:center;position:relative;z-index:3;background:var(--light)}
+.hero{text-align:center;position:relative;z-index:3;background:var(--light);overflow:visible}
 .hero-text{padding:clamp(5rem,10vh,7rem) 0 3rem;position:relative;z-index:2}
 
 .logo{width:auto;height:120px;margin:0 auto 2rem;opacity:0;animation:fadeUp .6s ease forwards}
@@ -51,7 +61,7 @@ body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:9999;o
 .form input{flex:1;background:rgba(0,0,0,.04);border:1px solid rgba(0,0,0,.2);border-radius:10px;padding:.8rem 1.1rem;color:var(--dark);font-family:var(--font-b);font-size:1rem;outline:none;transition:border-color .2s}
 .form input:focus{border-color:var(--amber)}
 .form input::placeholder{color:rgba(0,0,0,.3)}
-.form button{background:var(--amber);color:var(--dark);border:none;border-radius:10px;padding:.8rem 1.5rem;font-family:var(--font-b);font-size:.82rem;font-weight:600;cursor:pointer;white-space:nowrap;transition:all .15s}
+.form button{background:var(--amber);color:var(--dark);border:none;border-radius:10px;padding:.8rem 1.5rem;font-family:var(--font-b);font-size:.82rem;font-weight:600;cursor:pointer;white-space:nowrap;transition:opacity .15s,transform .15s}
 .form button:hover{opacity:.88;transform:translateY(-1px)}
 .form button:active{transform:translateY(0);opacity:.95}
 .form-note{font-size:.68rem;color:rgba(0,0,0,.3);margin-top:.65rem;opacity:0;animation:fadeUp .6s ease .4s forwards}
@@ -72,21 +82,19 @@ body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:9999;o
 .survey-thanks{display:none;font-size:.78rem;color:var(--amber);margin-top:.65rem}
 
 /* Hero-to-video gradient bridge */
-.hero-bridge{height:80px;background:var(--light);position:relative;z-index:2;pointer-events:none}
+.hero-bridge{height:80px;background:var(--light);position:relative;z-index:3;pointer-events:none}
 
 /* ═══════════════════════════════════════
    HERO VIDEO (pinned scroll-through)
    ═══════════════════════════════════════ */
 .hero-video-section{position:relative;z-index:1;background:transparent}
 .hero-video-pin{height:100vh;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:clamp(1rem,2vh,2rem)}
-.hero-video-text{text-align:center;position:relative;height:2.5rem}
-.hero-video-text span{font-family:var(--font-h);font-size:clamp(1.2rem,2.5vw,1.8rem);color:var(--dark);position:absolute;left:50%;transform:translateX(-50%);white-space:nowrap;transition:none}
+.hero-video-text{text-align:center;position:relative;height:3.2rem;width:100%}
+.hero-video-text span{font-family:var(--font-h);font-size:clamp(1.6rem,3.5vw,2.4rem);color:var(--dark);position:absolute;left:0;right:0;text-align:center;transition:none}
 #videoText1{opacity:1}
 #videoText2{opacity:0}
 .hero-video-inner{width:100%;max-width:900px;padding:0 clamp(1rem,3vw,2rem);position:relative}
 .hero-video-inner canvas{max-height:calc(100vh - 6rem);height:auto;width:auto;max-width:100%;display:block;margin:0 auto}
-/* Vignette fade overlay (disabled) */
-.hero-video-fade{display:none}
 
 /* ═══════════════════════════════════════
    BENTO GRID
@@ -98,48 +106,133 @@ body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:9999;o
 .bento-bottom .b-card{display:flex;flex-direction:column}
 .bento-bottom .b-card>*:last-child{margin-top:auto}
 
-.b-card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:clamp(1.2rem,2vw,1.8rem);transition:all .3s ease;overflow:hidden}
+.b-card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:clamp(1.2rem,2vw,1.8rem);transition:border-color .3s ease,transform .3s ease,box-shadow .3s ease;overflow:hidden}
 .b-card:hover{border-color:rgba(255,199,82,.3);transform:translateY(-3px);box-shadow:0 12px 40px rgba(0,0,0,.12)}
 
-/* FIX: Card headings use Karrik for editorial consistency */
+/* Step pills */
+.b-tag{display:inline-block;align-self:flex-start;background:var(--amber);color:var(--dark);font-size:.68rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;padding:.25rem .75rem;border-radius:99px;line-height:1.3;margin-bottom:.65rem}
+
 .b-card h3{font-family:var(--font-h);font-size:1.3rem;margin-bottom:.5rem}
-/* FIX: Body text margin only on bottom cards, not large cards */
-.b-card p{font-size:.95rem;color:var(--muted);line-height:1.55}
+.b-card p{font-size:.95rem;color:var(--muted);line-height:1.6}
 .bento-bottom .b-card p{margin-bottom:.8rem}
 
 /* Large card inner layout */
-.b-card-lg{display:flex;gap:1.5rem;align-items:center;min-height:320px}
+.b-card-lg{display:flex;gap:1.5rem;align-items:flex-start;min-height:320px}
 .b-card-lg .b-text{flex:1}
 .b-card-lg .b-text p{margin-bottom:0}
-.b-card-lg .b-mock{flex-shrink:0;width:200px}
+.b-card-lg .b-mock{flex-shrink:0;width:260px}
 
-/* Phone frame */
+/* Phone frame — iPhone 15 PNG overlay */
 .b-iphone{position:relative;width:100%}
-.b-iphone-frame{background:#222;border-radius:clamp(14px,2vw,20px);padding:clamp(3px,0.4vw,4px);box-shadow:0 0 0 1px rgba(0,0,0,.08),0 10px 32px rgba(0,0,0,.12)}
-.b-iphone-frame.white{background:#e8e8e8;box-shadow:0 0 0 1px rgba(0,0,0,.06),0 10px 32px rgba(0,0,0,.1)}
-.b-iphone-screen{border-radius:clamp(11px,1.6vw,16px);overflow:hidden;background:#f7f3ee}
-.b-iphone-screen.dark-s{background:#0D0D0D}
+.b-iphone-frame{position:relative}
+.b-iphone-frame-img{position:absolute;inset:0;width:100%;height:100%;z-index:2;pointer-events:none}
+.b-iphone-screen{position:relative;z-index:1;overflow:hidden;margin:0.5% 1.5% 0.8% 1.5%;border-radius:clamp(18px,5.3vw,46px)}
 .b-iphone-screen img{width:100%;height:auto;display:block}
+.book-btn{font-size:.5rem;font-weight:700;letter-spacing:.04em;text-transform:uppercase;background:var(--amber);color:var(--dark);padding:.2rem .5rem;border-radius:6px;white-space:nowrap;flex-shrink:0;cursor:pointer;transition:opacity .15s}
+.book-btn:hover{opacity:.8}
 
 /* Booking logos (Card 5) */
 .booking-logos{display:grid;grid-template-columns:1fr 1fr;gap:2rem 1.5rem;margin-top:1rem;padding:1rem;align-items:center;justify-items:center}
-.booking-logos img{height:32px;width:auto;max-width:100%;object-fit:contain;filter:brightness(0);opacity:.3;transition:opacity .2s}
-.booking-logos img:hover{opacity:.5}
+.booking-logos img{height:32px;width:auto;max-width:100%;object-fit:contain;opacity:.7;transition:opacity .2s}
+.booking-logos img:hover{opacity:1}
 .booking-logos img.logo-expedia{height:44px}
+.booking-logos-sm{grid-template-columns:repeat(5,1fr);gap:.5rem .4rem;margin-top:1.2rem;padding:.4rem 0}
+.booking-logos-sm img{height:16px;opacity:.35}
+.booking-logos-sm img:hover{opacity:.6}
+.booking-logos-sm img.logo-eat{height:12px}
+
+/* Itinerary (Card 4) */
+.itin{margin-top:.8rem;display:flex;flex-direction:column;gap:0}
+.itin.itin-sm{margin-top:.6rem}
+
+/* Dark header block — two-column with weather on right */
+.itin-hero{background:var(--dark);border-radius:10px 10px 0 0;padding:.5rem .7rem;color:#fff;display:flex;gap:.5rem;align-items:stretch}
+.itin-hero-left{flex:1;min-width:0}
+.itin-hero-meta{font-size:.5rem;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.4);margin-bottom:.1rem}
+.itin-hero-dest{font-family:var(--font-h);font-size:1rem;line-height:1.15;margin-bottom:.05rem}
+.itin-hero-sub{font-size:.52rem;color:rgba(255,255,255,.45);font-style:italic;margin-bottom:.25rem}
+.itin-hero-tags{display:flex;gap:.25rem;flex-wrap:wrap}
+.itin-hero-tag{font-size:.48rem;padding:2px 7px;border-radius:8px;border:1px solid rgba(255,255,255,.15);color:rgba(255,255,255,.5)}
+
+/* Weather panel (inside header, right side) */
+.itin-weather{background:rgba(255,255,255,.07);border-radius:8px;padding:.4rem .5rem;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.1rem;min-width:72px;text-align:center;position:relative;overflow:hidden}
+.itin-weather-cloud{position:relative;display:flex;align-items:center;justify-content:center;margin-bottom:0}
+.itin-weather-cloud svg{width:22px;height:22px;opacity:.7}
+.itin-weather-drops{position:absolute;bottom:-3px;left:50%;transform:translateX(-50%);display:flex;gap:2px}
+.itin-weather-drops span{width:1.5px;height:5px;background:var(--blue);border-radius:2px;opacity:.5}
+.itin-weather-drops span:nth-child(2){height:6px;opacity:.7}
+.itin-weather-temp{font-family:var(--font-h);font-size:.9rem;color:#fff;line-height:1}
+.itin-weather-desc{font-size:.38rem;color:rgba(255,255,255,.4);line-height:1.2}
+.itin-weather-advisory{display:flex;gap:.3rem;margin-top:.05rem}
+.itin-weather-tip{font-size:.35rem;color:rgba(255,255,255,.35);display:flex;align-items:center;gap:2px}
+.itin-weather-tip svg{width:8px;height:8px;opacity:.4}
+
+/* Day section */
+.itin-day-section{background:rgba(0,0,0,.03);border-left:1px solid rgba(0,0,0,.06);border-right:1px solid rgba(0,0,0,.06);padding:.5rem .6rem}
+.itin-day{font-size:.5rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--amber);margin-bottom:.15rem}
+.itin-day-title{font-family:var(--font-h);font-size:.72rem;color:var(--dark);margin-bottom:.3rem}
+.itin-spots{display:flex;flex-direction:column;gap:.3rem}
+.itin-spot{display:flex;align-items:center;gap:.4rem;background:#fff;border:1px solid rgba(0,0,0,.06);border-radius:8px;padding:.35rem .45rem}
+.itin-spot-dot{width:5px;height:5px;border-radius:50%;flex-shrink:0}
+.itin-spot-dot.morning{background:var(--amber)}
+.itin-spot-dot.lunch{background:var(--green)}
+.itin-spot-dot.afternoon{background:var(--blue)}
+.itin-spot-thumb{width:30px;height:30px;border-radius:5px;flex-shrink:0;overflow:hidden}
+.itin-spot-thumb img{width:100%;height:100%;object-fit:cover;display:block}
+.itin-spot-info{flex:1;min-width:0}
+.itin-spot-name{font-size:.62rem;font-weight:600;color:rgba(0,0,0,.7);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.itin-spot-detail{font-size:.46rem;color:rgba(0,0,0,.35)}
+.itin-spot-rec{display:flex;align-items:center;gap:.25rem;flex-shrink:0}
+.itin-spot-rec-text{font-size:.42rem;color:rgba(0,0,0,.3);white-space:nowrap;text-align:right;line-height:1.2}
+.itin-spot-rec-name{color:var(--amber);font-weight:600}
+.itin-spot-avatar{width:18px;height:18px;border-radius:50%;flex-shrink:0;overflow:hidden;border:1.5px solid var(--amber)}
+.itin-spot-avatar img{width:100%;height:100%;object-fit:cover;display:block}
+.itin-spot-action{font-size:.4rem;font-weight:600;color:var(--amber);white-space:nowrap;letter-spacing:.03em}
+
+/* Budget & requirements strip */
+.itin-budget-strip{display:grid;grid-template-columns:1fr 1fr;border-left:1px solid rgba(0,0,0,.06);border-right:1px solid rgba(0,0,0,.06);border-top:1px solid rgba(0,0,0,.06)}
+.itin-budget-col{padding:.45rem .6rem}
+.itin-budget-col+.itin-budget-col{border-left:1px solid rgba(0,0,0,.06)}
+.itin-budget-label{font-size:.42rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:rgba(0,0,0,.3);margin-bottom:.2rem}
+.itin-budget-value{font-family:var(--font-h);font-size:.72rem;color:var(--dark);margin-bottom:.1rem}
+.itin-budget-sub{font-size:.4rem;color:rgba(0,0,0,.3)}
+.itin-budget-items{display:flex;flex-direction:column;gap:.1rem}
+.itin-budget-item{font-size:.42rem;color:rgba(0,0,0,.4);display:flex;align-items:center;gap:.25rem}
+.itin-budget-item svg{width:8px;height:8px;opacity:.35}
+
+/* Chat input */
+.itin-chat{display:flex;align-items:center;gap:.4rem;background:rgba(0,0,0,.025);border:1px solid rgba(0,0,0,.08);border-radius:0 0 10px 10px;padding:.35rem .6rem}
+.itin-chat span{font-size:.55rem;color:rgba(0,0,0,.25);flex:1}
+.itin-chat-send{width:16px;height:16px;background:var(--amber);border-radius:50%;display:flex;align-items:center;justify-content:center}
+.itin-chat-send svg{width:9px;height:9px}
 
 /* Mini trip board (Card 4) */
 .mini-board{margin-top:.8rem;background:rgba(0,0,0,.02);border:1px solid rgba(0,0,0,.06);border-radius:10px;padding:.7rem;overflow:hidden}
 .mini-board-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:.6rem}
-.mini-board-title{font-size:.78rem;font-weight:600;color:var(--dark)}
+.mini-board-title{font-family:var(--font-h);font-size:.78rem;color:var(--dark)}
 .mini-board-count{font-size:.6rem;color:rgba(0,0,0,.35)}
 .mini-board-btn{font-size:.55rem;font-weight:600;background:var(--dark);color:var(--light);padding:4px 10px;border-radius:10px;letter-spacing:.03em}
-.mini-spot-row{display:flex;align-items:center;gap:.5rem;padding:.4rem 0;border-top:1px solid rgba(0,0,0,.05)}
-.mini-spot-thumb{width:32px;height:32px;border-radius:5px;flex-shrink:0;overflow:hidden}
+.mini-spot-row{display:flex;align-items:flex-start;gap:.5rem;padding:.55rem 0;border-top:1px solid rgba(0,0,0,.05)}
+.mini-spot-thumb{width:36px;height:36px;border-radius:5px;flex-shrink:0;overflow:hidden;margin-top:2px}
 .mini-spot-thumb img{width:100%;height:100%;object-fit:cover}
 .mini-spot-info{flex:1;min-width:0}
 .mini-spot-name{font-size:.68rem;font-weight:600;color:rgba(0,0,0,.75);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .mini-spot-loc{font-size:.55rem;color:rgba(0,0,0,.4)}
 .mini-spot-type{font-size:.5rem;color:rgba(0,0,0,.3)}
+.mini-spot-right{display:flex;flex-direction:column;align-items:flex-end;gap:.1rem;flex-shrink:0}
+.mini-spot-rec{display:flex;align-items:center;gap:.3rem;flex-shrink:0}
+.mini-spot-rec-text{font-size:.45rem;color:rgba(0,0,0,.3);white-space:nowrap;text-align:right;line-height:1.2}
+.mini-spot-rec-name{color:var(--amber);font-weight:600}
+.mini-spot-avatar{width:20px;height:20px;border-radius:50%;flex-shrink:0;overflow:hidden;border:1.5px solid var(--amber)}
+.mini-spot-avatar img{width:100%;height:100%;object-fit:cover;display:block}
+.mini-spot-source{display:flex;align-items:center;gap:.2rem}
+.mini-spot-source span{font-size:.42rem;color:rgba(0,0,0,.25)}
+.mini-spot-source img{width:10px;height:10px;object-fit:contain;border-radius:2px}
+
+/* Import pills (horizontal, inline) */
+.import-pills{display:flex;flex-wrap:wrap;gap:.4rem;margin-top:.8rem}
+.import-pill{display:inline-flex;align-items:center;gap:.35rem;background:rgba(0,0,0,.03);border:1px solid rgba(0,0,0,.1);border-radius:20px;padding:.3rem .7rem .3rem .4rem;font-size:.72rem;color:rgba(0,0,0,.5)}
+.import-pill img{width:18px;height:18px;object-fit:contain;border-radius:4px}
 
 /* Import badges (Card 3) */
 .import-badges{display:grid;grid-template-columns:1fr 1fr;gap:.5rem;margin-top:.6rem;flex:1}
@@ -154,10 +247,10 @@ body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:9999;o
 .max-inner{display:grid;grid-template-columns:auto 1fr;gap:clamp(2.5rem,5vw,5rem);align-items:center;max-width:1000px;margin:0 auto}
 .max-photo{width:clamp(220px,26vw,320px);height:clamp(220px,26vw,320px);border-radius:50%;flex-shrink:0;overflow:hidden}
 .max-photo img{width:100%;height:100%;object-fit:cover}
-.max-label{font-size:.65rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--amber);margin-bottom:.5rem}
+.max-label{font-size:.65rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--purple);margin-bottom:.5rem}
 .max-name{font-family:var(--font-h);font-size:clamp(1.4rem,2.5vw,2rem);line-height:1.15;margin-bottom:.3rem}
 .max-subtitle{font-size:.85rem;color:var(--muted);margin-bottom:1.2rem}
-.max-quote{font-style:italic;font-size:.88rem;color:rgba(0,0,0,.55);line-height:1.65;border-left:3px solid var(--amber);padding-left:1.2rem;margin-bottom:.5rem}
+.max-quote{font-style:italic;font-size:.88rem;color:rgba(0,0,0,.55);line-height:1.65;border-left:3px solid var(--purple);padding-left:1.2rem;margin-bottom:.5rem}
 .max-attr{font-size:.75rem;color:var(--muted);margin-bottom:1.2rem;padding-left:1.2rem}
 .max-bio{font-size:.82rem;color:var(--muted);line-height:1.6;margin-bottom:1rem}
 .max-socials{display:flex;gap:1.2rem;font-size:.78rem;color:var(--muted)}
@@ -185,7 +278,7 @@ body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:9999;o
    ANIMATIONS
    ═══════════════════════════════════════ */
 @keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
-@keyframes scaleIn{from{transform:scale(0)}to{transform:scale(1)}}
+@keyframes scaleIn{from{transform:scale(.3)}to{transform:scale(1)}}
 .reveal{opacity:0;transform:translateY(16px);transition:opacity .5s ease,transform .5s ease}
 .reveal.visible{opacity:1;transform:translateY(0)}
 .rd1{transition-delay:.06s}.rd2{transition-delay:.12s}.rd3{transition-delay:.18s}.rd4{transition-delay:.24s}.rd5{transition-delay:.3s}
@@ -207,7 +300,7 @@ body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:9999;o
     .hero h1{font-size:2rem}
 
     /* Canvas scrub */
-    .hero-video-text span{font-size:1rem}
+    .hero-video-text span{font-size:1.3rem}
     .hero-video-inner{max-width:100%;padding:0 1rem}
     .hero-video-pin{gap:.5rem}
     .hero-bridge{height:16px}
@@ -215,10 +308,10 @@ body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:9999;o
     /* Bento */
     .bento{padding:clamp(3rem,6vh,5rem) 0}
     .bento-top{grid-template-columns:1fr}
-    .bento-bottom{grid-template-columns:1fr;gap:.75rem}
+    .bento-bottom{grid-template-columns:1fr;gap:1rem}
     .bento-bottom .b-card{min-height:auto}
     .b-card-lg{flex-direction:column;min-height:auto;gap:1.2rem}
-    .b-card-lg .b-mock{width:180px;margin:0 auto}
+    .b-card-lg .b-mock{width:300px;margin:0 auto}
     .b-card{padding:1.2rem}
 
     /* Import badges — stay 2x2 on tablet */
@@ -240,7 +333,7 @@ body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:9999;o
 @media(max-width:500px){
     /* Hero */
     .hero-text{padding:3rem 0 0}
-    .logo{height:90px;margin-bottom:1.2rem}
+    .logo{height:96px;margin-bottom:1.2rem}
     .hero h1{font-size:1.6rem;margin-bottom:.5rem}
     .hero .sub{font-size:.82rem;margin-bottom:1.5rem}
 
@@ -250,8 +343,8 @@ body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:9999;o
     .form input{padding:.75rem .9rem;font-size:1rem}
 
     /* Canvas scrub */
-    .hero-video-text{height:1.5rem}
-    .hero-video-text span{font-size:.85rem}
+    .hero-video-text{height:2.2rem}
+    .hero-video-text span{font-size:1.15rem}
     .hero-video-inner{padding:0;max-width:100%;overflow:hidden}
     .hero-video-inner canvas{max-height:80vh;width:100%;max-width:none;object-fit:cover}
     .hero-bridge{height:0}
@@ -260,7 +353,7 @@ body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:9999;o
     .bento-header{font-size:1.2rem;margin-bottom:1.2rem}
     .b-card h3{font-size:1.05rem}
     .b-card p{font-size:.88rem}
-    .b-card-lg .b-mock{width:150px}
+    .b-card-lg .b-mock{width:280px}
 
     /* Import badges */
     .import-badges{gap:.35rem}
@@ -272,10 +365,47 @@ body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:9999;o
     .booking-logos img{height:20px}
     .booking-logos img.logo-expedia{height:28px}
 
+    /* Sticky header */
+    .sticky-header{max-width:340px;padding:.4rem .5rem .4rem .65rem;top:.6rem}
+    .sticky-header-logo{height:32px}
+    .sticky-header-btn{font-size:.7rem;padding:.4rem .85rem}
+
     /* Mini board */
     .mini-board{padding:.6rem}
     .mini-board-title{font-size:.7rem}
     .mini-spot-thumb{width:28px;height:28px}
+    .mini-spot-right{gap:.05rem}
+    .mini-spot-rec{gap:.2rem}
+    .mini-spot-rec-text{font-size:.38rem}
+    .mini-spot-avatar{width:16px;height:16px}
+    .mini-spot-source span{font-size:.36rem}
+    .mini-spot-source img{width:8px;height:8px}
+
+    /* Itinerary card */
+    .itin-hero{padding:.4rem .5rem;gap:.4rem}
+    .itin-hero-meta{font-size:.42rem}
+    .itin-hero-dest{font-size:.85rem}
+    .itin-hero-sub{font-size:.44rem;margin-bottom:.2rem}
+    .itin-hero-tag{font-size:.4rem;padding:1px 5px}
+    .itin-weather{min-width:60px;padding:.3rem .4rem}
+    .itin-weather-cloud svg{width:18px;height:18px}
+    .itin-weather-temp{font-size:.75rem}
+    .itin-weather-desc{font-size:.32rem}
+    .itin-weather-tip{font-size:.3rem}
+    .itin-day-section{padding:.4rem .5rem}
+    .itin-spot{padding:.3rem .4rem;gap:.3rem}
+    .itin-spot-thumb{width:24px;height:24px}
+    .itin-spot-name{font-size:.55rem}
+    .itin-spot-detail{font-size:.4rem}
+    .itin-spot-rec-text{font-size:.36rem}
+    .itin-spot-avatar{width:14px;height:14px}
+    .itin-budget-col{padding:.35rem .5rem}
+    .itin-budget-label{font-size:.36rem}
+    .itin-budget-value{font-size:.6rem}
+    .itin-budget-sub{font-size:.34rem}
+    .itin-budget-item{font-size:.36rem}
+    .itin-chat{padding:.3rem .5rem}
+    .itin-chat span{font-size:.48rem}
 
     /* Max section */
     .max-photo{width:160px;height:160px}
@@ -294,9 +424,11 @@ body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:9999;o
 
 /* === SMALL MOBILE (380px and below) === */
 @media(max-width:380px){
+    .sticky-header{max-width:300px}
+    .sticky-header-logo{height:28px}
     .hero h1{font-size:1.4rem}
-    .logo{height:56px}
-    .b-card-lg .b-mock{width:130px}
+    .logo{height:84px}
+    .b-card-lg .b-mock{width:240px}
     .max-photo{width:140px;height:140px}
     .booking-logos{grid-template-columns:1fr 1fr}
     .booking-logos img{height:18px}
@@ -310,6 +442,12 @@ body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:9999;o
 </style>
 </head>
 <body>
+
+<!-- ═══════════════════ STICKY HEADER ═══════════════════ -->
+<header class="sticky-header" id="stickyHeader">
+    <img class="sticky-header-logo" src="logo.svg" alt="PlanPin" height="36">
+    <button class="sticky-header-btn" onclick="document.getElementById('emailInput').focus();window.scrollTo({top:0,behavior:'smooth'})">Apply for early access</button>
+</header>
 
 <!-- ═══════════════════ HERO ═══════════════════ -->
 <section class="hero">
@@ -357,32 +495,30 @@ body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:9999;o
         </div>
         <div class="hero-video-inner">
             <canvas id="heroCanvas"></canvas>
-            <div class="hero-video-fade"></div>
         </div>
     </div>
 </section>
 
 <!-- ═══════════════════ BENTO GRID ═══════════════════ -->
 <section class="bento">
-    <div class="container">
-        <h2 class="bento-header reveal">Never lose a place again.</h2>
-    </div>
     <div class="container-wide">
         <div class="bento-top">
-            <!-- Card 1: Creator Curation -->
+            <!-- Step 1: Explore -->
             <div class="b-card reveal rd1">
                 <div class="b-card-lg">
                     <div class="b-text">
-                        <h3>Curated by creators.</h3>
+                        <div class="b-tag">Step 1 - Explore</div>
+                        <h3>Explore creator curated spots.</h3>
                         <p>Every spot on PlanPin comes from a real travel creator. Browse their profiles, read their reviews, save what inspires you.</p>
                     </div>
                     <div class="b-mock">
                         <div class="b-iphone">
-                            <div class="b-iphone-frame white">
+                            <div class="b-iphone-frame">
+                                <img class="b-iphone-frame-img" src="iphone-frame.png" alt="" width="855" height="1736">
                                 <div class="b-iphone-screen">
                                     <picture>
                                         <source srcset="new-max.webp" type="image/webp">
-                                        <img src="old%20screens/new%20max.png" alt="Creator Profile" width="400" height="867" loading="lazy">
+                                        <img src="new max.png" alt="Creator Profile" width="400" height="867" loading="lazy">
                                     </picture>
                                 </div>
                             </div>
@@ -391,21 +527,26 @@ body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:9999;o
                 </div>
             </div>
 
-            <!-- Card 2: AI Itinerary -->
+            <!-- Step 2: Import -->
             <div class="b-card reveal rd2">
                 <div class="b-card-lg">
                     <div class="b-text">
-                        <h3>AI itinerary builder.</h3>
-                        <p>Our AI takes your saved spots and builds a personalised day-by-day itinerary. Edit by chatting or clicking directly on the plan.</p>
+                        <div class="b-tag">Step 2 - Import</div>
+                        <h3>Import from anywhere.</h3>
+                        <p>Save spots from Instagram, TikTok, Google, notes, or creator pages.</p>
+                        <div class="import-pills">
+                            <span class="import-pill"><picture><source srcset="badge-instagram.webp" type="image/webp"><img src="badge-instagram.png" alt="Instagram" width="18" height="18" loading="lazy"></picture>Instagram</span>
+                            <span class="import-pill"><img src="Tiktok_icon.svg.webp" alt="TikTok" width="18" height="18" loading="lazy">TikTok</span>
+                            <span class="import-pill"><picture><source srcset="badge-googleMaps.webp" type="image/webp"><img src="badge-googleMaps.png" alt="Google Maps" width="18" height="18" loading="lazy"></picture>Google Maps</span>
+                            <span class="import-pill"><picture><source srcset="badge-notes.webp" type="image/webp"><img src="badge-notes.png" alt="Notes" width="18" height="18" loading="lazy"></picture>Notes</span>
+                        </div>
                     </div>
                     <div class="b-mock">
                         <div class="b-iphone">
                             <div class="b-iphone-frame">
-                                <div class="b-iphone-screen dark-s">
-                                    <picture>
-                                        <source srcset="ai-screenshot.webp" type="image/webp">
-                                        <img src="old%20screens/ai%20screenshot%20.png" alt="AI Itinerary" width="400" height="867" loading="lazy">
-                                    </picture>
+                                <img class="b-iphone-frame-img" src="iphone-frame.png" alt="" width="855" height="1736">
+                                <div class="b-iphone-screen">
+                                    <img src="card-2-image-cropped.png" alt="Share to PlanPin" width="393" height="800" loading="lazy">
                                 </div>
                             </div>
                         </div>
@@ -415,68 +556,224 @@ body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:9999;o
         </div>
 
         <div class="bento-bottom">
-            <!-- Card 3: Save from Anywhere -->
+            <!-- Step 3: Save -->
             <div class="b-card reveal rd3">
-                <h3>Save from anywhere.</h3>
-                <p>Save spots from Instagram, TikTok, Google, notes, or creator pages.</p>
-                <div class="import-badges">
-                    <span class="import-badge"><picture><source srcset="badge-instagram.webp" type="image/webp"><img src="badge-instagram.png" alt="Instagram" width="36" height="36" loading="lazy"></picture>Instagram</span>
-                    <span class="import-badge"><img src="Tiktok_icon.svg.webp" alt="TikTok" width="36" height="36" loading="lazy">TikTok</span>
-                    <span class="import-badge"><picture><source srcset="badge-googleMaps.webp" type="image/webp"><img src="badge-googleMaps.png" alt="Google Maps" width="36" height="36" loading="lazy"></picture>Google Maps</span>
-                    <span class="import-badge"><picture><source srcset="badge-notes.webp" type="image/webp"><img src="badge-notes.png" alt="Notes" width="36" height="36" loading="lazy"></picture>Notes</span>
-                </div>
-            </div>
-
-            <!-- Card 4: Trip Boards -->
-            <div class="b-card reveal rd4">
+                <div class="b-tag">Step 3 - Save</div>
                 <h3>Save to a trip board.</h3>
                 <p>Save all your spots in a trip board. Then hit "Plan the trip" to start planning.</p>
                 <div class="mini-board">
                     <div class="mini-board-header">
                         <div>
-                            <div class="mini-board-title">Maldives Trip</div>
-                            <div class="mini-board-count">5 spots saved</div>
+                            <div class="mini-board-title">Paris Trip</div>
+                            <div class="mini-board-count">4 spots saved</div>
                         </div>
                         <div class="mini-board-btn">Plan the trip</div>
                     </div>
                     <div class="mini-spot-row">
-                        <div class="mini-spot-thumb"><img src="https://images.unsplash.com/photo-1439066615861-d1af74d74000?w=80&h=80&fit=crop" alt="" width="32" height="32" loading="lazy"></div>
+                        <div class="mini-spot-thumb"><img src="https://images.unsplash.com/photo-1549144511-f099e773c147?w=80&h=80&fit=crop" alt="" width="36" height="36" loading="lazy"></div>
                         <div class="mini-spot-info">
-                            <div class="mini-spot-name">Soneva Fushi</div>
-                            <div class="mini-spot-loc">Baa Atoll, Maldives</div>
+                            <div class="mini-spot-name">H&ocirc;tel Plaza Ath&eacute;n&eacute;e</div>
+                            <div class="mini-spot-loc">8th Arrondissement</div>
                             <div class="mini-spot-type">Hotel &middot; Luxury</div>
+                        </div>
+                        <div class="mini-spot-right">
+                            <div class="mini-spot-rec"><div class="mini-spot-rec-text">Recommended by<br><span class="mini-spot-rec-name">@sophie</span></div><div class="mini-spot-avatar"><img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=60&h=60&fit=crop&crop=face" alt="Creator" loading="lazy"></div></div>
+                            <div class="mini-spot-source"><span>Saved from</span> <picture><source srcset="badge-instagram.webp" type="image/webp"><img src="badge-instagram.png" alt="Instagram"></picture></div>
                         </div>
                     </div>
                     <div class="mini-spot-row">
-                        <div class="mini-spot-thumb"><img src="https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?w=80&h=80&fit=crop" alt="" width="32" height="32" loading="lazy"></div>
+                        <div class="mini-spot-thumb"><img src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=80&h=80&fit=crop" alt="" width="36" height="36" loading="lazy"></div>
                         <div class="mini-spot-info">
-                            <div class="mini-spot-name">Gili Lankanfushi</div>
-                            <div class="mini-spot-loc">North Male Atoll</div>
-                            <div class="mini-spot-type">Hotel &middot; Luxury</div>
+                            <div class="mini-spot-name">Le Comptoir du Panth&eacute;on</div>
+                            <div class="mini-spot-loc">Latin Quarter</div>
+                            <div class="mini-spot-type">Restaurant &middot; Bistro</div>
+                        </div>
+                        <div class="mini-spot-right">
+                            <div class="mini-spot-rec"><div class="mini-spot-rec-text">Recommended by<br><span class="mini-spot-rec-name">@marco</span></div><div class="mini-spot-avatar"><img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=60&h=60&fit=crop&crop=face" alt="Creator" loading="lazy"></div></div>
+                            <div class="mini-spot-source"><span>Saved from</span> <img src="Tiktok_icon.svg.webp" alt="TikTok"></div>
                         </div>
                     </div>
                     <div class="mini-spot-row">
-                        <div class="mini-spot-thumb"><img src="https://images.unsplash.com/photo-1551918120-9739cb430c6d?w=80&h=80&fit=crop" alt="" width="32" height="32" loading="lazy"></div>
+                        <div class="mini-spot-thumb"><img src="https://images.unsplash.com/photo-1499856871958-5b9627545d1a?w=80&h=80&fit=crop" alt="" width="36" height="36" loading="lazy"></div>
                         <div class="mini-spot-info">
-                            <div class="mini-spot-name">Ithaa Undersea</div>
-                            <div class="mini-spot-loc">Rangali Island</div>
-                            <div class="mini-spot-type">Restaurant &middot; Fine Dining</div>
+                            <div class="mini-spot-name">Mus&eacute;e d'Orsay</div>
+                            <div class="mini-spot-loc">7th Arrondissement</div>
+                            <div class="mini-spot-type">Attraction &middot; Museum</div>
+                        </div>
+                        <div class="mini-spot-right">
+                            <div class="mini-spot-rec"><div class="mini-spot-rec-text">Recommended by<br><span class="mini-spot-rec-name">@elena</span></div><div class="mini-spot-avatar"><img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=60&h=60&fit=crop&crop=face" alt="Creator" loading="lazy"></div></div>
+                            <div class="mini-spot-source"><span>Saved from</span> <picture><source srcset="badge-googleMaps.webp" type="image/webp"><img src="badge-googleMaps.png" alt="Google Maps"></picture></div>
+                        </div>
+                    </div>
+                    <div class="mini-spot-row">
+                        <div class="mini-spot-thumb"><img src="https://images.unsplash.com/photo-1431274172761-fca41d930114?w=80&h=80&fit=crop" alt="" width="36" height="36" loading="lazy"></div>
+                        <div class="mini-spot-info">
+                            <div class="mini-spot-name">Eiffel Tower</div>
+                            <div class="mini-spot-loc">Champ de Mars</div>
+                            <div class="mini-spot-type">Attraction &middot; Landmark</div>
+                        </div>
+                        <div class="mini-spot-right">
+                            <div class="mini-spot-rec"><div class="mini-spot-rec-text">Recommended by<br><span class="mini-spot-rec-name">@sophie</span></div><div class="mini-spot-avatar"><img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=60&h=60&fit=crop&crop=face" alt="Creator" loading="lazy"></div></div>
+                            <div class="mini-spot-source"><span>Saved from</span> <picture><source srcset="badge-notes.webp" type="image/webp"><img src="badge-notes.png" alt="Notes"></picture></div>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <!-- Card 5: Book Directly -->
+            <!-- Step 4: Plan -->
+            <div class="b-card reveal rd4">
+                <div class="b-tag">Step 4 - Plan</div>
+                <h3>Plan AI itinerary.</h3>
+                <p>Your saved spots become a full day-by-day plan with weather, budget, and booking links.</p>
+                <div class="itin">
+                    <!-- Dark hero header with weather -->
+                    <div class="itin-hero">
+                        <div class="itin-hero-left">
+                            <div class="itin-hero-meta">5 days &middot; April &middot; Travelling with partner</div>
+                            <div class="itin-hero-dest">Paris</div>
+                            <div class="itin-hero-sub">Art, wine &amp; golden-hour strolls</div>
+                            <div class="itin-hero-tags">
+                                <span class="itin-hero-tag">art</span>
+                                <span class="itin-hero-tag">food</span>
+                                <span class="itin-hero-tag">architecture</span>
+                                <span class="itin-hero-tag">wine</span>
+                            </div>
+                        </div>
+                        <div class="itin-weather">
+                            <div class="itin-weather-cloud">
+                                <svg viewBox="0 0 24 24" fill="rgba(255,255,255,.15)" stroke="#fff" stroke-width="1.5" stroke-linecap="round"><path d="M18 10h-1.26A8 8 0 1 0 9 20h9a5 5 0 0 0 0-10z"/></svg>
+                                <div class="itin-weather-drops"><span></span><span></span><span></span></div>
+                            </div>
+                            <div class="itin-weather-temp">16&deg;</div>
+                            <div class="itin-weather-desc">Mild, light rain</div>
+                            <div class="itin-weather-advisory">
+                                <span class="itin-weather-tip"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><path d="M18 10a6 6 0 0 0-12 0c0 7 6 10 6 10s6-3 6-10z"/></svg> Umbrella</span>
+                                <span class="itin-weather-tip"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg> Layers</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Day section -->
+                    <div class="itin-day-section">
+                        <div class="itin-day">Day 2 - Explore</div>
+                        <div class="itin-day-title">Layered exploration</div>
+                        <div class="itin-spots">
+                            <div class="itin-spot">
+                                <span class="itin-spot-dot morning"></span>
+                                <div class="itin-spot-thumb"><img src="https://images.unsplash.com/photo-1499856871958-5b9627545d1a?w=100&h=100&fit=crop" alt="Mus&eacute;e d'Orsay" loading="lazy"></div>
+                                <div class="itin-spot-info">
+                                    <div class="itin-spot-name">Mus&eacute;e d'Orsay</div>
+                                    <div class="itin-spot-detail">1 Rue de la L&eacute;gion d'Honneur</div>
+                                </div>
+                                <div class="itin-spot-rec"><div class="itin-spot-rec-text">Recommended by<br><span class="itin-spot-rec-name">@max</span></div><div class="itin-spot-avatar"><img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=60&h=60&fit=crop&crop=face" alt="Max" loading="lazy"></div></div>
+                            </div>
+                            <div class="itin-spot">
+                                <span class="itin-spot-dot afternoon"></span>
+                                <div class="itin-spot-thumb"><img src="https://images.unsplash.com/photo-1502602898657-3e91760cbb34?w=100&h=100&fit=crop" alt="Arc de Triomphe" loading="lazy"></div>
+                                <div class="itin-spot-info">
+                                    <div class="itin-spot-name">Arc de Triomphe</div>
+                                    <div class="itin-spot-detail">Place Charles de Gaulle, 8e</div>
+                                </div>
+                                <div class="itin-spot-rec"><div class="itin-spot-rec-text">Recommended by<br><span class="itin-spot-rec-name">@malone</span></div><div class="itin-spot-avatar"><img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=60&h=60&fit=crop&crop=face" alt="Malone" loading="lazy"></div></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Budget & cultural notes -->
+                    <div class="itin-budget-strip">
+                        <div class="itin-budget-col">
+                            <div class="itin-budget-label">Budget estimate</div>
+                            <div class="itin-budget-value">~$4,250</div>
+                            <div class="itin-budget-sub">$850/day avg &middot; 5 days</div>
+                        </div>
+                        <div class="itin-budget-col">
+                            <div class="itin-budget-label">Cultural notes</div>
+                            <div class="itin-budget-items">
+                                <div class="itin-budget-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> Caf&eacute; culture is ritual</div>
+                                <div class="itin-budget-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> Greet with &ldquo;bonjour&rdquo;</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Chat -->
+                    <div class="itin-chat">
+                        <span>Refine your trip...</span>
+                        <div class="itin-chat-send">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="#0D0D0D" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 5: Book -->
             <div class="b-card reveal rd5">
+                <div class="b-tag">Step 5 - Book</div>
                 <h3>Book directly.</h3>
                 <p>Book every hotel, restaurant, and experience in your itinerary.</p>
-                <div class="booking-logos">
-                    <img src="partners/Booking.com_logo.svg.png" alt="Booking.com" height="32" loading="lazy">
-                    <img src="partners/hotels_com_red.png" alt="Hotels.com" height="32" loading="lazy">
-                    <img src="partners/expedia_white_trimmed.png" alt="Expedia" class="logo-expedia" height="44" loading="lazy">
-                    <img src="partners/viator222.png" alt="Viator" height="32" loading="lazy">
-                    <img src="partners/Skyscanner_Logo_LockupHorizontal_SkyBlue_RGB.svg.png" alt="Skyscanner" height="32" loading="lazy">
-                    <img src="partners/g adventures.png" alt="G Adventures" height="32" loading="lazy">
+                <div class="itin itin-sm">
+                    <!-- Dark hero header -->
+                    <div class="itin-hero">
+                        <div class="itin-hero-left">
+                            <div class="itin-hero-meta">5 days &middot; April &middot; Travelling with partner</div>
+                            <div class="itin-hero-dest">Paris</div>
+                            <div class="itin-hero-sub">Art, wine &amp; golden-hour strolls</div>
+                        </div>
+                    </div>
+
+                    <!-- Day section -->
+                    <div class="itin-day-section">
+                        <div class="itin-day">Day 1 - Arrive &amp; Settle</div>
+                        <div class="itin-day-title">Check in, first meal</div>
+                        <div class="itin-spots">
+                            <div class="itin-spot">
+                                <span class="itin-spot-dot morning"></span>
+                                <div class="itin-spot-thumb"><img src="https://images.unsplash.com/photo-1549144511-f099e773c147?w=100&h=100&fit=crop" alt="Hotel Plaza Athenee" loading="lazy"></div>
+                                <div class="itin-spot-info">
+                                    <div class="itin-spot-name">H&ocirc;tel Plaza Ath&eacute;n&eacute;e</div>
+                                    <div class="itin-spot-detail">$420/night &middot; 8th Arr.</div>
+                                </div>
+                                <div class="book-btn">Book</div>
+                            </div>
+                            <div class="itin-spot">
+                                <span class="itin-spot-dot lunch"></span>
+                                <div class="itin-spot-thumb"><img src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=100&h=100&fit=crop" alt="Le Comptoir" loading="lazy"></div>
+                                <div class="itin-spot-info">
+                                    <div class="itin-spot-name">Le Comptoir du Panth&eacute;on</div>
+                                    <div class="itin-spot-detail">$$$ &middot; Bistro &middot; Latin Quarter</div>
+                                </div>
+                                <div class="book-btn">Book</div>
+                            </div>
+                            <div class="itin-spot">
+                                <span class="itin-spot-dot afternoon"></span>
+                                <div class="itin-spot-thumb"><img src="https://images.unsplash.com/photo-1550340499-a6c60fc8287c?w=100&h=100&fit=crop" alt="Cafe de Flore" loading="lazy"></div>
+                                <div class="itin-spot-info">
+                                    <div class="itin-spot-name">Caf&eacute; de Flore</div>
+                                    <div class="itin-spot-detail">$$ &middot; Caf&eacute; &middot; Saint-Germain</div>
+                                </div>
+                                <div class="book-btn">Book</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Chat -->
+                    <div class="itin-chat">
+                        <span>Refine your bookings...</span>
+                        <div class="itin-chat-send">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="#0D0D0D" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+                        </div>
+                    </div>
+                </div>
+                <div class="booking-logos booking-logos-sm">
+                    <img src="partners/Booking.com_logo.svg.png" alt="Booking.com" loading="lazy">
+                    <img src="partners/hotels_com_red.png" alt="Hotels.com" loading="lazy">
+                    <img src="expedia-logo.jpg" alt="Expedia" loading="lazy">
+                    <img src="partners/viator222.png" alt="Viator" loading="lazy">
+                    <img src="partners/Skyscanner_Logo_LockupHorizontal_SkyBlue_RGB.svg.png" alt="Skyscanner" loading="lazy">
+                    <img src="partners/g adventures.png" alt="G Adventures" loading="lazy">
+                    <img src="tripadvisor-logo.png" alt="Tripadvisor" loading="lazy">
+                    <img src="opentable-logo.webp" alt="OpenTable" loading="lazy">
+                    <img src="first-table-logo.png" alt="First Table" loading="lazy">
+                    <img src="eatapp-logo.png" alt="Eat App" class="logo-eat" loading="lazy">
                 </div>
             </div>
         </div>
@@ -500,7 +797,7 @@ body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:9999;o
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
                         @maxzaharenkov
                     </a>
-                    <a href="#" target="_blank" rel="noopener">
+                    <a href="https://www.youtube.com/c/MaxZaharenkov" target="_blank" rel="noopener">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2" ry="2"/></svg>
                         YouTube
                     </a>
@@ -550,6 +847,16 @@ const obs = new IntersectionObserver(entries => {
 }, { threshold: 0.12 });
 document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
 
+// Sticky header — show after scrolling past the hero form
+const stickyHeader = document.getElementById('stickyHeader');
+const heroSection = document.querySelector('.hero');
+const stickyObs = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+        stickyHeader.classList.toggle('visible', !e.isIntersecting);
+    });
+}, { threshold: 0 });
+stickyObs.observe(heroSection);
+
 // Canvas image-sequence scrub (Apple-style technique)
 const videoText1 = document.getElementById('videoText1');
 const videoText2 = document.getElementById('videoText2');
@@ -586,7 +893,7 @@ function loadRemainingFrames() {
             img.onload = () => { frameImages[idx] = img; frameLoaded[idx] = true; };
             frameImages[idx] = img;
         }
-        if (i < frameCount) requestAnimationFrame(loadBatch);
+        if (i < frameCount) setTimeout(loadBatch, 50);
     }
     loadBatch();
 }
@@ -606,10 +913,11 @@ function initScrollScrub() {
             end: '+=300%',
             scrub: 0.5,
             pin: '.hero-video-pin',
+            onLeave: () => { document.body.style.backgroundColor = ''; },
+            onLeaveBack: () => { document.body.style.backgroundColor = ''; },
         },
         onUpdate: () => {
             let f = Math.round(scrub.frame);
-            // Find nearest loaded frame if target isn't ready
             if (!frameLoaded[f]) { for (let d = 1; d < frameCount; d++) { if (frameLoaded[f - d]) { f = f - d; break; } if (frameLoaded[f + d]) { f = f + d; break; } } }
             if (frameLoaded[f] && f !== lastDrawn) {
                 ctx.drawImage(frameImages[f], 0, 0);
