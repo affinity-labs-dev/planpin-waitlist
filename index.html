@@ -943,15 +943,52 @@ function initScrollScrub() {
     tl.fromTo(videoText2, { opacity: 0, y: 15 }, { opacity: 1, y: 0, duration: 0.1, ease: 'power2.out' }, 0.5);
 }
 
+// Supabase config
+const SUPABASE_URL = 'https://jszwnlyrvpuiiifdqtyn.supabase.co';
+const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImpzendubHlydnB1aWlpZmRxdHluIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzU3MjQ3MDIsImV4cCI6MjA5MTMwMDcwMn0.E24UDFVtjZAisLyybTKoOlZwFokenTxyw1hcAPgJ1Wk';
+
 // Form submission
-function handleSubmit(e) {
+let signedUpEmail = null;
+async function handleSubmit(e) {
     e.preventDefault();
+    const btn = e.target.querySelector('button');
     const email = e.target.querySelector('input[type="email"]').value;
-    console.log('Waitlist signup:', email);
-    document.getElementById('formWrap').classList.add('hide');
-    document.getElementById('successState').classList.add('show');
-    const f2 = document.getElementById('formWrap2');
-    if (f2) f2.innerHTML = '<p style="color:var(--amber);font-size:.88rem;font-weight:500;">You\'re already on the list.</p>';
+    btn.disabled = true;
+    btn.textContent = 'Submitting...';
+    try {
+        const res = await fetch(SUPABASE_URL + '/rest/v1/waitlist', {
+            method: 'POST',
+            headers: {
+                'apikey': SUPABASE_ANON_KEY,
+                'Authorization': 'Bearer ' + SUPABASE_ANON_KEY,
+                'Content-Type': 'application/json',
+                'Prefer': 'return=minimal'
+            },
+            body: JSON.stringify({ email: email })
+        });
+        if (res.ok || res.status === 409) {
+            signedUpEmail = email;
+            document.getElementById('formWrap').classList.add('hide');
+            document.getElementById('successState').classList.add('show');
+            const f2 = document.getElementById('formWrap2');
+            if (f2) f2.innerHTML = '<p style="color:var(--amber);font-size:.88rem;font-weight:500;">You\'re already on the list.</p>';
+        } else {
+            const err = await res.json().catch(() => null);
+            if (err && err.code === '23505') {
+                signedUpEmail = email;
+                document.getElementById('formWrap').classList.add('hide');
+                document.getElementById('successState').classList.add('show');
+                const f2 = document.getElementById('formWrap2');
+                if (f2) f2.innerHTML = '<p style="color:var(--amber);font-size:.88rem;font-weight:500;">You\'re already on the list.</p>';
+            } else {
+                btn.textContent = 'Try again';
+                btn.disabled = false;
+            }
+        }
+    } catch {
+        btn.textContent = 'Try again';
+        btn.disabled = false;
+    }
 }
 document.getElementById('waitlistForm').addEventListener('submit', handleSubmit);
 document.getElementById('waitlistForm2').addEventListener('submit', handleSubmit);
@@ -961,7 +998,17 @@ function selectOpt(el) {
     document.querySelectorAll('.survey-opt').forEach(o => o.classList.remove('selected'));
     el.classList.add('selected');
     document.getElementById('surveyThanks').style.display = 'block';
-    console.log('Traveller type:', el.textContent);
+    if (signedUpEmail) {
+        fetch(SUPABASE_URL + '/rest/v1/waitlist?email=eq.' + encodeURIComponent(signedUpEmail), {
+            method: 'PATCH',
+            headers: {
+                'apikey': SUPABASE_ANON_KEY,
+                'Authorization': 'Bearer ' + SUPABASE_ANON_KEY,
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ traveller_type: el.textContent.trim() })
+        });
+    }
 }
 </script>
 </body>
