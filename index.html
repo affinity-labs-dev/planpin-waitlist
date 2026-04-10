@@ -78,12 +78,25 @@ body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:100;op
 .success-check svg{width:26px;height:26px}
 .success h2{font-family:var(--font-h);font-size:1.5rem;margin-bottom:.6rem}
 .success p{font-size:.88rem;color:var(--muted);margin-bottom:1.5rem}
-.survey-q{font-size:.78rem;font-weight:500;color:rgba(0,0,0,.5);margin-bottom:.7rem}
+.survey-progress{display:flex;gap:6px;justify-content:center;margin-bottom:1.2rem}
+.survey-dot{width:8px;height:8px;border-radius:50%;background:rgba(0,0,0,.1);transition:background .3s}
+.survey-dot.active{background:var(--amber)}
+.survey-dot.done{background:rgba(255,199,82,.4)}
+.survey-step{display:none;animation:fadeUp .35s ease}
+.survey-step.active{display:block}
+.survey-q{font-size:.88rem;font-weight:500;color:rgba(0,0,0,.6);margin-bottom:.85rem;line-height:1.4}
 .survey-options{display:flex;flex-wrap:wrap;gap:.45rem;justify-content:center}
-.survey-opt{background:rgba(0,0,0,.03);border:1px solid rgba(0,0,0,.1);border-radius:8px;padding:.45rem .9rem;font-size:.78rem;font-family:var(--font-b);color:rgba(0,0,0,.5);cursor:pointer;transition:all .2s}
+.survey-opt{background:rgba(0,0,0,.03);border:1px solid rgba(0,0,0,.1);border-radius:8px;padding:.5rem 1rem;font-size:.78rem;font-family:var(--font-b);color:rgba(0,0,0,.5);cursor:pointer;transition:all .2s}
 .survey-opt:hover{border-color:var(--amber);color:var(--amber)}
-.survey-opt.selected{background:rgba(255,199,82,.1);border-color:var(--amber);color:var(--amber)}
-.survey-thanks{display:none;font-size:.78rem;color:var(--amber);margin-top:.65rem}
+.survey-opt.selected{background:rgba(255,199,82,.12);border-color:var(--amber);color:var(--amber)}
+.survey-multi-hint{font-size:.65rem;color:rgba(0,0,0,.3);margin-top:.4rem}
+.survey-nav{display:flex;justify-content:center;gap:.6rem;margin-top:1rem}
+.survey-next{background:var(--amber);color:var(--dark);border:none;border-radius:8px;padding:.5rem 1.4rem;font-family:var(--font-b);font-size:.78rem;font-weight:600;cursor:pointer;transition:opacity .15s,transform .15s}
+.survey-next:hover{opacity:.88;transform:translateY(-1px)}
+.survey-next:disabled{opacity:.4;cursor:default;transform:none}
+.survey-skip{background:none;border:none;color:rgba(0,0,0,.3);font-family:var(--font-b);font-size:.72rem;cursor:pointer;padding:.5rem .8rem;transition:color .15s}
+.survey-skip:hover{color:rgba(0,0,0,.5)}
+.survey-thanks{font-size:.88rem;color:var(--amber);margin-top:.5rem;font-weight:500}
 
 /* Hero-to-video gradient bridge */
 .hero-bridge{height:80px;background:var(--light);position:relative;z-index:3;pointer-events:none}
@@ -347,6 +360,11 @@ body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:100;op
     .form button{width:100%;padding:.75rem}
     .form input{padding:.75rem .9rem;font-size:1rem}
 
+    /* Survey */
+    .survey-options{gap:.35rem}
+    .survey-opt{padding:.45rem .8rem;font-size:.72rem}
+    .survey-q{font-size:.82rem}
+
     /* Canvas scrub */
     .hero-video-text{height:2.2rem}
     .hero-video-text span{font-size:1.15rem}
@@ -474,16 +492,95 @@ body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:100;op
         <div class="success" id="successState">
             <div class="success-check"><svg viewBox="0 0 24 24" fill="none" stroke="#0D0D0D" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
             <h2>You're in.</h2>
-            <p>We'll reach out when it's your turn. In the meantime, we'd love to know a bit about you.</p>
-            <div class="survey-q">What kind of traveller are you?</div>
-            <div class="survey-options">
-                <div class="survey-opt" onclick="selectOpt(this)">Solo</div>
-                <div class="survey-opt" onclick="selectOpt(this)">Couple</div>
-                <div class="survey-opt" onclick="selectOpt(this)">Group / Friends</div>
-                <div class="survey-opt" onclick="selectOpt(this)">Family</div>
-                <div class="survey-opt" onclick="selectOpt(this)">Frequent (5+ trips/yr)</div>
+            <p>We'll reach out when it's your turn. Help us build PlanPin for you — 5 quick questions.</p>
+
+            <div class="survey-progress" id="surveyProgress">
+                <div class="survey-dot active"></div>
+                <div class="survey-dot"></div>
+                <div class="survey-dot"></div>
+                <div class="survey-dot"></div>
+                <div class="survey-dot"></div>
             </div>
-            <p class="survey-thanks" id="surveyThanks">Thanks, this helps us build PlanPin for you.</p>
+
+            <!-- Q1: Travel frequency — persona segmentation -->
+            <div class="survey-step active" data-key="travel_frequency" data-mode="single">
+                <div class="survey-q">How often do you travel?</div>
+                <div class="survey-options">
+                    <div class="survey-opt">1 - 2 times a year</div>
+                    <div class="survey-opt">3 - 5 times a year</div>
+                    <div class="survey-opt">6+ times a year</div>
+                </div>
+                <div class="survey-nav">
+                    <button class="survey-skip" onclick="surveySkip()">Skip</button>
+                </div>
+            </div>
+
+            <!-- Q2: Planning pain points — validates OP1-OP5 -->
+            <div class="survey-step" data-key="planning_pain" data-mode="multi">
+                <div class="survey-q">What's the hardest part about planning a trip?</div>
+                <div class="survey-options">
+                    <div class="survey-opt">Finding places I can trust</div>
+                    <div class="survey-opt">It takes too long to research</div>
+                    <div class="survey-opt">Coordinating with travel partners</div>
+                    <div class="survey-opt">Turning saved content into a plan</div>
+                    <div class="survey-opt">Knowing what to do at my destination</div>
+                </div>
+                <p class="survey-multi-hint">Pick as many as you like</p>
+                <div class="survey-nav">
+                    <button class="survey-skip" onclick="surveySkip()">Skip</button>
+                    <button class="survey-next" onclick="surveyNext()" disabled>Next</button>
+                </div>
+            </div>
+
+            <!-- Q3: Recommendation sources — validates A1A creator trust -->
+            <div class="survey-step" data-key="recommendation_source" data-mode="multi">
+                <div class="survey-q">Where do you usually get travel recommendations?</div>
+                <div class="survey-options">
+                    <div class="survey-opt">Social media creators</div>
+                    <div class="survey-opt">Friends and family</div>
+                    <div class="survey-opt">Review sites (TripAdvisor, Google)</div>
+                    <div class="survey-opt">Travel blogs / articles</div>
+                    <div class="survey-opt">AI tools (ChatGPT, etc.)</div>
+                </div>
+                <p class="survey-multi-hint">Pick as many as you like</p>
+                <div class="survey-nav">
+                    <button class="survey-skip" onclick="surveySkip()">Skip</button>
+                    <button class="survey-next" onclick="surveyNext()" disabled>Next</button>
+                </div>
+            </div>
+
+            <!-- Q4: AI usage — validates A2A -->
+            <div class="survey-step" data-key="ai_planning" data-mode="single">
+                <div class="survey-q">Have you used AI (like ChatGPT) to plan a trip?</div>
+                <div class="survey-options">
+                    <div class="survey-opt">Yes, and it was helpful</div>
+                    <div class="survey-opt">Yes, but it wasn't great</div>
+                    <div class="survey-opt">No, but I'd try it</div>
+                    <div class="survey-opt">No, not interested</div>
+                </div>
+                <div class="survey-nav">
+                    <button class="survey-skip" onclick="surveySkip()">Skip</button>
+                </div>
+            </div>
+
+            <!-- Q5: Social content behaviour — validates OP3 + A3A -->
+            <div class="survey-step" data-key="social_save" data-mode="single">
+                <div class="survey-q">When you see great travel content on Instagram or TikTok, what do you do?</div>
+                <div class="survey-options">
+                    <div class="survey-opt">Save / bookmark it in the app</div>
+                    <div class="survey-opt">Screenshot it</div>
+                    <div class="survey-opt">Send it to friends</div>
+                    <div class="survey-opt">Nothing, I usually forget</div>
+                </div>
+                <div class="survey-nav">
+                    <button class="survey-skip" onclick="surveySkip()">Skip</button>
+                </div>
+            </div>
+
+            <!-- Thank you -->
+            <div class="survey-step" id="surveyDone">
+                <p class="survey-thanks">Thanks! This helps us build PlanPin for you.</p>
+            </div>
         </div>
     </div>
 </section>
@@ -968,18 +1065,12 @@ async function handleSubmit(e) {
         });
         if (res.ok || res.status === 409) {
             signedUpEmail = email;
-            document.getElementById('formWrap').classList.add('hide');
-            document.getElementById('successState').classList.add('show');
-            const f2 = document.getElementById('formWrap2');
-            if (f2) f2.innerHTML = '<p style="color:var(--amber);font-size:.88rem;font-weight:500;">You\'re already on the list.</p>';
+            showSuccess();
         } else {
             const err = await res.json().catch(() => null);
             if (err && err.code === '23505') {
                 signedUpEmail = email;
-                document.getElementById('formWrap').classList.add('hide');
-                document.getElementById('successState').classList.add('show');
-                const f2 = document.getElementById('formWrap2');
-                if (f2) f2.innerHTML = '<p style="color:var(--amber);font-size:.88rem;font-weight:500;">You\'re already on the list.</p>';
+                showSuccess();
             } else {
                 btn.textContent = 'Try again';
                 btn.disabled = false;
@@ -990,14 +1081,54 @@ async function handleSubmit(e) {
         btn.disabled = false;
     }
 }
+function showSuccess() {
+    document.getElementById('formWrap').classList.add('hide');
+    document.getElementById('successState').classList.add('show');
+    const f2 = document.getElementById('formWrap2');
+    if (f2) f2.innerHTML = '<p style="color:var(--amber);font-size:.88rem;font-weight:500;">You\'re already on the list.</p>';
+}
 document.getElementById('waitlistForm').addEventListener('submit', handleSubmit);
 document.getElementById('waitlistForm2').addEventListener('submit', handleSubmit);
 
-// Survey
-function selectOpt(el) {
-    document.querySelectorAll('.survey-opt').forEach(o => o.classList.remove('selected'));
-    el.classList.add('selected');
-    document.getElementById('surveyThanks').style.display = 'block';
+// Multi-step survey
+const surveySteps = document.querySelectorAll('.survey-step');
+const surveyDots = document.querySelectorAll('.survey-dot');
+let currentStep = 0;
+const surveyData = {};
+
+// Option click handlers
+surveySteps.forEach(function(step) {
+    const mode = step.dataset.mode;
+    const opts = step.querySelectorAll('.survey-opt');
+    const nextBtn = step.querySelector('.survey-next');
+    opts.forEach(function(opt) {
+        opt.addEventListener('click', function() {
+            if (mode === 'single') {
+                opts.forEach(function(o) { o.classList.remove('selected'); });
+                opt.classList.add('selected');
+                // Auto-advance after brief delay for single-select
+                saveSurveyAnswer(step);
+                setTimeout(function() { advanceSurvey(); }, 350);
+            } else {
+                opt.classList.toggle('selected');
+                if (nextBtn) nextBtn.disabled = !step.querySelector('.survey-opt.selected');
+            }
+        });
+    });
+});
+
+function saveSurveyAnswer(step) {
+    var key = step.dataset.key;
+    if (!key) return;
+    var mode = step.dataset.mode;
+    var selected = step.querySelectorAll('.survey-opt.selected');
+    if (selected.length === 0) return;
+    if (mode === 'single') {
+        surveyData[key] = selected[0].textContent.trim();
+    } else {
+        surveyData[key] = Array.from(selected).map(function(o) { return o.textContent.trim(); });
+    }
+    // Save immediately to Supabase
     if (signedUpEmail) {
         fetch(SUPABASE_URL + '/rest/v1/waitlist?email=eq.' + encodeURIComponent(signedUpEmail), {
             method: 'PATCH',
@@ -1006,9 +1137,33 @@ function selectOpt(el) {
                 'Authorization': 'Bearer ' + SUPABASE_ANON_KEY,
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({ traveller_type: el.textContent.trim() })
+            body: JSON.stringify({ survey_responses: surveyData })
         });
     }
+}
+
+function advanceSurvey() {
+    surveySteps[currentStep].classList.remove('active');
+    if (currentStep < surveyDots.length) surveyDots[currentStep].classList.remove('active');
+    if (currentStep < surveyDots.length) surveyDots[currentStep].classList.add('done');
+    currentStep++;
+    if (currentStep < surveySteps.length) {
+        surveySteps[currentStep].classList.add('active');
+        if (currentStep < surveyDots.length) surveyDots[currentStep].classList.add('active');
+    }
+    // Hide progress dots on thank-you screen
+    if (currentStep >= surveySteps.length - 1) {
+        document.getElementById('surveyProgress').style.display = 'none';
+    }
+}
+
+function surveyNext() {
+    saveSurveyAnswer(surveySteps[currentStep]);
+    advanceSurvey();
+}
+
+function surveySkip() {
+    advanceSurvey();
 }
 </script>
 </body>
