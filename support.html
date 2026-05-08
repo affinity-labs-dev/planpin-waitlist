@@ -114,7 +114,10 @@ body{font-family:var(--font-b);background:var(--light);color:var(--dark);-webkit
             <p class="lede">Send us a message and we'll get back to you as soon as possible</p>
 
             <div class="success-msg" id="successMsg">
-                <strong>Opening your email app…</strong> If nothing happened, write to us directly at <a href="mailto:contact@planpin.com" style="color:var(--amber-deep);font-weight:600">contact@planpin.com</a>.
+                <strong>Thanks — we got your message.</strong> Our team will be in touch within 24 hours at the email address you provided.
+            </div>
+            <div class="success-msg" id="errorMsg" style="background:rgba(180,40,40,.08);border-color:rgba(180,40,40,.25)">
+                <strong style="color:#a82626">Couldn't reach our servers.</strong> Opening your email app instead — or write to <a href="mailto:contact@planpin.com" style="color:var(--amber-deep);font-weight:600">contact@planpin.com</a>.
             </div>
 
             <form id="supportForm" novalidate>
@@ -178,24 +181,55 @@ body{font-family:var(--font-b);background:var(--light);color:var(--dark);-webkit
 </div>
 
 <script>
-document.getElementById('supportForm').addEventListener('submit', function(e) {
+const SUPABASE_URL = 'https://jszwnlyrvpuiiifdqtyn.supabase.co';
+const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImpzendubHlydnB1aWlpZmRxdHluIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzU3MjQ3MDIsImV4cCI6MjA5MTMwMDcwMn0.E24UDFVtjZAisLyybTKoOlZwFokenTxyw1hcAPgJ1Wk';
+
+const form = document.getElementById('supportForm');
+const submitBtn = form.querySelector('.btn-submit');
+
+function fallbackMailto(name, email, category, message) {
+    const subject = '[PlanPin Support] ' + category + ' — ' + name;
+    const body = 'Name: ' + name + '\nEmail: ' + email + '\nCategory: ' + category + '\n\nMessage:\n' + message;
+    window.location.href = 'mailto:contact@planpin.com?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
+}
+
+form.addEventListener('submit', async function(e) {
     e.preventDefault();
-    var name = document.getElementById('name').value.trim();
-    var email = document.getElementById('email').value.trim();
-    var category = document.getElementById('category').value;
-    var message = document.getElementById('message').value.trim();
+    const name = document.getElementById('name').value.trim();
+    const email = document.getElementById('email').value.trim();
+    const category = document.getElementById('category').value;
+    const message = document.getElementById('message').value.trim();
 
     if (!name || !email || !category || !message) {
         alert('Please fill in all fields before sending.');
         return;
     }
 
-    var subject = '[PlanPin Support] ' + category + ' — ' + name;
-    var body = 'Name: ' + name + '\nEmail: ' + email + '\nCategory: ' + category + '\n\nMessage:\n' + message;
-    var mailto = 'mailto:contact@planpin.com?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'Sending…';
 
-    document.getElementById('successMsg').classList.add('show');
-    window.location.href = mailto;
+    try {
+        const res = await fetch(SUPABASE_URL + '/rest/v1/support_requests', {
+            method: 'POST',
+            headers: {
+                'apikey': SUPABASE_ANON_KEY,
+                'Authorization': 'Bearer ' + SUPABASE_ANON_KEY,
+                'Content-Type': 'application/json',
+                'Prefer': 'return=minimal'
+            },
+            body: JSON.stringify({ name, email, category, message })
+        });
+
+        if (!res.ok) throw new Error('HTTP ' + res.status);
+
+        form.style.display = 'none';
+        document.getElementById('successMsg').classList.add('show');
+    } catch (err) {
+        document.getElementById('errorMsg').classList.add('show');
+        submitBtn.disabled = false;
+        submitBtn.textContent = 'Send Message';
+        setTimeout(function() { fallbackMailto(name, email, category, message); }, 1200);
+    }
 });
 </script>
 
