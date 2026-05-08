@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Support — PlanPin</title>
+<meta name="description" content="Get in touch with the PlanPin support team. We're here to help with questions, feedback, and technical issues.">
+<meta name="robots" content="index,follow">
+<link rel="icon" type="image/png" href="favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preload" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet"></noscript>
+<style>
+@font-face{font-family:'Karrik';src:url('/fonts/Karrik-Regular.woff2') format('woff2'),url('/fonts/Karrik-Regular.woff') format('woff');font-weight:normal;font-style:normal;font-display:swap}
+
+:root{
+    --amber:#FFC752;--amber-deep:#D89A2C;--purple:#A990FE;
+    --dark:#0D0D0D;--light:#efefe7;--muted:rgba(0,0,0,0.55);
+    --card:#FFFFFF;--border:rgba(0,0,0,0.08);
+    --font-h:'Karrik',Georgia,serif;--font-b:'Poppins',-apple-system,sans-serif;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;overflow-x:hidden}
+body{font-family:var(--font-b);background:var(--light);color:var(--dark);-webkit-font-smoothing:antialiased;line-height:1.65}
+
+.container{max-width:1100px;margin:0 auto;padding:0 clamp(1.5rem,5vw,2.5rem);width:100%}
+
+.top-nav{padding:2rem 0 1rem}
+.back-link{display:inline-flex;align-items:center;gap:.4rem;font-size:.82rem;color:rgba(0,0,0,.5);text-decoration:none;font-weight:500;transition:color .2s}
+.back-link:hover{color:var(--dark)}
+.back-link svg{width:14px;height:14px}
+
+.page-header{text-align:center;padding:2rem 0 2.5rem}
+.page-header h1{font-family:var(--font-h);font-size:clamp(2.4rem,5.5vw,3.4rem);letter-spacing:-.02em;line-height:1.05;margin-bottom:.6rem;color:var(--amber-deep)}
+.page-header .subtitle{font-size:1.05rem;color:var(--muted)}
+
+.support-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:1.6rem;align-items:start}
+.support-card{background:var(--card);border:1px solid var(--border);border-radius:18px;padding:clamp(1.6rem,3vw,2.2rem)}
+.support-card h2{font-family:var(--font-h);font-size:1.35rem;letter-spacing:-.01em;line-height:1.2;margin-bottom:.4rem;display:inline-flex;align-items:center;gap:.55rem}
+.support-card h2 svg{width:20px;height:20px;color:var(--amber-deep);flex-shrink:0}
+.support-card .lede{font-size:.88rem;color:var(--muted);margin-bottom:1.5rem}
+
+.field{display:flex;flex-direction:column;gap:.4rem;margin-bottom:1.1rem}
+.field label{font-size:.82rem;font-weight:600;color:var(--dark);letter-spacing:.005em}
+.field input,.field select,.field textarea{
+    width:100%;font-family:var(--font-b);font-size:.92rem;color:var(--dark);
+    background:var(--light);border:1px solid var(--border);border-radius:10px;
+    padding:.75rem .9rem;outline:none;transition:border-color .2s,box-shadow .2s;
+}
+.field input::placeholder,.field textarea::placeholder{color:rgba(0,0,0,.35)}
+.field input:focus,.field select:focus,.field textarea:focus{
+    border-color:var(--amber-deep);box-shadow:0 0 0 3px rgba(216,154,44,.12);
+}
+.field textarea{resize:vertical;min-height:130px;line-height:1.55}
+.field select{appearance:none;-webkit-appearance:none;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%230d0d0d' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'><polyline points='6 9 12 15 18 9'/></svg>");background-repeat:no-repeat;background-position:right .9rem center;background-size:14px;padding-right:2.4rem;cursor:pointer}
+
+.btn-submit{
+    width:100%;background:var(--amber-deep);color:#fff;font-family:var(--font-b);font-weight:600;font-size:.95rem;
+    border:none;border-radius:10px;padding:.95rem 1rem;cursor:pointer;letter-spacing:.005em;
+    transition:background .2s,transform .1s;
+}
+.btn-submit:hover{background:#c08923}
+.btn-submit:active{transform:translateY(1px)}
+
+.info-list p{font-size:.93rem;color:rgba(0,0,0,.78);margin-bottom:.7rem}
+.info-list p:last-child{margin-bottom:0}
+.info-list strong{color:var(--dark);font-weight:600}
+.info-list a{color:var(--amber-deep);text-decoration:none;font-weight:500;transition:opacity .2s}
+.info-list a:hover{opacity:.75}
+
+.legal-block{background:var(--card);border:1px solid var(--border);border-radius:18px;padding:clamp(1.4rem,2.5vw,1.8rem) clamp(1.6rem,3vw,2.2rem);margin-top:1.6rem;font-size:.88rem;color:rgba(0,0,0,.7);line-height:1.7}
+.legal-block a{color:var(--amber-deep);text-decoration:none;font-weight:500}
+.legal-block a:hover{text-decoration:underline}
+
+.success-msg{display:none;background:rgba(216,154,44,.1);border:1px solid rgba(216,154,44,.3);border-radius:10px;padding:.9rem 1rem;font-size:.9rem;color:var(--dark);margin-bottom:1.1rem}
+.success-msg.show{display:block}
+.success-msg strong{color:var(--amber-deep)}
+
+.footer{padding:3rem 0;text-align:center;border-top:1px solid var(--border);font-size:.72rem;color:rgba(0,0,0,.25);margin-top:3rem}
+.footer a{color:rgba(0,0,0,.4);text-decoration:none;transition:color .2s}
+.footer a:hover{color:var(--amber)}
+.footer-brand{font-family:var(--font-h);font-size:.85rem;color:rgba(0,0,0,.35);margin-bottom:.4rem}
+.footer-links{display:flex;justify-content:center;gap:1.5rem;margin-top:.6rem;flex-wrap:wrap}
+
+@media(max-width:780px){
+    .support-grid{grid-template-columns:1fr}
+    .top-nav{padding:1.5rem 0 .5rem}
+    .page-header{padding:1rem 0 2rem}
+}
+</style>
+</head>
+<body>
+
+<div class="container">
+    <nav class="top-nav">
+        <a href="/" class="back-link">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+            Back to Home
+        </a>
+    </nav>
+
+    <header class="page-header">
+        <h1>Support Center</h1>
+        <p class="subtitle">We're here to help you plan better trips</p>
+    </header>
+
+    <div class="support-grid">
+        <section class="support-card">
+            <h2>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>
+                Contact Us
+            </h2>
+            <p class="lede">Send us a message and we'll get back to you as soon as possible</p>
+
+            <div class="success-msg" id="successMsg">
+                <strong>Opening your email app…</strong> If nothing happened, write to us directly at <a href="mailto:contact@planpin.com" style="color:var(--amber-deep);font-weight:600">contact@planpin.com</a>.
+            </div>
+
+            <form id="supportForm" novalidate>
+                <div class="field">
+                    <label for="name">Name</label>
+                    <input type="text" id="name" name="name" placeholder="Your full name" required>
+                </div>
+                <div class="field">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" placeholder="your@email.com" required>
+                </div>
+                <div class="field">
+                    <label for="category">Category</label>
+                    <select id="category" name="category" required>
+                        <option value="" disabled selected>Select a category</option>
+                        <option value="General Inquiry">General Inquiry</option>
+                        <option value="Technical Issue">Technical Issue</option>
+                        <option value="Account Question">Account Question</option>
+                        <option value="Feedback / Feature Request">Feedback / Feature Request</option>
+                        <option value="Partnership">Partnership</option>
+                        <option value="Press / Media">Press / Media</option>
+                    </select>
+                </div>
+                <div class="field">
+                    <label for="message">Message</label>
+                    <textarea id="message" name="message" placeholder="Describe your question or issue…" required></textarea>
+                </div>
+                <button type="submit" class="btn-submit">Send Message</button>
+            </form>
+        </section>
+
+        <section class="support-card">
+            <h2>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+                Other Ways to Reach Us
+            </h2>
+            <div class="info-list" style="margin-top:1.2rem">
+                <p><strong>Email:</strong> <a href="mailto:contact@planpin.com">contact@planpin.com</a></p>
+                <p><strong>Response Time:</strong> Usually within 24 hours</p>
+                <p><strong>Business Hours:</strong> Monday – Friday, 9 AM – 5 PM GMT</p>
+                <p><strong>Instagram:</strong> <a href="https://instagram.com/planpinhq" target="_blank" rel="noopener">@planpinhq</a></p>
+            </div>
+        </section>
+    </div>
+
+    <div class="legal-block">
+        PlanPin is developed and operated by <a href="https://affinitylabs.ai" target="_blank" rel="noopener">Affinity Labs Ltd</a>. If you have any questions, feedback, or need help with the app, you can reach our support team directly at <a href="mailto:contact@planpin.com">contact@planpin.com</a>. We aim to respond to all inquiries promptly and ensure that travellers, creators, and partners have the support they need. Affinity Labs is the legal publisher and operator of PlanPin, and all user data, content, and customer support are managed in compliance with applicable laws and App Store policies.
+    </div>
+
+    <footer class="footer">
+        <div class="footer-brand">planpin</div>
+        <p>By Affinity Labs</p>
+        <div class="footer-links">
+            <a href="/">Home</a>
+            <a href="privacy.html">Privacy</a>
+            <a href="terms.html">Terms</a>
+            <a href="https://instagram.com/planpinhq" target="_blank" rel="noopener">Instagram</a>
+            <a href="mailto:contact@planpin.com">Contact</a>
+        </div>
+    </footer>
+</div>
+
+<script>
+document.getElementById('supportForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    var name = document.getElementById('name').value.trim();
+    var email = document.getElementById('email').value.trim();
+    var category = document.getElementById('category').value;
+    var message = document.getElementById('message').value.trim();
+
+    if (!name || !email || !category || !message) {
+        alert('Please fill in all fields before sending.');
+        return;
+    }
+
+    var subject = '[PlanPin Support] ' + category + ' — ' + name;
+    var body = 'Name: ' + name + '\nEmail: ' + email + '\nCategory: ' + category + '\n\nMessage:\n' + message;
+    var mailto = 'mailto:contact@planpin.com?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
+
+    document.getElementById('successMsg').classList.add('show');
+    window.location.href = mailto;
+});
+</script>
+
+</body>
+</html>
