@@ -3,78 +3,73 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Terms of Service — PlanPin</title>
+<title>Terms of Service · PlanPin</title>
 <meta name="description" content="PlanPin Terms of Service and Licensed Application End User License Agreement.">
 <meta name="robots" content="index,follow">
 <link rel="icon" type="image/png" href="favicon.png">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="preload" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
-<noscript><link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet"></noscript>
 <style>
-@font-face{font-family:'Karrik';src:url('/fonts/Karrik-Regular.woff2') format('woff2'),url('/fonts/Karrik-Regular.woff') format('woff');font-weight:normal;font-style:normal;font-display:swap}
+@font-face{font-family:'Instrument Serif';src:url('fonts/InstrumentSerif-Regular.woff2') format('woff2'),url('fonts/InstrumentSerif-Regular.ttf') format('truetype');font-weight:400;font-style:normal;font-display:swap}
+@font-face{font-family:'Bricolage Grotesque';src:url('fonts/BricolageGrotesque-Variable.woff2') format('woff2'),url('fonts/BricolageGrotesque-Variable.ttf') format('truetype');font-weight:300 800;font-style:normal;font-display:swap}
 
 :root{
-    --amber:#FFC752;--purple:#A990FE;
-    --dark:#0D0D0D;--light:#efefe7;--muted:rgba(0,0,0,0.55);
-    --card:#FFFFFF;--border:rgba(0,0,0,0.08);
-    --font-h:'Karrik',Georgia,serif;--font-b:'Poppins',-apple-system,sans-serif;
+    --blue:#0430C2;--sunglow:#FFC752;--ink:#0D0D0D;--ash:#8A8A8A;
+    --canvas:#FAFAFA;--white:#FFFFFF;--graphite:#5C5C5C;--border:#D4C8B0;
+    --r-soft:8px;--r-card:16px;
+    --font-h:'Instrument Serif',Georgia,serif;--font-b:'Bricolage Grotesque',-apple-system,BlinkMacSystemFont,sans-serif;
 }
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth;overflow-x:hidden}
-body{font-family:var(--font-b);background:var(--light);color:var(--dark);-webkit-font-smoothing:antialiased;line-height:1.65}
+body{font-family:var(--font-b);background:var(--canvas);color:var(--ink);-webkit-font-smoothing:antialiased;line-height:1.65}
+a{color:inherit}
 
-.container{max-width:760px;margin:0 auto;padding:0 clamp(1.5rem,5vw,2.5rem);width:100%}
+.container{max-width:780px;margin:0 auto;padding:0 clamp(1.4rem,5vw,2.5rem);width:100%}
 
-.top-nav{padding:2rem 0 1rem}
-.back-link{display:inline-flex;align-items:center;gap:.4rem;font-size:.82rem;color:rgba(0,0,0,.5);text-decoration:none;font-weight:500;transition:color .2s}
-.back-link:hover{color:var(--dark)}
-.back-link svg{width:14px;height:14px}
+.nav{position:sticky;top:0;z-index:50;background:rgba(250,250,250,.82);backdrop-filter:blur(16px) saturate(1.5);-webkit-backdrop-filter:blur(16px) saturate(1.5);border-bottom:1px solid rgba(212,200,176,.5)}
+.nav-inner{max-width:1080px;margin:0 auto;padding:.7rem clamp(1.4rem,5vw,2.5rem);display:flex;align-items:center;justify-content:space-between;gap:1rem}
+.nav-logo{height:32px;width:auto;display:block}
+.back-link{display:inline-flex;align-items:center;gap:.4rem;font-size:.85rem;color:var(--graphite);text-decoration:none;font-weight:600;transition:color .2s}
+.back-link:hover{color:var(--blue)}
+.back-link svg{width:15px;height:15px}
 
-.page-header{padding:1rem 0 2.5rem;border-bottom:1px solid var(--border);margin-bottom:2.5rem}
-.page-header h1{font-family:var(--font-h);font-size:clamp(2rem,4.5vw,2.8rem);letter-spacing:-.02em;line-height:1.1;margin-bottom:.6rem}
-.page-header .subtitle{font-size:.95rem;color:var(--muted)}
-.page-header .updated{font-size:.78rem;color:rgba(0,0,0,.35);margin-top:.6rem;font-weight:500}
+.page-header{padding:clamp(2.5rem,5vw,4rem) 0 2.2rem;border-bottom:1px solid var(--border);margin-bottom:2.5rem}
+.page-header h1{font-family:var(--font-h);font-weight:400;font-size:clamp(2.4rem,5.5vw,3.4rem);letter-spacing:-.01em;line-height:1.05;margin-bottom:.5rem}
+.page-header .subtitle{font-size:1rem;color:var(--graphite)}
+.page-header .updated{font-size:.8rem;color:var(--ash);margin-top:.6rem;font-weight:500}
 
-.content section{margin-bottom:2.25rem}
-.content h2{font-family:var(--font-h);font-size:clamp(1.25rem,2.2vw,1.55rem);letter-spacing:-.01em;margin-bottom:1rem;line-height:1.25}
-.content h3{font-family:var(--font-b);font-size:1rem;font-weight:600;margin-bottom:.6rem;margin-top:1.5rem;letter-spacing:-.005em}
+.content section{margin-bottom:2.4rem}
+.content h2{font-family:var(--font-h);font-weight:400;font-size:clamp(1.5rem,2.6vw,2rem);letter-spacing:-.01em;margin-bottom:1rem;line-height:1.15}
+.content h3{font-family:var(--font-b);font-size:1.05rem;font-weight:600;margin:1.6rem 0 .6rem}
 .content h3:first-of-type{margin-top:0}
-.content .intro{font-size:.92rem;color:rgba(0,0,0,.78);margin-bottom:1.5rem}
-.content p{font-size:.92rem;color:rgba(0,0,0,.78);margin-bottom:1rem}
+.content .intro{font-size:1rem;color:var(--graphite);margin-bottom:1.5rem;line-height:1.7}
+.content p{font-size:1rem;color:var(--graphite);margin-bottom:1rem;line-height:1.7}
 .content p:last-child{margin-bottom:0}
-.content strong{color:var(--dark);font-weight:600}
-.content a{color:var(--dark);text-decoration:underline;text-decoration-color:var(--amber);text-decoration-thickness:2px;text-underline-offset:3px;transition:opacity .2s}
+.content strong{color:var(--ink);font-weight:600}
+.content a{color:var(--blue);text-decoration:underline;text-decoration-thickness:1.5px;text-underline-offset:2px;transition:opacity .2s}
 .content a:hover{opacity:.7}
-.content ul{margin:0 0 1rem 1.2rem;font-size:.92rem;color:rgba(0,0,0,.78)}
-.content ul li{margin-bottom:.5rem}
 
-.footer{padding:3rem 0;text-align:center;border-top:1px solid var(--border);font-size:.72rem;color:rgba(0,0,0,.25);margin-top:3rem}
-.footer a{color:rgba(0,0,0,.4);text-decoration:none;transition:color .2s}
-.footer a:hover{color:var(--amber)}
-.footer-brand{font-family:var(--font-h);font-size:.85rem;color:rgba(0,0,0,.35);margin-bottom:.4rem}
-.footer-links{display:flex;justify-content:center;gap:1.5rem;margin-top:.6rem;flex-wrap:wrap}
-
-@media(max-width:600px){
-    .top-nav{padding:1.5rem 0 .5rem}
-    .page-header{padding:.5rem 0 2rem;margin-bottom:2rem}
-    .content section{margin-bottom:1.75rem}
-}
+.footer{padding:3rem 0;text-align:center;border-top:1px solid var(--border);font-size:.78rem;color:var(--ash);margin-top:3rem}
+.footer a{color:var(--graphite);text-decoration:none;transition:color .2s}
+.footer a:hover{color:var(--blue)}
+.footer-brand{font-family:var(--font-h);font-size:1.1rem;color:var(--ink);margin-bottom:.3rem}
+.footer-links{display:flex;justify-content:center;gap:1.5rem;margin-top:.8rem;flex-wrap:wrap}
 </style>
 </head>
 <body>
 
-<div class="container">
-    <nav class="top-nav">
+<header class="nav">
+    <div class="nav-inner">
+        <a href="/" aria-label="PlanPin home"><img class="nav-logo" src="assets/logo.png" alt="PlanPin" width="372" height="120"></a>
         <a href="/" class="back-link">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
-            Back to Home
+            Back to home
         </a>
-    </nav>
+    </div>
+</header>
 
+<div class="container">
     <header class="page-header">
         <h1>Terms of Service</h1>
-        <p class="subtitle">PlanPin — Operated by Affinity Labs Ltd</p>
+        <p class="subtitle">PlanPin, operated by Affinity Labs Ltd</p>
         <p class="updated">Last updated: 29 April 2026</p>
     </header>
 
@@ -87,7 +82,7 @@ body{font-family:var(--font-b);background:var(--light);color:var(--dark);-webkit
             <p>Licensor grants to you a nontransferable license to use the Licensed Application on any compatible devices that you own or control and as permitted by the Usage Rules. The terms of this Standard EULA will govern any content, materials, or services accessible from or purchased within the Licensed Application as well as upgrades provided by Licensor that replace or supplement the original Licensed Application, unless such upgrade is accompanied by a Custom EULA. Except as provided in the Usage Rules, you may not distribute or make the Licensed Application available over a network where it could be used by multiple devices at the same time. You may not transfer, redistribute or sublicense the Licensed Application and, if you sell your device to a third party, you must remove the Licensed Application from the device before doing so. You may not copy (except as permitted by this license and the Usage Rules), reverse-engineer, disassemble, attempt to derive the source code of, modify, or create derivative works of the Licensed Application, any updates, or any part thereof (except as and only to the extent that any foregoing restriction is prohibited by applicable law or to the extent as may be permitted by the licensing terms governing use of any open-sourced components included with the Licensed Application).</p>
 
             <h3>b. Consent to Use of Data</h3>
-            <p>You agree that Licensor may collect and use technical data and related information — including but not limited to technical information about your device, system and application software, and peripherals — that is gathered periodically to facilitate the provision of software updates, product support, and other services to you (if any) related to the Licensed Application. Licensor may use this information, as long as it is in a form that does not personally identify you, to improve its products or to provide services or technologies to you.</p>
+            <p>You agree that Licensor may collect and use technical data and related information, including but not limited to technical information about your device, system and application software, and peripherals, that is gathered periodically to facilitate the provision of software updates, product support, and other services to you (if any) related to the Licensed Application. Licensor may use this information, as long as it is in a form that does not personally identify you, to improve its products or to provide services or technologies to you.</p>
 
             <h3>c. Termination</h3>
             <p>This Standard EULA is effective until terminated by you or Licensor. Your rights under this Standard EULA will terminate automatically if you fail to comply with any of its terms.</p>
@@ -120,14 +115,14 @@ body{font-family:var(--font-b);background:var(--light);color:var(--dark);-webkit
     </main>
 
     <footer class="footer">
-        <div class="footer-brand">planpin</div>
+        <div class="footer-brand">PlanPin</div>
         <p>By Affinity Labs</p>
         <div class="footer-links">
             <a href="/">Home</a>
             <a href="support.html">Support</a>
             <a href="privacy.html">Privacy Policy</a>
             <a href="https://instagram.com/planpinhq" target="_blank" rel="noopener">Instagram</a>
-            <a href="mailto:hello@planpin.com">Contact</a>
+            <a href="mailto:contact@planpin.com">Contact</a>
         </div>
     </footer>
 </div>

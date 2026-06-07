@@ -3,81 +3,78 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Privacy Policy — PlanPin</title>
+<title>Privacy Policy · PlanPin</title>
 <meta name="description" content="How PlanPin collects, uses, and protects your personal data.">
 <meta name="robots" content="index,follow">
 <link rel="icon" type="image/png" href="favicon.png">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="preload" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
-<noscript><link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet"></noscript>
 <style>
-@font-face{font-family:'Karrik';src:url('/fonts/Karrik-Regular.woff2') format('woff2'),url('/fonts/Karrik-Regular.woff') format('woff');font-weight:normal;font-style:normal;font-display:swap}
+@font-face{font-family:'Instrument Serif';src:url('fonts/InstrumentSerif-Regular.woff2') format('woff2'),url('fonts/InstrumentSerif-Regular.ttf') format('truetype');font-weight:400;font-style:normal;font-display:swap}
+@font-face{font-family:'Bricolage Grotesque';src:url('fonts/BricolageGrotesque-Variable.woff2') format('woff2'),url('fonts/BricolageGrotesque-Variable.ttf') format('truetype');font-weight:300 800;font-style:normal;font-display:swap}
 
 :root{
-    --amber:#FFC752;--purple:#A990FE;
-    --dark:#0D0D0D;--light:#efefe7;--muted:rgba(0,0,0,0.55);
-    --card:#FFFFFF;--border:rgba(0,0,0,0.08);
-    --font-h:'Karrik',Georgia,serif;--font-b:'Poppins',-apple-system,sans-serif;
+    --blue:#0430C2;--sunglow:#FFC752;--ink:#0D0D0D;--ash:#8A8A8A;
+    --canvas:#FAFAFA;--white:#FFFFFF;--graphite:#5C5C5C;--border:#D4C8B0;
+    --r-soft:8px;--r-card:16px;
+    --font-h:'Instrument Serif',Georgia,serif;--font-b:'Bricolage Grotesque',-apple-system,BlinkMacSystemFont,sans-serif;
 }
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth;overflow-x:hidden}
-body{font-family:var(--font-b);background:var(--light);color:var(--dark);-webkit-font-smoothing:antialiased;line-height:1.65}
+body{font-family:var(--font-b);background:var(--canvas);color:var(--ink);-webkit-font-smoothing:antialiased;line-height:1.65}
+a{color:inherit}
 
-.container{max-width:760px;margin:0 auto;padding:0 clamp(1.5rem,5vw,2.5rem);width:100%}
+.container{max-width:780px;margin:0 auto;padding:0 clamp(1.4rem,5vw,2.5rem);width:100%}
 
-.top-nav{padding:2rem 0 1rem}
-.back-link{display:inline-flex;align-items:center;gap:.4rem;font-size:.82rem;color:rgba(0,0,0,.5);text-decoration:none;font-weight:500;transition:color .2s}
-.back-link:hover{color:var(--dark)}
-.back-link svg{width:14px;height:14px}
+.nav{position:sticky;top:0;z-index:50;background:rgba(250,250,250,.82);backdrop-filter:blur(16px) saturate(1.5);-webkit-backdrop-filter:blur(16px) saturate(1.5);border-bottom:1px solid rgba(212,200,176,.5)}
+.nav-inner{max-width:1080px;margin:0 auto;padding:.7rem clamp(1.4rem,5vw,2.5rem);display:flex;align-items:center;justify-content:space-between;gap:1rem}
+.nav-logo{height:32px;width:auto;display:block}
+.back-link{display:inline-flex;align-items:center;gap:.4rem;font-size:.85rem;color:var(--graphite);text-decoration:none;font-weight:600;transition:color .2s}
+.back-link:hover{color:var(--blue)}
+.back-link svg{width:15px;height:15px}
 
-.page-header{padding:1rem 0 2.5rem;border-bottom:1px solid var(--border);margin-bottom:2.5rem}
-.page-header h1{font-family:var(--font-h);font-size:clamp(2rem,4.5vw,2.8rem);letter-spacing:-.02em;line-height:1.1;margin-bottom:.6rem}
-.page-header .subtitle{font-size:.95rem;color:var(--muted)}
-.page-header .updated{font-size:.78rem;color:rgba(0,0,0,.35);margin-top:.6rem;font-weight:500}
+.page-header{padding:clamp(2.5rem,5vw,4rem) 0 2.2rem;border-bottom:1px solid var(--border);margin-bottom:2.5rem}
+.page-header h1{font-family:var(--font-h);font-weight:400;font-size:clamp(2.4rem,5.5vw,3.4rem);letter-spacing:-.01em;line-height:1.05;margin-bottom:.5rem}
+.page-header .subtitle{font-size:1rem;color:var(--graphite)}
+.page-header .updated{font-size:.8rem;color:var(--ash);margin-top:.6rem;font-weight:500}
 
-.content section{margin-bottom:2.5rem}
-.content h2{font-family:var(--font-h);font-size:clamp(1.25rem,2.2vw,1.55rem);letter-spacing:-.01em;margin-bottom:.35rem;line-height:1.25}
-.content .lede{font-size:.85rem;color:var(--muted);margin-bottom:1rem;font-style:italic}
-.content p{font-size:.92rem;color:rgba(0,0,0,.78);margin-bottom:1rem}
+.content section{margin-bottom:2.4rem}
+.content h2{font-family:var(--font-h);font-weight:400;font-size:clamp(1.5rem,2.6vw,2rem);letter-spacing:-.01em;margin-bottom:.5rem;line-height:1.15}
+.content .lede{font-size:.95rem;color:var(--graphite);margin-bottom:1rem;font-style:italic}
+.content p{font-size:1rem;color:var(--graphite);margin-bottom:1rem;line-height:1.7}
 .content p:last-child{margin-bottom:0}
-.content strong{color:var(--dark);font-weight:600}
-.content a{color:var(--dark);text-decoration:underline;text-decoration-color:var(--amber);text-decoration-thickness:2px;text-underline-offset:3px;transition:opacity .2s}
+.content strong{color:var(--ink);font-weight:600}
+.content a{color:var(--blue);text-decoration:underline;text-decoration-thickness:1.5px;text-underline-offset:2px;transition:opacity .2s}
 .content a:hover{opacity:.7}
-.content ul{margin:0 0 1rem 1.2rem;font-size:.92rem;color:rgba(0,0,0,.78)}
+.content ul{margin:0 0 1rem 1.2rem;font-size:1rem;color:var(--graphite)}
 .content ul li{margin-bottom:.5rem}
 
-.contact-block{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:1.5rem 1.6rem;margin-top:.5rem}
-.contact-block p{margin-bottom:.4rem;font-size:.9rem}
-.contact-block .label{font-size:.7rem;text-transform:uppercase;letter-spacing:.08em;color:rgba(0,0,0,.4);font-weight:600;margin-top:.8rem;margin-bottom:.2rem}
+.contact-block{background:var(--white);border:1px solid var(--border);border-radius:var(--r-card);padding:1.5rem 1.6rem;margin-top:.5rem}
+.contact-block p{margin-bottom:.4rem;font-size:.95rem;color:var(--graphite)}
+.contact-block .label{font-size:.72rem;text-transform:uppercase;letter-spacing:.08em;color:var(--ash);font-weight:700;margin-top:.8rem;margin-bottom:.2rem}
 .contact-block .label:first-child{margin-top:0}
 
-.footer{padding:3rem 0;text-align:center;border-top:1px solid var(--border);font-size:.72rem;color:rgba(0,0,0,.25);margin-top:3rem}
-.footer a{color:rgba(0,0,0,.4);text-decoration:none;transition:color .2s}
-.footer a:hover{color:var(--amber)}
-.footer-brand{font-family:var(--font-h);font-size:.85rem;color:rgba(0,0,0,.35);margin-bottom:.4rem}
-.footer-links{display:flex;justify-content:center;gap:1.5rem;margin-top:.6rem;flex-wrap:wrap}
-
-@media(max-width:600px){
-    .top-nav{padding:1.5rem 0 .5rem}
-    .page-header{padding:.5rem 0 2rem;margin-bottom:2rem}
-    .content section{margin-bottom:2rem}
-}
+.footer{padding:3rem 0;text-align:center;border-top:1px solid var(--border);font-size:.78rem;color:var(--ash);margin-top:3rem}
+.footer a{color:var(--graphite);text-decoration:none;transition:color .2s}
+.footer a:hover{color:var(--blue)}
+.footer-brand{font-family:var(--font-h);font-size:1.1rem;color:var(--ink);margin-bottom:.3rem}
+.footer-links{display:flex;justify-content:center;gap:1.5rem;margin-top:.8rem;flex-wrap:wrap}
 </style>
 </head>
 <body>
 
-<div class="container">
-    <nav class="top-nav">
+<header class="nav">
+    <div class="nav-inner">
+        <a href="/" aria-label="PlanPin home"><img class="nav-logo" src="assets/logo.png" alt="PlanPin" width="372" height="120"></a>
         <a href="/" class="back-link">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
-            Back to Home
+            Back to home
         </a>
-    </nav>
+    </div>
+</header>
 
+<div class="container">
     <header class="page-header">
         <h1>Privacy Policy</h1>
-        <p class="subtitle">PlanPin — Operated by Affinity Labs Ltd</p>
+        <p class="subtitle">PlanPin, operated by Affinity Labs Ltd</p>
         <p class="updated">Last updated: 29 April 2026</p>
     </header>
 
@@ -90,12 +87,11 @@ body{font-family:var(--font-b);background:var(--light);color:var(--dark);-webkit
         </section>
 
         <section>
-            <h2>Waitlist and Collection of Information</h2>
-            <p class="lede">What information we collect when you join the waitlist or use our services.</p>
-            <p>You are not required to submit personal information to browse the PlanPin website. If you choose to join our waitlist, we collect your email address so we can notify you when early access becomes available and communicate with you about the launch.</p>
-            <p>We may also ask optional survey questions, such as the type of traveller you are, to help us understand what features matter most to our community. Your responses are linked to your waitlist entry but are never sold or shared with third parties for advertising purposes.</p>
-            <p>When the PlanPin mobile or web application becomes available, you will be asked to register for an account. During account creation, we will request authentication information such as your name, date of birth, a valid email address, and a secure password. This information allows us to establish and authenticate your account, communicate with you about service updates, and provide a personalised experience.</p>
-            <p>If you make use of the application's sharing features — for example, to send trips, recommendations, or itineraries to others — we may request contact details for the intended recipient. This information is used exclusively to facilitate the delivery of your shared content and is not retained or repurposed for any unrelated use.</p>
+            <h2>Collection of Information</h2>
+            <p class="lede">What information we collect when you use our services.</p>
+            <p>You are not required to submit personal information to browse the PlanPin website. When you download the PlanPin mobile or web application, you will be asked to register for an account. During account creation, we will request authentication information such as your name, date of birth, a valid email address, and a secure password. This information allows us to establish and authenticate your account, communicate with you about service updates, and provide a personalised experience.</p>
+            <p>We may also ask optional questions, such as the type of traveller you are, to help us understand what features matter most to our community. Your responses are linked to your account but are never sold or shared with third parties for advertising purposes.</p>
+            <p>If you make use of the application's sharing features, for example to send trips, recommendations, or itineraries to others, we may request contact details for the intended recipient. This information is used exclusively to facilitate the delivery of your shared content and is not retained or repurposed for any unrelated use.</p>
         </section>
 
         <section>
@@ -124,7 +120,7 @@ body{font-family:var(--font-b);background:var(--light);color:var(--dark);-webkit
         <section>
             <h2>Data Retention and Security</h2>
             <p class="lede">How long we keep your data and how we protect it.</p>
-            <p>We retain your personal data for as long as your account or waitlist entry is active, and for a reasonable period thereafter to support customer service, account reactivation, or legal compliance. If you delete your account or unsubscribe from the waitlist, we will remove your personal data from active systems within a short time frame.</p>
+            <p>We retain your personal data for as long as your account is active, and for a reasonable period thereafter to support customer service, account reactivation, or legal compliance. If you delete your account, we will remove your personal data from active systems within a short time frame.</p>
             <p>We use a range of technical and organisational safeguards to protect the confidentiality and integrity of your information. These include encryption in transit and at rest, secure access controls, and regular vulnerability scanning.</p>
         </section>
 
@@ -132,8 +128,7 @@ body{font-family:var(--font-b);background:var(--light);color:var(--dark);-webkit
             <h2>Your Rights and Choices</h2>
             <p class="lede">Your data protection rights and how to exercise them.</p>
             <p>Depending on your jurisdiction, you may have the right to access the personal data we hold about you, request corrections or deletions, restrict or object to certain forms of processing, and request a copy of your data in a portable format.</p>
-            <p><strong>Waitlist removal:</strong> You may unsubscribe from the waitlist at any time by contacting us at the email address below.</p>
-            <p><strong>Account Deletion:</strong> Once the PlanPin application is available, you will be able to delete your account through the app by going to Profile &gt; Settings &gt; Delete account.</p>
+            <p><strong>Account Deletion:</strong> You can delete your account through the app by going to Profile &gt; Settings &gt; Delete account.</p>
             <p><strong>California Residents:</strong> You have the right to know what personal information we collect, request access or deletion, and opt out of the sale or sharing of your personal information. We do not currently sell personal information as defined under the California Consumer Privacy Act (CCPA).</p>
         </section>
 
@@ -175,14 +170,14 @@ body{font-family:var(--font-b);background:var(--light);color:var(--dark);-webkit
     </main>
 
     <footer class="footer">
-        <div class="footer-brand">planpin</div>
+        <div class="footer-brand">PlanPin</div>
         <p>By Affinity Labs</p>
         <div class="footer-links">
             <a href="/">Home</a>
             <a href="support.html">Support</a>
             <a href="terms.html">Terms of Service</a>
             <a href="https://instagram.com/planpinhq" target="_blank" rel="noopener">Instagram</a>
-            <a href="mailto:hello@planpin.com">Contact</a>
+            <a href="mailto:contact@planpin.com">Contact</a>
         </div>
     </footer>
 </div>
