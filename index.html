@@ -25,7 +25,19 @@
 <meta name="twitter:description" content="Save the spots you love, and let AI turn recommendations from creators who've actually been there into a day-by-day trip.">
 <meta name="twitter:image" content="https://planpin.com/og-image.png">
 <meta name="theme-color" content="#FAFAFA">
+<meta name="apple-itunes-app" content="app-id=6767165655">
+<link rel="canonical" href="https://planpin.com/">
 <link rel="icon" type="image/png" href="favicon.png">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    { "@type": "Organization", "@id": "https://planpin.com/#org", "name": "PlanPin", "url": "https://planpin.com/", "logo": "https://planpin.com/assets/logo.png", "sameAs": ["https://instagram.com/planpinhq"] },
+    { "@type": "WebSite", "@id": "https://planpin.com/#website", "url": "https://planpin.com/", "name": "PlanPin", "publisher": { "@id": "https://planpin.com/#org" } },
+    { "@type": "MobileApplication", "name": "PlanPin", "operatingSystem": "iOS, Android", "applicationCategory": "TravelApplication", "url": "https://planpin.com/", "description": "Save spots from Instagram, TikTok, Google Maps and notes, then let AI turn them into a day-by-day trip.", "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }, "downloadUrl": ["https://apps.apple.com/us/app/planpin-ai-travel-planner/id6767165655", "https://play.google.com/store/apps/details?id=ai.affinitylabs.planpin"], "publisher": { "@id": "https://planpin.com/#org" } }
+  ]
+}
+</script>
 <noscript><style>.reveal{opacity:1!important;transform:none!important}</style></noscript>
 <style>
 @font-face{font-family:'Instrument Serif';src:url('fonts/InstrumentSerif-Regular.woff2') format('woff2'),url('fonts/InstrumentSerif-Regular.ttf') format('truetype');font-weight:400;font-style:normal;font-display:swap}
@@ -135,6 +147,15 @@ a{color:inherit;text-decoration:none}
 .footer a{color:var(--graphite);transition:color .2s}
 .footer a:hover{color:var(--blue)}
 .footer-links{display:flex;justify-content:center;gap:1.5rem;margin-top:.8rem;flex-wrap:wrap}
+
+/* ───────── STICKY MOBILE CTA ───────── */
+.mobile-cta{display:none}
+@media(max-width:900px){
+    .mobile-cta{display:flex;position:fixed;left:0;right:0;bottom:0;z-index:60;align-items:center;justify-content:center;gap:.55rem;padding:.55rem 1rem calc(.55rem + env(safe-area-inset-bottom));background:rgba(255,255,255,.92);backdrop-filter:blur(14px) saturate(1.5);-webkit-backdrop-filter:blur(14px) saturate(1.5);border-top:1px solid var(--border);box-shadow:0 -6px 24px -12px rgba(13,13,13,.25);transform:translateY(120%);transition:transform .35s cubic-bezier(.22,1,.36,1)}
+    .mobile-cta.show{transform:translateY(0)}
+    .mobile-cta a{display:block}
+    .mobile-cta img{height:42px;width:auto;display:block}
+}
 
 /* ───────── REVEAL ───────── */
 .reveal{opacity:0;transform:translateY(24px)}
@@ -329,6 +350,12 @@ a{color:inherit;text-decoration:none}
     </div>
 </section>
 
+<!-- ───────── STICKY MOBILE CTA ───────── -->
+<div class="mobile-cta" id="mobileCta">
+    <a href="https://apps.apple.com/us/app/planpin-ai-travel-planner/id6767165655" target="_blank" rel="noopener" aria-label="Download PlanPin on the App Store"><img src="assets/badge-appstore.png" alt="Download on the App Store" width="149" height="42"></a>
+    <a href="https://play.google.com/store/apps/details?id=ai.affinitylabs.planpin" target="_blank" rel="noopener" aria-label="Get PlanPin on Google Play"><img src="assets/badge-playstore.png" alt="Get it on Google Play" width="148" height="42"></a>
+</div>
+
 <!-- ───────── FOOTER ───────── -->
 <footer class="footer">
     <div class="container">
@@ -407,6 +434,29 @@ a{color:inherit;text-decoration:none}
     var tick;
     window.addEventListener('scroll', function(){ if (!tick){ tick = setTimeout(function(){ tick = null; backstop(); }, 200); } }, { passive:true });
     window.addEventListener('load', backstop);
+})();
+</script>
+<script>
+(function(){
+    // Sticky mobile download bar: show once the hero badges scroll away, hide over the final CTA.
+    var bar = document.getElementById('mobileCta');
+    if (bar && 'IntersectionObserver' in window){
+        var heroBadges = document.getElementById('download');
+        var finalCta = document.querySelector('.cta-card');
+        var heroOut = false, atFinal = false;
+        var update = function(){ bar.classList.toggle('show', heroOut && !atFinal); };
+        if (heroBadges) new IntersectionObserver(function(e){ heroOut = !e[0].isIntersecting; update(); }, { rootMargin: '-8px' }).observe(heroBadges);
+        if (finalCta) new IntersectionObserver(function(e){ atFinal = e[0].isIntersecting; update(); }).observe(finalCta);
+    }
+    // GA4: track store-badge clicks (which store + where on the page).
+    document.querySelectorAll('a[href*="apps.apple.com"], a[href*="play.google.com"]').forEach(function(a){
+        a.addEventListener('click', function(){
+            if (typeof gtag !== 'function') return;
+            var store = a.href.indexOf('apps.apple.com') > -1 ? 'ios' : 'android';
+            var loc = a.closest('.mobile-cta') ? 'sticky_bar' : (a.closest('.hero') ? 'hero' : (a.closest('.cta') ? 'final_cta' : 'other'));
+            gtag('event', 'store_click', { store: store, link_location: loc });
+        });
+    });
 })();
 </script>
 </body>
