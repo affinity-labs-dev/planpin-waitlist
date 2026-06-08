@@ -32,10 +32,10 @@ body{font-family:var(--font-b);background:linear-gradient(180deg,#EFE9DA 0%,var(
 .brand-tag{font-family:var(--font-h);font-weight:400;font-size:1.5rem;line-height:1;color:var(--ink)}
 .controls{display:flex;align-items:center;gap:.7rem}
 .range-sel{position:relative}
-select{appearance:none;font-family:var(--font-b);font-size:.9rem;font-weight:600;color:var(--ink);background:var(--card);border:1px solid var(--border);border-radius:var(--r-pill);padding:.55rem 2.2rem .55rem 1.1rem;cursor:pointer;outline:none}
+select{appearance:none;font-family:var(--font-b);font-size:.9rem;font-weight:600;color:var(--ink);background:var(--card);border:1px solid var(--border);border-radius:var(--r-pill);padding:.55rem 2.2rem .55rem 1.1rem;min-height:44px;cursor:pointer;outline:none}
 select:focus{border-color:var(--olive-d);box-shadow:0 0 0 3px rgba(155,168,58,.18)}
 .range-sel::after{content:'';position:absolute;right:1rem;top:50%;width:.5rem;height:.5rem;border-right:2px solid var(--graphite);border-bottom:2px solid var(--graphite);transform:translateY(-65%) rotate(45deg);pointer-events:none}
-.refresh{background:none;border:1px solid var(--border);border-radius:var(--r-pill);width:42px;height:42px;cursor:pointer;font-size:1.05rem;color:var(--graphite)}
+.refresh{background:none;border:1px solid var(--border);border-radius:var(--r-pill);width:44px;height:44px;cursor:pointer;font-size:1.05rem;color:var(--graphite)}
 .refresh:hover{background:var(--card)}
 /* keyboard accessibility: visible focus ring on all controls */
 button:focus-visible, select:focus-visible, input:focus-visible{outline:2px solid var(--olive-d);outline-offset:2px}
@@ -74,7 +74,7 @@ button:focus-visible, select:focus-visible, input:focus-visible{outline:2px soli
 
 /* Tabs */
 .tabs{display:flex;gap:.4rem;border-bottom:1px solid var(--border);margin-bottom:1.3rem}
-.tab{background:none;border:none;font-family:var(--font-b);font-size:.98rem;font-weight:600;color:var(--graphite);padding:.6rem 1.1rem;cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-1px}
+.tab{background:none;border:none;font-family:var(--font-b);font-size:.98rem;font-weight:600;color:var(--graphite);padding:.75rem 1.15rem;min-height:44px;cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-1px}
 .tab:hover{color:var(--ink)}
 .tab.active{color:var(--ink);border-bottom-color:var(--olive)}
 
