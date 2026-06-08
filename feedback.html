@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-KJLH8R58');</script>
+<!-- End Google Tag Manager -->
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-PWNKJ941XQ"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-PWNKJ941XQ');
+</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Share your thoughts · PlanPin</title>
+<meta name="description" content="Help shape PlanPin. Tell us how your first few days have gone — it takes about a minute.">
+<meta name="robots" content="index,follow">
+<link rel="canonical" href="https://planpin.com/feedback.html">
+<link rel="icon" type="image/png" href="favicon.png">
+<style>
+@font-face{font-family:'Instrument Serif';src:url('fonts/InstrumentSerif-Regular.woff2') format('woff2'),url('fonts/InstrumentSerif-Regular.ttf') format('truetype');font-weight:400;font-style:normal;font-display:swap}
+@font-face{font-family:'Bricolage Grotesque';src:url('fonts/BricolageGrotesque-Variable.woff2') format('woff2'),url('fonts/BricolageGrotesque-Variable.ttf') format('truetype');font-weight:300 800;font-style:normal;font-display:swap}
+
+:root{
+    --blue:#0430C2;--sunglow:#FFC752;--gold:#FFDD63;--ink:#0D0D0D;--ash:#8A8A8A;
+    --canvas:#FAFAFA;--white:#FFFFFF;--lilac:#B5A3F3;--amber-ink:#8C5E10;--graphite:#5C5C5C;--border:#D4C8B0;
+    --r-soft:8px;--r-card:16px;--r-pill:999px;
+    --font-h:'Instrument Serif',Georgia,serif;--font-b:'Bricolage Grotesque',-apple-system,BlinkMacSystemFont,sans-serif;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;overflow-x:hidden}
+body{font-family:var(--font-b);background:var(--canvas);color:var(--ink);-webkit-font-smoothing:antialiased;line-height:1.65}
+a{color:inherit}
+
+.container{max-width:680px;margin:0 auto;padding:0 clamp(1.4rem,5vw,2.5rem);width:100%}
+
+.nav{position:sticky;top:0;z-index:50;background:rgba(250,250,250,.82);backdrop-filter:blur(16px) saturate(1.5);-webkit-backdrop-filter:blur(16px) saturate(1.5);border-bottom:1px solid rgba(212,200,176,.5)}
+.nav-inner{max-width:680px;margin:0 auto;padding:.7rem clamp(1.4rem,5vw,2.5rem);display:flex;align-items:center;justify-content:space-between;gap:1rem}
+.nav-logo{height:32px;width:auto;display:block}
+.back-link{display:inline-flex;align-items:center;gap:.4rem;font-size:.85rem;color:var(--graphite);text-decoration:none;font-weight:600;transition:color .2s}
+.back-link:hover{color:var(--blue)}
+.back-link svg{width:15px;height:15px}
+
+.page-header{text-align:center;padding:clamp(2.5rem,5vw,4rem) 0 2rem}
+.page-header h1{font-family:var(--font-h);font-weight:400;font-size:clamp(2.6rem,6vw,3.6rem);letter-spacing:-.01em;line-height:1.04;margin-bottom:.5rem}
+.page-header .subtitle{font-size:1.05rem;color:var(--graphite)}
+
+.support-card{background:var(--white);border:1px solid var(--border);border-radius:var(--r-card);padding:clamp(1.6rem,3.5vw,2.4rem)}
+
+.section-title{font-family:var(--font-h);font-weight:400;font-size:1.5rem;line-height:1.15;margin:.2rem 0 .3rem}
+.section-note{font-size:.9rem;color:var(--graphite);margin-bottom:1.3rem}
+.divider{border:0;border-top:1px solid var(--border);margin:2rem 0 1.7rem}
+
+.field{display:flex;flex-direction:column;gap:.4rem;margin-bottom:1.1rem}
+.field label.q{font-size:.92rem;font-weight:600;color:var(--ink)}
+.field input[type=text],.field input[type=email],.field select,.field textarea{width:100%;font-family:var(--font-b);font-size:.95rem;color:var(--ink);background:var(--canvas);border:1px solid var(--border);border-radius:var(--r-soft);padding:.75rem .9rem;outline:none;transition:border-color .2s,box-shadow .2s}
+.field input::placeholder,.field textarea::placeholder{color:var(--ash)}
+.field input:focus,.field select:focus,.field textarea:focus{border-color:var(--blue);box-shadow:0 0 0 3px rgba(4,48,194,.12)}
+.field textarea{resize:vertical;min-height:110px;line-height:1.55}
+.field select{appearance:none;-webkit-appearance:none;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%230d0d0d' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'><polyline points='6 9 12 15 18 9'/></svg>");background-repeat:no-repeat;background-position:right .9rem center;background-size:14px;padding-right:2.4rem;cursor:pointer}
+
+/* Likert / NPS scale widgets */
+.scale-row{margin-bottom:1.2rem}
+.scale-q{font-size:.92rem;font-weight:600;color:var(--ink);margin-bottom:.6rem}
+.scale{display:flex;align-items:center;gap:.7rem;flex-wrap:wrap}
+.scale .ends{font-size:.78rem;color:var(--ash);white-space:nowrap}
+.scale .cells{display:flex;gap:.4rem;flex-wrap:wrap}
+.cell{position:relative;cursor:pointer}
+.cell input{position:absolute;opacity:0;width:0;height:0}
+.cell span{display:flex;align-items:center;justify-content:center;min-width:40px;height:40px;padding:0 .2rem;border:1px solid var(--border);border-radius:var(--r-soft);background:var(--canvas);font-size:.9rem;font-weight:600;color:var(--graphite);transition:all .12s}
+.cell:hover span{border-color:var(--blue)}
+.cell input:checked + span{background:var(--blue);border-color:var(--blue);color:#fff}
+.cell input:focus-visible + span{box-shadow:0 0 0 3px rgba(4,48,194,.25)}
+
+.checkbox-row{display:flex;align-items:flex-start;gap:.6rem;margin-top:.2rem;cursor:pointer}
+.checkbox-row input{margin-top:.2rem;width:18px;height:18px;accent-color:var(--blue);flex-shrink:0;cursor:pointer}
+.checkbox-row span{font-size:.92rem;color:var(--ink)}
+
+.btn-submit{width:100%;background:var(--sunglow);color:var(--ink);font-family:var(--font-b);font-weight:600;font-size:.98rem;border:none;border-radius:var(--r-pill);padding:.95rem 1rem;cursor:pointer;margin-top:.6rem;transition:transform .1s,box-shadow .15s}
+.btn-submit:hover{box-shadow:0 8px 20px -8px rgba(140,94,16,.5);transform:translateY(-1px)}
+.btn-submit:active{transform:translateY(0)}
+.btn-submit:disabled{opacity:.6;cursor:default;transform:none;box-shadow:none}
+
+.success-msg{display:none;background:rgba(4,48,194,.07);border:1px solid rgba(4,48,194,.2);border-radius:var(--r-soft);padding:.9rem 1rem;font-size:.92rem;color:var(--ink);margin-bottom:1.1rem}
+.success-msg.show{display:block}
+.success-msg strong{color:var(--blue)}
+
+.thanks{display:none;text-align:center;padding:1.5rem .5rem}
+.thanks.show{display:block}
+.thanks .check{width:60px;height:60px;border-radius:var(--r-pill);background:rgba(4,48,194,.08);display:inline-flex;align-items:center;justify-content:center;margin-bottom:1.1rem}
+.thanks .check svg{width:28px;height:28px;color:var(--blue)}
+.thanks h2{font-family:var(--font-h);font-weight:400;font-size:1.9rem;margin-bottom:.4rem}
+.thanks p{font-size:.98rem;color:var(--graphite)}
+
+.footer{padding:3rem 0;text-align:center;border-top:1px solid var(--border);font-size:.78rem;color:var(--ash);margin-top:3rem}
+.footer a{color:var(--graphite);text-decoration:none;transition:color .2s}
+.footer a:hover{color:var(--blue)}
+.footer-brand{font-family:var(--font-h);font-size:1.1rem;color:var(--ink);margin-bottom:.3rem}
+.footer-links{display:flex;justify-content:center;gap:1.5rem;margin-top:.8rem;flex-wrap:wrap}
+</style>
+</head>
+<body>
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-KJLH8R58"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+
+<header class="nav">
+    <div class="nav-inner">
+        <a href="/" aria-label="PlanPin home"><img class="nav-logo" src="assets/logo.png" alt="PlanPin" width="372" height="120"></a>
+        <a href="/" class="back-link">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+            Back to home
+        </a>
+    </div>
+</header>
+
+<div class="container">
+    <header class="page-header">
+        <h1>How's it going?</h1>
+        <p class="subtitle">You've had PlanPin for a few days. Your take shapes what we build next. About a minute.</p>
+    </header>
+
+    <section class="support-card">
+        <div class="success-msg" id="errorMsg" style="background:rgba(180,40,40,.08);border-color:rgba(180,40,40,.25)">
+            <strong style="color:#a82626">Couldn't reach our servers.</strong> Please try again, or email your thoughts to <a href="mailto:contact@planpin.com" style="color:var(--blue);font-weight:600">contact@planpin.com</a>.
+        </div>
+
+        <!-- Thank-you state (shown after submit) -->
+        <div class="thanks" id="thanks">
+            <div class="check">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+            </div>
+            <h2>Thank you</h2>
+            <p>Your feedback goes straight to the team and shapes what we build next.</p>
+        </div>
+
+        <form id="feedbackForm" novalidate>
+            <h3 class="section-title">About you</h3>
+            <p class="section-note">Helps us understand who PlanPin is reaching.</p>
+
+            <div class="field">
+                <label class="q" for="age_range">Age range</label>
+                <select id="age_range" required>
+                    <option value="" disabled selected>Select your age range</option>
+                    <option>Under 18</option>
+                    <option>18–24</option>
+                    <option>25–34</option>
+                    <option>35–44</option>
+                    <option>45–54</option>
+                    <option>55+</option>
+                </select>
+            </div>
+
+            <div class="field">
+                <label class="q" for="country">Country</label>
+                <input type="text" id="country" placeholder="Where you're based" required>
+            </div>
+
+            <div class="field">
+                <label class="q" for="travel_frequency">How often do you travel?</label>
+                <select id="travel_frequency" required>
+                    <option value="" disabled selected>Select frequency</option>
+                    <option>Rarely</option>
+                    <option>Once a year</option>
+                    <option>A few times a year</option>
+                    <option>Monthly</option>
+                    <option>I'm always travelling</option>
+                </select>
+            </div>
+
+            <div class="field">
+                <label class="q" for="traveller_type">What kind of traveller are you?</label>
+                <select id="traveller_type" required>
+                    <option value="" disabled selected>Select one</option>
+                    <option>Solo</option>
+                    <option>Couple</option>
+                    <option>Family</option>
+                    <option>Friends group</option>
+                    <option>Business</option>
+                </select>
+            </div>
+
+            <div class="field">
+                <label class="q" for="heard_from">Where did you hear about PlanPin?</label>
+                <select id="heard_from" required>
+                    <option value="" disabled selected>Select one</option>
+                    <option>Instagram</option>
+                    <option>TikTok</option>
+                    <option>A friend</option>
+                    <option>App Store</option>
+                    <option>Other</option>
+                </select>
+            </div>
+
+            <hr class="divider">
+
+            <h3 class="section-title">Using PlanPin</h3>
+            <p class="section-note">Rate each statement from 1 (Strongly disagree) to 5 (Strongly agree).</p>
+
+            <div class="scale-row">
+                <div class="scale-q">I think I would use PlanPin frequently.</div>
+                <div class="scale">
+                    <span class="ends">Strongly disagree</span>
+                    <div class="cells" data-name="would_use_frequently">
+                        <label class="cell"><input type="radio" name="would_use_frequently" value="1"><span>1</span></label>
+                        <label class="cell"><input type="radio" name="would_use_frequently" value="2"><span>2</span></label>
+                        <label class="cell"><input type="radio" name="would_use_frequently" value="3"><span>3</span></label>
+                        <label class="cell"><input type="radio" name="would_use_frequently" value="4"><span>4</span></label>
+                        <label class="cell"><input type="radio" name="would_use_frequently" value="5"><span>5</span></label>
+                    </div>
+                    <span class="ends">Strongly agree</span>
+                </div>
+            </div>
+
+            <div class="scale-row">
+                <div class="scale-q">I found PlanPin easy to use.</div>
+                <div class="scale">
+                    <span class="ends">Strongly disagree</span>
+                    <div class="cells" data-name="easy_to_use">
+                        <label class="cell"><input type="radio" name="easy_to_use" value="1"><span>1</span></label>
+                        <label class="cell"><input type="radio" name="easy_to_use" value="2"><span>2</span></label>
+                        <label class="cell"><input type="radio" name="easy_to_use" value="3"><span>3</span></label>
+                        <label class="cell"><input type="radio" name="easy_to_use" value="4"><span>4</span></label>
+                        <label class="cell"><input type="radio" name="easy_to_use" value="5"><span>5</span></label>
+                    </div>
+                    <span class="ends">Strongly agree</span>
+                </div>
+            </div>
+
+            <div class="scale-row">
+                <div class="scale-q">I found PlanPin unnecessarily complex.</div>
+                <div class="scale">
+                    <span class="ends">Strongly disagree</span>
+                    <div class="cells" data-name="unnecessarily_complex">
+                        <label class="cell"><input type="radio" name="unnecessarily_complex" value="1"><span>1</span></label>
+                        <label class="cell"><input type="radio" name="unnecessarily_complex" value="2"><span>2</span></label>
+                        <label class="cell"><input type="radio" name="unnecessarily_complex" value="3"><span>3</span></label>
+                        <label class="cell"><input type="radio" name="unnecessarily_complex" value="4"><span>4</span></label>
+                        <label class="cell"><input type="radio" name="unnecessarily_complex" value="5"><span>5</span></label>
+                    </div>
+                    <span class="ends">Strongly agree</span>
+                </div>
+            </div>
+
+            <hr class="divider">
+
+            <h3 class="section-title">Your experience</h3>
+            <p class="section-note">The part that helps us most.</p>
+
+            <div class="field">
+                <label class="q" for="ai_built_useful_trip">Did PlanPin's AI turn your saved spots into a useful trip?</label>
+                <select id="ai_built_useful_trip" required>
+                    <option value="" disabled selected>Select one</option>
+                    <option>Yes, definitely</option>
+                    <option>Somewhat</option>
+                    <option>Not really</option>
+                    <option>Haven't tried it yet</option>
+                </select>
+            </div>
+
+            <div class="scale-row">
+                <div class="scale-q">How likely are you to recommend PlanPin to a friend?</div>
+                <div class="scale">
+                    <span class="ends">Not at all likely</span>
+                    <div class="cells" data-name="nps">
+                        <label class="cell"><input type="radio" name="nps" value="0"><span>0</span></label>
+                        <label class="cell"><input type="radio" name="nps" value="1"><span>1</span></label>
+                        <label class="cell"><input type="radio" name="nps" value="2"><span>2</span></label>
+                        <label class="cell"><input type="radio" name="nps" value="3"><span>3</span></label>
+                        <label class="cell"><input type="radio" name="nps" value="4"><span>4</span></label>
+                        <label class="cell"><input type="radio" name="nps" value="5"><span>5</span></label>
+                        <label class="cell"><input type="radio" name="nps" value="6"><span>6</span></label>
+                        <label class="cell"><input type="radio" name="nps" value="7"><span>7</span></label>
+                        <label class="cell"><input type="radio" name="nps" value="8"><span>8</span></label>
+                        <label class="cell"><input type="radio" name="nps" value="9"><span>9</span></label>
+                        <label class="cell"><input type="radio" name="nps" value="10"><span>10</span></label>
+                    </div>
+                    <span class="ends">Extremely likely</span>
+                </div>
+            </div>
+
+            <div class="field" style="margin-top:.4rem">
+                <label class="q" for="other_feedback">Anything else you wish PlanPin had? <span style="color:var(--ash);font-weight:400">(optional)</span></label>
+                <textarea id="other_feedback" placeholder="e.g. offline maps, flight booking, sharing trips with friends..."></textarea>
+            </div>
+
+            <hr class="divider">
+
+            <label class="checkbox-row">
+                <input type="checkbox" id="can_contact">
+                <span>You can email me to follow up on my feedback.</span>
+            </label>
+            <div class="field" id="emailField" style="display:none;margin-top:.9rem">
+                <label class="q" for="contact_email">Your email</label>
+                <input type="email" id="contact_email" placeholder="your@email.com">
+            </div>
+
+            <button type="submit" class="btn-submit">Submit feedback</button>
+        </form>
+    </section>
+
+    <footer class="footer">
+        <div class="footer-brand">PlanPin</div>
+        <p>By Affinity Labs</p>
+        <div class="footer-links">
+            <a href="/">Home</a>
+            <a href="support.html">Support</a>
+            <a href="privacy.html">Privacy</a>
+            <a href="terms.html">Terms</a>
+        </div>
+    </footer>
+</div>
+
+<script>
+const SUPABASE_URL = 'https://jszwnlyrvpuiiifdqtyn.supabase.co';
+const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImpzendubHlydnB1aWlpZmRxdHluIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzU3MjQ3MDIsImV4cCI6MjA5MTMwMDcwMn0.E24UDFVtjZAisLyybTKoOlZwFokenTxyw1hcAPgJ1Wk';
+
+const form = document.getElementById('feedbackForm');
+const submitBtn = form.querySelector('.btn-submit');
+const canContact = document.getElementById('can_contact');
+const emailField = document.getElementById('emailField');
+
+canContact.addEventListener('change', function(){
+    emailField.style.display = canContact.checked ? 'flex' : 'none';
+});
+
+function radioValue(name){
+    var el = form.querySelector('input[name="' + name + '"]:checked');
+    return el ? parseInt(el.value, 10) : null;
+}
+
+form.addEventListener('submit', async function(e){
+    e.preventDefault();
+    document.getElementById('errorMsg').classList.remove('show');
+
+    const payload = {
+        age_range: document.getElementById('age_range').value,
+        country: document.getElementById('country').value.trim(),
+        travel_frequency: document.getElementById('travel_frequency').value,
+        traveller_type: document.getElementById('traveller_type').value,
+        heard_from: document.getElementById('heard_from').value,
+        would_use_frequently: radioValue('would_use_frequently'),
+        easy_to_use: radioValue('easy_to_use'),
+        unnecessarily_complex: radioValue('unnecessarily_complex'),
+        ai_built_useful_trip: document.getElementById('ai_built_useful_trip').value,
+        nps: radioValue('nps'),
+        other_feedback: document.getElementById('other_feedback').value.trim() || null,
+        can_contact: canContact.checked,
+        contact_email: canContact.checked ? (document.getElementById('contact_email').value.trim() || null) : null
+    };
+
+    // Required: every select + the three Likerts + NPS.
+    if (!payload.age_range || !payload.country || !payload.travel_frequency || !payload.traveller_type ||
+        !payload.heard_from || payload.would_use_frequently === null || payload.easy_to_use === null ||
+        payload.unnecessarily_complex === null || !payload.ai_built_useful_trip || payload.nps === null) {
+        alert('Please answer every question except the optional ones before submitting.');
+        return;
+    }
+    if (canContact.checked && !payload.contact_email) {
+        alert('Please add your email so we can follow up, or untick the contact box.');
+        return;
+    }
+
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'Submitting...';
+
+    try {
+        const res = await fetch(SUPABASE_URL + '/rest/v1/feedback_survey', {
+            method: 'POST',
+            headers: {
+                'apikey': SUPABASE_ANON_KEY,
+                'Authorization': 'Bearer ' + SUPABASE_ANON_KEY,
+                'Content-Type': 'application/json',
+                'Prefer': 'return=minimal'
+            },
+            body: JSON.stringify(payload)
+        });
+
+        if (!res.ok) throw new Error('HTTP ' + res.status);
+
+        form.style.display = 'none';
+        document.getElementById('thanks').classList.add('show');
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    } catch (err) {
+        document.getElementById('errorMsg').classList.add('show');
+        submitBtn.disabled = false;
+        submitBtn.textContent = 'Submit feedback';
+    }
+});
+</script>
+
+</body>
+</html>

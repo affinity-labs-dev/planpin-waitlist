@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-KJLH8R58');</script>
+<!-- End Google Tag Manager -->
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-PWNKJ941XQ"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-PWNKJ941XQ');
+</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Opening PlanPin…</title>
+<meta name="description" content="Opening the PlanPin app.">
+<meta name="robots" content="noindex,follow">
+<meta name="apple-itunes-app" content="app-id=6767165655">
+<link rel="canonical" href="https://planpin.com/open.html">
+<link rel="icon" type="image/png" href="favicon.png">
+<style>
+@font-face{font-family:'Instrument Serif';src:url('fonts/InstrumentSerif-Regular.woff2') format('woff2'),url('fonts/InstrumentSerif-Regular.ttf') format('truetype');font-weight:400;font-style:normal;font-display:swap}
+@font-face{font-family:'Bricolage Grotesque';src:url('fonts/BricolageGrotesque-Variable.woff2') format('woff2'),url('fonts/BricolageGrotesque-Variable.ttf') format('truetype');font-weight:300 800;font-style:normal;font-display:swap}
+
+:root{
+    --blue:#0430C2;--sunglow:#FFC752;--ink:#0D0D0D;--ash:#8A8A8A;
+    --canvas:#FAFAFA;--white:#FFFFFF;--graphite:#5C5C5C;--border:#D4C8B0;
+    --r-soft:8px;--r-card:16px;--r-pill:999px;
+    --font-h:'Instrument Serif',Georgia,serif;--font-b:'Bricolage Grotesque',-apple-system,BlinkMacSystemFont,sans-serif;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%}
+body{font-family:var(--font-b);background:var(--canvas);color:var(--ink);-webkit-font-smoothing:antialiased;line-height:1.65;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:1.5rem}
+a{color:inherit}
+
+.logo{height:34px;width:auto;margin-bottom:2rem}
+
+.spinner{width:34px;height:34px;border-radius:50%;border:3px solid rgba(4,48,194,.18);border-top-color:var(--blue);animation:spin .8s linear infinite;margin:0 auto 1.2rem}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+h1{font-family:var(--font-h);font-weight:400;font-size:clamp(1.8rem,5vw,2.4rem);letter-spacing:-.01em;line-height:1.1;margin-bottom:.5rem}
+.sub{font-size:.98rem;color:var(--graphite);margin-bottom:1.6rem}
+
+.btn-pill{display:inline-block;background:var(--sunglow);color:var(--ink);font-family:var(--font-b);font-weight:600;font-size:1rem;border:none;border-radius:var(--r-pill);padding:.8rem 1.9rem;cursor:pointer;text-decoration:none;transition:transform .1s,box-shadow .15s}
+.btn-pill:hover{box-shadow:0 8px 20px -8px rgba(140,94,16,.5);transform:translateY(-1px)}
+
+.badges{display:flex;justify-content:center;gap:.8rem;margin-top:1.4rem;flex-wrap:wrap}
+.badges img{height:44px;width:auto;display:block}
+
+.home-link{margin-top:1.8rem;font-size:.82rem;color:var(--ash);text-decoration:none}
+.home-link:hover{color:var(--blue)}
+</style>
+</head>
+<body>
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-KJLH8R58"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+
+<img class="logo" src="assets/logo.png" alt="PlanPin">
+<div class="spinner" id="spinner"></div>
+<h1 id="title">Opening PlanPin&hellip;</h1>
+<p class="sub" id="sub">If it doesn't open automatically, tap the button below.</p>
+
+<a href="#" id="openBtn" class="btn-pill">Open PlanPin</a>
+
+<div class="badges">
+    <a href="https://apps.apple.com/us/app/planpin-ai-travel-planner/id6767165655" target="_blank" rel="noopener">
+        <img src="assets/badge-appstore.png" alt="Download on the App Store">
+    </a>
+    <a href="https://play.google.com/store/apps/details?id=ai.affinitylabs.planpin" target="_blank" rel="noopener">
+        <img src="assets/badge-playstore.png" alt="Get it on Google Play">
+    </a>
+</div>
+
+<a href="/" class="home-link">Back to planpin.com</a>
+
+<script>
+var STORE_IOS = 'https://apps.apple.com/us/app/planpin-ai-travel-planner/id6767165655';
+var STORE_AND = 'https://play.google.com/store/apps/details?id=ai.affinitylabs.planpin';
+var ua = navigator.userAgent || '';
+var isIOS = /iPad|iPhone|iPod/.test(ua) || (ua.includes('Macintosh') && 'ontouchend' in document);
+var isAndroid = /Android/.test(ua);
+
+// Optional path: open.html?to=plan -> planpin://plan (defaults to home).
+var to = new URLSearchParams(location.search).get('to') || '';
+var DEEP_LINK = 'planpin://' + to.replace(/^\/+/, '');
+
+function openApp(){
+    if (isIOS || isAndroid) {
+        var t = Date.now();
+        setTimeout(function(){
+            if (Date.now() - t < 1600) { location.href = isAndroid ? STORE_AND : STORE_IOS; }
+        }, 1200);
+        location.href = DEEP_LINK;
+    } else {
+        window.open(STORE_IOS, '_blank', 'noopener');
+    }
+}
+
+document.getElementById('openBtn').addEventListener('click', function(e){ e.preventDefault(); openApp(); });
+
+if (isIOS || isAndroid) {
+    setTimeout(openApp, 400);
+} else {
+    // Desktop: nothing to open. Show a clear "get it on your phone" state.
+    document.getElementById('spinner').style.display = 'none';
+    document.getElementById('title').textContent = 'Get PlanPin on your phone';
+    document.getElementById('sub').textContent = 'PlanPin is an iOS and Android app. Grab it below.';
+    document.getElementById('openBtn').style.display = 'none';
+}
+</script>
+
+</body>
+</html>
