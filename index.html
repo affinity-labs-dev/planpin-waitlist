@@ -170,6 +170,9 @@ a{color:inherit;text-decoration:none}
 
 /* ───────── RESPONSIVE ───────── */
 @media(max-width:900px){
+    /* On mobile the native iOS Smart App Banner + hero badges + sticky bottom bar
+       already cover "get the app", so the nav header's CTA is redundant — hide it. */
+    .nav{display:none}
     .hero-grid{grid-template-columns:1fr;text-align:center;gap:2rem;padding-top:clamp(2rem,5vh,3.5rem)}
     .hero h1{font-size:clamp(2.2rem,6vw,3.3rem)}
     .hero-sub{margin-left:auto;margin-right:auto;font-size:1.05rem}
