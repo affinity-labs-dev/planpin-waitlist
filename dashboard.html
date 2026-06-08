@@ -78,6 +78,17 @@ button:focus-visible, select:focus-visible, input:focus-visible{outline:2px soli
 .tab:hover{color:var(--ink)}
 .tab.active{color:var(--ink);border-bottom-color:var(--olive)}
 
+/* Deep-dive tables + cohort heatmap */
+.dtable{width:100%;border-collapse:collapse;font-size:.85rem}
+.dtable th{text-align:left;font-weight:600;color:var(--graphite);font-size:.7rem;text-transform:uppercase;letter-spacing:.04em;padding:.4rem .5rem;border-bottom:1px solid var(--border)}
+.dtable td{padding:.45rem .5rem;border-bottom:1px solid var(--border-soft);font-variant-numeric:tabular-nums}
+.dtable td:not(:first-child),.dtable th:not(:first-child){text-align:right}
+.dtable tr:last-child td{border-bottom:none}
+.cohort{width:100%;border-collapse:collapse;font-size:.8rem;font-variant-numeric:tabular-nums}
+.cohort th,.cohort td{padding:.4rem .35rem;text-align:center;border:1px solid var(--border-soft)}
+.cohort th{font-size:.7rem;color:var(--graphite);text-transform:uppercase;letter-spacing:.03em}
+.cohort th:first-child,.cohort td:first-child{text-align:left;white-space:nowrap}
+
 /* Group heading + notes + gate */
 .group{font-family:var(--font-h);font-weight:400;font-size:1.5rem;line-height:1.12;margin:1.9rem 0 .9rem;color:var(--ink)}
 .group span{display:block;font-family:var(--font-b);font-size:.8rem;font-weight:400;color:var(--ash);margin-top:.25rem}
@@ -151,6 +162,7 @@ button:focus-visible, select:focus-visible, input:focus-visible{outline:2px soli
     <div class="tabs" role="tablist">
       <button class="tab active" data-tab="overview" role="tab">Overview</button>
       <button class="tab" data-tab="financial" role="tab">Financial</button>
+      <button class="tab" data-tab="deep" role="tab">Deep dive</button>
     </div>
 
     <!-- ===================== OVERVIEW ===================== -->
@@ -194,6 +206,37 @@ button:focus-visible, select:focus-visible, input:focus-visible{outline:2px soli
         <div class="card"><h2>Active subscriptions over time</h2><div class="csub">Captured each refresh</div><div class="chart-box"><canvas id="cSubs"></canvas></div></div>
         <div class="card"><h2>Paywall hits</h2><div class="csub">quota_exceeded events per day</div><div class="chart-box"><canvas id="cPaywall"></canvas></div></div>
       </div>
+    </section>
+
+    <!-- ===================== DEEP DIVE ===================== -->
+    <section class="pane hidden" id="pane-deep">
+      <h3 class="group">Retention <span id="retentionNote">Read as directional while the sample is small</span></h3>
+      <div class="kpis" id="deepRetentionKpis"></div>
+      <div class="card full"><h2>Weekly cohort retention</h2><div class="csub">% of each signup week's users active N weeks after signup</div><div id="cohortTable"></div></div>
+
+      <h3 class="group">Activation timing <span>Median time from signup to first action</span></h3>
+      <div class="kpis" id="deepActivation"></div>
+
+      <h3 class="group">AI planner <span>Usage depth</span></h3>
+      <div class="kpis" id="deepAi"></div>
+
+      <h3 class="group">Import pipeline <span>Quality &amp; speed (system-wide)</span></h3>
+      <div class="kpis" id="deepImportKpis"></div>
+      <div class="grid">
+        <div class="card"><h2>Success by source</h2><div class="csub">Ingest runs by origin</div><div id="impBySource"></div></div>
+        <div class="card"><h2>Success by plan</h2><div class="csub">Ingest runs by user plan</div><div id="impByPlan"></div></div>
+      </div>
+
+      <h3 class="group">Supply &amp; demand <span>Catalog depth vs what users actually save</span></h3>
+      <div class="grid">
+        <div class="card"><h2>Top destinations by demand</h2><div class="csub">User saves vs catalog depth (the gap to fill)</div><div id="demandTable"></div></div>
+        <div class="card"><h2>Catalog coverage</h2><div class="csub">Spots per city</div><div id="catalogTable"></div></div>
+        <div class="card"><h2>Top creators</h2><div class="csub">By spots contributed</div><div id="creatorsTable"></div></div>
+        <div class="card"><h2>Most-saved spots</h2><div class="csub">By user saves</div><div id="spotsTable"></div></div>
+      </div>
+
+      <h3 class="group">Monetization <span>Conversion &amp; churn</span></h3>
+      <div class="kpis" id="deepMoney"></div>
     </section>
 
     <p class="foot" id="foot"></p>

@@ -177,7 +177,11 @@ function draw(id, cfg){ if(charts[id]) charts[id].destroy(); charts[id] = new Ch
 const bar  = (labels,data) => ({ type:"bar",  data:{ labels, datasets:[{ data, backgroundColor:C.olive, hoverBackgroundColor:C.oliveD, borderRadius:3, maxBarThickness:26 }]}, options:baseOpts() });
 const line = (labels,data,color) => ({ type:"line", data:{ labels, datasets:[{ data, borderColor:color, backgroundColor:color==C.navy?"rgba(31,42,68,.10)":"rgba(155,168,58,.16)", fill:true, tension:.25, pointRadius:0, pointHoverRadius:4, pointHitRadius:12, pointHoverBackgroundColor:color, pointHoverBorderColor:"#fff", pointHoverBorderWidth:2, borderWidth:2 }]}, options:baseOpts() });
 
-function renderCharts(){ if (activeTab === "financial") renderFinancialCharts(); else renderOverviewCharts(); }
+function renderCharts(){
+  if (activeTab === "financial") renderFinancialCharts();
+  else if (activeTab === "deep") renderDeep();
+  else renderOverviewCharts();
+}
 
 function renderOverviewCharts(){
   const { start, end } = currentWindow();
@@ -238,6 +242,7 @@ function initTabs(){
       document.querySelectorAll(".tab").forEach(b => b.classList.toggle("active", b.dataset.tab === t));
       document.getElementById("pane-overview").classList.toggle("hidden", t !== "overview");
       document.getElementById("pane-financial").classList.toggle("hidden", t !== "financial");
+      document.getElementById("pane-deep").classList.toggle("hidden", t !== "deep");
       if (DATA) renderCharts();   // canvases must be visible to size correctly
     });
   });
@@ -264,11 +269,82 @@ function renderFunnel(){
   }).join("");
 }
 
+/* ---------- deep dive ---------- */
+const hrs = h => (h==null ? "-" : h+" h");
+const secs = ms => (ms==null ? "-" : (ms/1000).toFixed(1)+"s");
+function tbl(cols, rows){
+  if(!rows || !rows.length) return '<div class="csub">No data yet.</div>';
+  return '<table class="dtable"><thead><tr>'+cols.map(c=>`<th>${c}</th>`).join('')+'</tr></thead><tbody>'+
+    rows.map(r=>'<tr>'+r.map(v=>`<td>${v}</td>`).join('')+'</tr>').join('')+'</tbody></table>';
+}
+function renderCohort(cohorts){
+  const el = document.getElementById('cohortTable');
+  if(!cohorts || !cohorts.length){ el.innerHTML='<div class="csub">No cohorts yet.</div>'; return; }
+  let h='<table class="cohort"><thead><tr><th>Signup week</th><th>Users</th>'+[0,1,2,3,4,5].map(i=>`<th>W${i}</th>`).join('')+'</tr></thead><tbody>';
+  for(const c of cohorts){
+    h+=`<tr><td>${fmtDay(c.week)}</td><td>${c.size}</td>`;
+    for(let i=0;i<6;i++){
+      const v=(c.r && c.r[i]!=null)?c.r[i]:null;
+      const bg=v==null?'transparent':`rgba(123,140,44,${(v/100*0.8+0.05).toFixed(2)})`;
+      const col=(v!=null && v>55)?'#fff':'var(--ink)';
+      h+=`<td style="background:${bg};color:${col}">${v==null?'':v+'%'}</td>`;
+    }
+    h+='</tr>';
+  }
+  el.innerHTML=h+'</tbody></table>';
+}
+function renderDeep(){
+  const d=DATA.deep||{}; const r=d.retention||{}, a=d.activation||{}, ai=d.ai||{}, im=d.imports||{}, su=d.supply||{}, mo=d.money||{};
+  document.getElementById('deepRetentionKpis').innerHTML=[
+    {label:'D1 retention', val:(r.d1??'-')+'%', sub:'active next day'},
+    {label:'D7 retention', val:(r.d7??'-')+'%', sub:'active within 7 days'},
+    {label:'D30 retention', val:(r.d30??'-')+'%', sub:'active within 30 days'},
+    {label:'Trip re-open rate', val:(r.trip_reopen_pct??0)+'%', sub:'trips reopened later'},
+  ].map(tile).join('');
+  renderCohort(r.cohorts);
+  const rn=document.getElementById('retentionNote');
+  if(rn){ const n=DATA.kpis.total_users, w=(r.cohorts||[]).length;
+    rn.textContent = `Based on ${nf(n)} users across ${w} signup week${w===1?'':'s'}; read as directional while the sample is small`; }
+  document.getElementById('deepActivation').innerHTML=[
+    {label:'To first trip', val:hrs(a.median_h_to_trip), sub:'median'},
+    {label:'To first save', val:hrs(a.median_h_to_save), sub:'median'},
+    {label:'To first AI plan', val:hrs(a.median_h_to_ai), sub:'median'},
+    {label:'First save (slowest 10%)', val:hrs(a.p90_h_to_save), sub:'90% are faster'},
+  ].map(tile).join('');
+  document.getElementById('deepAi').innerHTML=[
+    {label:'Users using AI', val:nf(ai.users_with_msgs), sub:'sent a message'},
+    {label:'Avg messages / user', val:(ai.avg_user_msgs??'-'), sub:'among AI users'},
+    {label:'Total AI messages', val:nf(ai.total_user_msgs), sub:'user-sent'},
+    {label:'Hit the paywall', val:nf(ai.paywall_hit_users), sub:'quota exceeded'},
+  ].map(tile).join('');
+  document.getElementById('deepImportKpis').innerHTML=[
+    {label:'Imports', val:nf(im.total), sub:'all time'},
+    {label:'Avg spots / import', val:(im.avg_spots??'-'), sub:'extracted'},
+    {label:'Zero-spot rate', val:(im.zero_spot_pct??0)+'%', sub:'extracted nothing'},
+    {label:'Cache hit', val:(im.cache_hit_pct??0)+'%', sub:'reused result'},
+    {label:'Typical import time', val:secs(im.p50_ms), sub:'median'},
+    {label:'Slowest 10%', val:secs(im.p90_ms), sub:'90% finish faster than this'},
+  ].map(tile).join('');
+  document.getElementById('impBySource').innerHTML=tbl(['Source','Runs','Success'],(im.by_source||[]).map(x=>[x.source,nf(x.runs),x.success_pct+'%']));
+  document.getElementById('impByPlan').innerHTML=tbl(['Plan','Runs','Success'],(im.by_plan||[]).map(x=>[x.plan,nf(x.runs),x.success_pct+'%']));
+  document.getElementById('demandTable').innerHTML=tbl(['Destination','Saves','Catalog'],(su.demand_top||[]).map(x=>[x.city,nf(x.saves),nf(x.catalog)]));
+  document.getElementById('catalogTable').innerHTML=tbl(['City','Spots'],(su.catalog_top||[]).map(x=>[x.city,nf(x.spots)]));
+  document.getElementById('creatorsTable').innerHTML=tbl(['Creator','Spots','Trips'],(su.creators_top||[]).map(x=>[x.name,nf(x.spots),nf(x.trips_booked)]));
+  document.getElementById('spotsTable').innerHTML=tbl(['Spot','City','Saves'],(su.spots_top||[]).map(x=>[x.name,x.city,nf(x.saves)]));
+  document.getElementById('deepMoney').innerHTML=[
+    {label:'Free→paid conversion', val:(mo.conversion_pct??0)+'%', sub:nf(mo.paying_customers)+' paying'},
+    {label:'Cancellations', val:nf(mo.cancellations), sub:'cancelled or expired'},
+    {label:'Renewals', val:nf(mo.renewals), sub:'billing events'},
+    {label:'Install→signup', val:(mo.install_to_signup_pct==null?'-':mo.install_to_signup_pct+'%'), sub:nf(mo.rc_customers_28d)+' RC users (28d)'},
+  ].map(tile).join('');
+}
+
 /* ---------- orchestration ---------- */
 function renderAll(){
   renderKpis();
   renderContent();
   renderBilling();
+  renderDeep();
   renderCharts();
   renderFunnel();
   const g = DATA.generated_at ? new Date(DATA.generated_at).toLocaleString() : "-";
