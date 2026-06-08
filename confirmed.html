@@ -172,22 +172,21 @@ var DEEP_LINK = 'planpin://';
 
 function openApp(){
     if (isIOS || isAndroid) {
-        var t = Date.now();
-        setTimeout(function(){
-            if (Date.now() - t < 1600) { location.href = isAndroid ? STORE_AND : STORE_IOS; }
-        }, 1200);
+        // Hand off to the app. We do NOT auto-bounce to the App Store — if the app
+        // is installed it opens; if not, the user can tap the store badges below.
         location.href = DEEP_LINK;
     } else {
-        // Desktop: no app to open — point at the App Store listing.
         window.open(STORE_IOS, '_blank', 'noopener');
     }
 }
 
 document.getElementById('openBtn').addEventListener('click', function(e){ e.preventDefault(); openApp(); });
 
-// Auto-open on mobile shortly after the success state renders.
+// Auto-attempt on mobile once the success state renders. If iOS blocks the
+// automatic hand-off (no user gesture), the "Open PlanPin" button still works.
 if (isIOS || isAndroid) {
-    setTimeout(openApp, 700);
+    setTimeout(openApp, 600);
+    document.getElementById('openingNote').textContent = "If it doesn't open, tap below.";
 } else {
     document.getElementById('openingNote').textContent = 'Get it on your phone below.';
 }

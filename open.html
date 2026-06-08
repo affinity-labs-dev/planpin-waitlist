@@ -94,10 +94,8 @@ var DEEP_LINK = 'planpin://' + to.replace(/^\/+/, '');
 
 function openApp(){
     if (isIOS || isAndroid) {
-        var t = Date.now();
-        setTimeout(function(){
-            if (Date.now() - t < 1600) { location.href = isAndroid ? STORE_AND : STORE_IOS; }
-        }, 1200);
+        // Hand off to the app. No auto-bounce to the App Store — installed app opens;
+        // otherwise the store badges below are the manual fallback.
         location.href = DEEP_LINK;
     } else {
         window.open(STORE_IOS, '_blank', 'noopener');
@@ -108,6 +106,7 @@ document.getElementById('openBtn').addEventListener('click', function(e){ e.prev
 
 if (isIOS || isAndroid) {
     setTimeout(openApp, 400);
+    document.getElementById('sub').textContent = "If it doesn't open automatically, tap the button below.";
 } else {
     // Desktop: nothing to open. Show a clear "get it on your phone" state.
     document.getElementById('spinner').style.display = 'none';
