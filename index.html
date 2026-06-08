@@ -81,6 +81,34 @@ a{color:inherit;text-decoration:none}
 .badges a:hover{transform:translateY(-2px);filter:brightness(1.05)}
 .badges img{height:54px;width:auto;display:block}
 
+/* ───────── DESKTOP EMAIL CAPTURE ───────── */
+/* Desktop visitors can't tap-to-install, so we collect an email and send the
+   App Store + Google Play links. Hidden under 900px (mobile gets the badges). */
+.signup-wrap{margin-bottom:1.4rem}
+.signup{display:flex;gap:.6rem;max-width:430px}
+.signup input{flex:1;min-width:0;background:var(--white);border:1px solid var(--border);border-radius:var(--r-pill);padding:.72rem 1.2rem;font-family:var(--font-b);font-size:.95rem;color:var(--ink);outline:none;transition:border-color .2s,box-shadow .2s}
+.signup input:focus{border-color:var(--blue);box-shadow:0 0 0 3px rgba(4,48,194,.12)}
+.signup input::placeholder{color:var(--ash)}
+.signup button{flex-shrink:0;background:var(--sunglow);color:var(--ink);border:none;font-family:var(--font-b);font-weight:600;font-size:.88rem;padding:.72rem 1.4rem;border-radius:var(--r-pill);cursor:pointer;white-space:nowrap;transition:transform .15s ease,box-shadow .15s ease}
+.signup button:hover{transform:translateY(-1px);box-shadow:0 8px 20px -8px rgba(140,94,16,.5)}
+.signup button:active{transform:translateY(0)}
+.signup button:disabled{opacity:.6;cursor:default;transform:none;box-shadow:none}
+.signup-sub{font-size:.82rem;color:var(--graphite);margin:.7rem 0 0}
+.signup-msg{display:none;font-size:.92rem;font-weight:500;margin:.7rem 0 0}
+.signup-msg.show{display:block}
+.signup-msg.ok{color:var(--blue)}
+.signup-msg.err{color:#b3261e}
+.badges-or{font-size:.78rem;color:var(--ash);margin:0 0 .7rem;display:flex;align-items:center;gap:.7rem}
+.badges-or::before,.badges-or::after{content:'';flex:1;max-width:64px;height:1px;background:var(--border)}
+/* Light variant for the dark final-CTA card */
+.signup-wrap--light .signup-sub{color:rgba(255,255,255,.85)}
+.signup-wrap--light .badges-or{color:rgba(255,255,255,.7)}
+.signup-wrap--light .badges-or::before,.signup-wrap--light .badges-or::after{background:rgba(255,255,255,.3)}
+.signup-wrap--light .signup-msg.ok{color:#fff}
+.cta .signup,.cta .signup-wrap{margin-left:auto;margin-right:auto}
+.cta .signup-sub,.cta .signup-msg,.cta .badges-or{text-align:center;justify-content:center}
+@media(max-width:900px){.signup-wrap,.badges-or{display:none!important}}
+
 /* ───────── NAV ───────── */
 .nav{position:sticky;top:0;z-index:50;background:rgba(250,250,250,.78);backdrop-filter:blur(18px) saturate(1.6);-webkit-backdrop-filter:blur(18px) saturate(1.6);border-bottom:1px solid rgba(212,200,176,.5)}
 .nav-inner{max-width:1160px;margin:0 auto;padding:.7rem clamp(1.4rem,5vw,3.5rem);display:flex;align-items:center;justify-content:space-between;gap:1rem}
@@ -250,9 +278,20 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             <div class="hero-copy">
                 <h1>Turn the reels you save <span class="accent">into a real trip.</span></h1>
                 <p class="hero-sub">See a spot on Instagram or TikTok? Share the reel to PlanPin and we'll save the place, then turn your spots into a day-by-day trip.</p>
-                <div class="badges" id="download">
-                    <a href="https://apps.apple.com/us/app/planpin-ai-travel-planner/id6767165655" target="_blank" rel="noopener" aria-label="Download PlanPin on the App Store"><img src="assets/badge-appstore.png" alt="Download on the App Store" width="192" height="54"></a>
-                    <a href="https://play.google.com/store/apps/details?id=ai.affinitylabs.planpin" target="_blank" rel="noopener" aria-label="Get PlanPin on Google Play"><img src="assets/badge-playstore.png" alt="Get it on Google Play" width="190" height="54"></a>
+                <div id="download">
+                    <div class="signup-wrap">
+                        <form class="signup" data-signup>
+                            <input type="email" name="email" placeholder="Enter your email" required autocomplete="email" aria-label="Email address">
+                            <button type="submit">Email me the link</button>
+                        </form>
+                        <div class="signup-msg" data-signup-msg role="status" aria-live="polite"></div>
+                        <p class="signup-sub">We'll send App Store &amp; Google Play download links to your inbox.</p>
+                    </div>
+                    <p class="badges-or">or download directly</p>
+                    <div class="badges">
+                        <a href="https://apps.apple.com/us/app/planpin-ai-travel-planner/id6767165655" target="_blank" rel="noopener" aria-label="Download PlanPin on the App Store"><img src="assets/badge-appstore.png" alt="Download on the App Store" width="192" height="54"></a>
+                        <a href="https://play.google.com/store/apps/details?id=ai.affinitylabs.planpin" target="_blank" rel="noopener" aria-label="Get PlanPin on Google Play"><img src="assets/badge-playstore.png" alt="Get it on Google Play" width="190" height="54"></a>
+                    </div>
                 </div>
                 <p class="hero-free"><strong>Free</strong> &middot; iOS &amp; Android</p>
             </div>
@@ -376,6 +415,15 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             <div class="cta-inner">
                 <h2>Your next trip deserves better than a Google Doc.</h2>
                 <p>Download PlanPin free and turn your saved spots into a real trip today.</p>
+                <div class="signup-wrap signup-wrap--light">
+                    <form class="signup" data-signup>
+                        <input type="email" name="email" placeholder="Enter your email" required autocomplete="email" aria-label="Email address">
+                        <button type="submit">Email me the link</button>
+                    </form>
+                    <div class="signup-msg" data-signup-msg role="status" aria-live="polite"></div>
+                    <p class="signup-sub">We'll send App Store &amp; Google Play download links to your inbox.</p>
+                </div>
+                <p class="badges-or">or download directly</p>
                 <div class="badges center">
                     <a href="https://apps.apple.com/us/app/planpin-ai-travel-planner/id6767165655" target="_blank" rel="noopener" aria-label="Download PlanPin on the App Store"><img src="assets/badge-appstore.png" alt="Download on the App Store" width="192" height="54"></a>
                     <a href="https://play.google.com/store/apps/details?id=ai.affinitylabs.planpin" target="_blank" rel="noopener" aria-label="Get PlanPin on Google Play"><img src="assets/badge-playstore.png" alt="Get it on Google Play" width="190" height="54"></a>
@@ -401,7 +449,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             <a href="privacy.html">Privacy</a>
             <a href="terms.html">Terms</a>
             <a href="https://instagram.com/planpinhq" target="_blank" rel="noopener">Instagram</a>
-            <a href="mailto:hello@planpin.com">Contact</a>
+            <a href="mailto:contact@planpin.com">Contact</a>
         </div>
     </div>
 </footer>
@@ -490,6 +538,60 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             var store = a.href.indexOf('apps.apple.com') > -1 ? 'ios' : 'android';
             var loc = a.closest('.mobile-cta') ? 'sticky_bar' : (a.closest('.hero') ? 'hero' : (a.closest('.cta') ? 'final_cta' : 'other'));
             gtag('event', 'store_click', { store: store, link_location: loc });
+        });
+    });
+})();
+</script>
+<script>
+(function(){
+    // Desktop email capture: insert the address into the Supabase `app_link_requests`
+    // table via the anon key (same client-side REST pattern as support.html). An
+    // AFTER INSERT pg_net trigger then emails the App Store + Google Play links via Resend.
+    var SUPABASE_URL = 'https://jszwnlyrvpuiiifdqtyn.supabase.co';
+    var SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImpzendubHlydnB1aWlpZmRxdHluIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzU3MjQ3MDIsImV4cCI6MjA5MTMwMDcwMn0.E24UDFVtjZAisLyybTKoOlZwFokenTxyw1hcAPgJ1Wk';
+    var EMAIL_RE = /^[^@\s]+@[^@\s]+\.[^@\s]+$/;
+
+    document.querySelectorAll('form[data-signup]').forEach(function(form){
+        var wrap = form.closest('.signup-wrap');
+        var msg  = wrap ? wrap.querySelector('[data-signup-msg]') : null;
+        var input = form.querySelector('input[type="email"]');
+        var btn   = form.querySelector('button');
+
+        function setMsg(text, kind){
+            if (!msg) return;
+            msg.className = 'signup-msg show ' + kind;
+            msg.textContent = text;
+        }
+
+        form.addEventListener('submit', function(e){
+            e.preventDefault();
+            var email = (input.value || '').trim();
+            if (!EMAIL_RE.test(email)){ setMsg('Please enter a valid email address.', 'err'); input.focus(); return; }
+
+            var label = btn.textContent;
+            btn.disabled = true; btn.textContent = 'Sending…';
+            if (msg) msg.className = 'signup-msg';
+
+            fetch(SUPABASE_URL + '/rest/v1/app_link_requests', {
+                method: 'POST',
+                headers: {
+                    'apikey': SUPABASE_ANON_KEY,
+                    'Authorization': 'Bearer ' + SUPABASE_ANON_KEY,
+                    'Content-Type': 'application/json',
+                    'Prefer': 'return=minimal'
+                },
+                body: JSON.stringify({ email: email, source: 'desktop_web' })
+            })
+            .then(function(res){ if (!res.ok) throw new Error(res.status); return res; })
+            .then(function(){
+                if (typeof gtag === 'function') gtag('event', 'get_link_submit', { method: 'email' });
+                form.style.display = 'none';
+                setMsg('✓ Sent! Check ' + email + ' for your download links.', 'ok');
+            })
+            .catch(function(){
+                btn.disabled = false; btn.textContent = label;
+                setMsg('Something went wrong — please try again.', 'err');
+            });
         });
     });
 })();
