@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>PlanPin · Growth</title>
+<link rel="icon" type="image/png" href="favicon.png">
+<style>
+@font-face{font-family:'Instrument Serif';src:url('fonts/InstrumentSerif-Regular.woff2') format('woff2'),url('fonts/InstrumentSerif-Regular.ttf') format('truetype');font-weight:400;font-style:normal;font-display:swap}
+@font-face{font-family:'Bricolage Grotesque';src:url('fonts/BricolageGrotesque-Variable.woff2') format('woff2'),url('fonts/BricolageGrotesque-Variable.ttf') format('truetype');font-weight:300 800;font-style:normal;font-display:swap}
+:root{
+  --bg:#EAE3D1;--card:#FBF8F0;--border:#DED2BA;--border-soft:#E8DFC9;
+  --ink:#0D0D0D;--graphite:#5C5C5C;--ash:#6E6E6E;
+  --olive:#9BA83A;--olive-d:#7E8C2C;--line:#1F2A44;--blue:#0430C2;--gold:#FFC752;--lilac:#B5A3F3;
+  --good:#3B7A3B;--bad:#B3261E;
+  --r-card:18px;--r-soft:10px;--r-pill:999px;
+  --shadow:0 1px 2px rgba(13,13,13,.04), 0 10px 28px -16px rgba(13,13,13,.18);
+  --shadow-lg:0 2px 6px rgba(13,13,13,.06), 0 18px 40px -18px rgba(13,13,13,.26);
+  --font-h:'Instrument Serif',Georgia,serif;--font-b:'Bricolage Grotesque',-apple-system,BlinkMacSystemFont,sans-serif;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{font-family:var(--font-b);background:linear-gradient(180deg,#EFE9DA 0%,var(--bg) 260px);background-attachment:fixed;color:var(--ink);-webkit-font-smoothing:antialiased;line-height:1.5}
+.wrap{max-width:1100px;margin:0 auto;padding:1.5rem clamp(1rem,3vw,2.4rem) 3.5rem}
+
+/* Top bar */
+.topbar{position:sticky;top:0;z-index:20;display:flex;align-items:center;justify-content:space-between;gap:1rem;flex-wrap:wrap;
+  padding:.85rem 1.1rem;margin-bottom:1.4rem;background:rgba(251,248,240,.82);backdrop-filter:blur(14px) saturate(1.4);-webkit-backdrop-filter:blur(14px) saturate(1.4);border:1px solid var(--border-soft);border-radius:var(--r-card);box-shadow:var(--shadow)}
+.brand{display:flex;align-items:center;gap:.85rem}
+.brand-logo{height:32px;width:auto;display:block}
+.brand-div{width:1px;height:24px;background:var(--border)}
+.brand-tag{font-family:var(--font-h);font-weight:400;font-size:1.5rem;line-height:1;color:var(--ink)}
+.controls{display:flex;align-items:center;gap:.7rem}
+.range-sel{position:relative}
+select{appearance:none;font-family:var(--font-b);font-size:.9rem;font-weight:600;color:var(--ink);background:var(--card);border:1px solid var(--border);border-radius:var(--r-pill);padding:.55rem 2.2rem .55rem 1.1rem;min-height:44px;cursor:pointer;outline:none}
+select:focus{border-color:var(--olive-d);box-shadow:0 0 0 3px rgba(155,168,58,.18)}
+.range-sel::after{content:'';position:absolute;right:1rem;top:50%;width:.5rem;height:.5rem;border-right:2px solid var(--graphite);border-bottom:2px solid var(--graphite);transform:translateY(-65%) rotate(45deg);pointer-events:none}
+.refresh{background:none;border:1px solid var(--border);border-radius:var(--r-pill);width:44px;height:44px;cursor:pointer;font-size:1.05rem;color:var(--graphite)}
+.refresh:hover{background:var(--card)}
+button:focus-visible, select:focus-visible, input:focus-visible{outline:2px solid var(--olive-d);outline-offset:2px}
+
+/* Hero number */
+.hero{background:var(--card);border:1px solid var(--border-soft);border-radius:var(--r-card);padding:2rem 2rem 1.8rem;box-shadow:var(--shadow);margin-bottom:1.2rem;text-align:center}
+.hero .label{font-size:.78rem;color:var(--graphite);font-weight:600;letter-spacing:.06em;text-transform:uppercase;display:flex;align-items:center;justify-content:center;gap:.5rem}
+.hero .val{font-family:var(--font-h);font-size:clamp(3.4rem,9vw,5.5rem);line-height:1;margin:.4rem 0 .3rem;letter-spacing:-.02em;font-variant-numeric:tabular-nums}
+.hero .sub{font-size:.95rem;color:var(--ash)}
+
+/* KPI tiles */
+.kpis{display:grid;grid-template-columns:repeat(3,1fr);gap:.9rem;margin-bottom:1.2rem}
+@media(max-width:760px){.kpis{grid-template-columns:1fr}}
+.kpi{background:var(--card);border:1px solid var(--border-soft);border-radius:var(--r-card);padding:1.15rem 1.25rem;box-shadow:var(--shadow);transition:transform .16s ease, box-shadow .16s ease}
+.kpi:hover{transform:translateY(-3px);box-shadow:var(--shadow-lg)}
+.kpi .label{font-size:.72rem;color:var(--graphite);font-weight:600;letter-spacing:.05em;text-transform:uppercase}
+.kpi .val{font-family:var(--font-h);font-size:2.4rem;line-height:1.02;margin:.3rem 0 .2rem;letter-spacing:-.01em;font-variant-numeric:tabular-nums}
+.kpi .sub{font-size:.8rem;color:var(--ash)}
+
+/* Chart cards */
+.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1rem}
+.card{background:var(--card);border:1px solid var(--border-soft);border-radius:var(--r-card);padding:1.2rem 1.3rem 1.1rem;box-shadow:var(--shadow);transition:transform .16s ease, box-shadow .16s ease}
+.card:hover{transform:translateY(-2px);box-shadow:var(--shadow-lg)}
+.card.full{grid-column:1 / -1}
+.card h2{font-family:var(--font-h);font-weight:400;font-size:1.4rem;margin-bottom:.1rem;letter-spacing:-.01em}
+.card .csub{font-size:.78rem;color:var(--ash);margin-bottom:.8rem}
+.chart-box{position:relative;height:240px}
+.chart-box.tall{height:300px}
+@media(max-width:820px){.grid{grid-template-columns:1fr}}
+
+/* Group heading + notes + gate */
+.group{font-family:var(--font-h);font-weight:400;font-size:1.5rem;line-height:1.12;margin:1.9rem 0 .9rem;color:var(--ink)}
+.group span{display:block;font-family:var(--font-b);font-size:.8rem;font-weight:400;color:var(--ash);margin-top:.25rem}
+.foot{margin-top:1.2rem;font-size:.74rem;color:var(--ash)}
+
+.gate{position:fixed;inset:0;background:var(--bg);display:flex;align-items:center;justify-content:center;z-index:100}
+.gate-card{background:var(--card);border:1px solid var(--border-soft);border-radius:var(--r-card);padding:2.2rem 2rem;width:min(370px,90vw);text-align:center;box-shadow:var(--shadow-lg)}
+.gate-logo{height:42px;width:auto;margin:0 auto 1.1rem;display:block}
+.gate-card h2{font-family:var(--font-h);font-weight:400;font-size:1.7rem;margin-bottom:.3rem}
+.gate-card p{font-size:.85rem;color:var(--graphite);margin-bottom:1.1rem}
+.gate-card input{width:100%;border:1px solid var(--border);border-radius:var(--r-pill);padding:.7rem 1.1rem;font-family:var(--font-b);font-size:.95rem;outline:none;margin-bottom:.7rem}
+.gate-card input:focus{border-color:var(--olive-d);box-shadow:0 0 0 3px rgba(155,168,58,.18)}
+.pw-field{position:relative;margin-bottom:.7rem}
+.gate-card .pw-field input{margin-bottom:0;padding-right:2.8rem;background:#fff}
+.gate-card .pw-eye{position:absolute;right:.5rem;top:50%;transform:translateY(-50%);width:32px;height:32px;background:none;border:none;padding:0;margin:0;cursor:pointer;color:var(--graphite);display:flex;align-items:center;justify-content:center;border-radius:50%}
+.gate-card .pw-eye:hover{color:var(--ink);background:rgba(0,0,0,.05)}
+.gate-card .pw-eye svg{width:18px;height:18px}
+.gate-card button{width:100%;background:var(--olive);color:#fff;border:none;border-radius:var(--r-pill);padding:.72rem;font-family:var(--font-b);font-weight:600;font-size:.92rem;cursor:pointer}
+.gate-card button:hover{background:var(--olive-d)}
+.gate-err{color:var(--bad);font-size:.82rem;min-height:1.1rem;margin-top:.2rem}
+.hidden{display:none!important}
+#loading{text-align:center;color:var(--graphite);padding:4rem 0;font-size:.95rem}
+</style>
+</head>
+<body>
+
+<!-- Password gate -->
+<div class="gate" id="gate">
+  <div class="gate-card">
+    <img class="gate-logo" src="assets/logo.png" alt="PlanPin">
+    <h2>Growth</h2>
+    <p>PlanPin growth snapshot. Enter your access password.</p>
+    <form id="gateForm">
+      <div class="pw-field">
+        <input type="password" id="pw" placeholder="Password" autocomplete="current-password" autofocus>
+        <button type="button" class="pw-eye" id="pwEye" aria-label="Show password" aria-pressed="false"></button>
+      </div>
+      <button type="submit">View dashboard</button>
+      <div class="gate-err" id="gateErr"></div>
+    </form>
+  </div>
+</div>
+
+<div class="wrap hidden" id="app">
+  <div class="topbar">
+    <div class="brand">
+      <img class="brand-logo" src="assets/logo.png" alt="PlanPin">
+      <span class="brand-div"></span>
+      <span class="brand-tag">Growth</span>
+    </div>
+    <div class="controls">
+      <div class="range-sel">
+        <select id="range">
+          <option value="0">Lifetime</option>
+          <option value="7">Last 7 Days</option>
+          <option value="14">Last 14 Days</option>
+          <option value="30" selected>Last 30 Days</option>
+          <option value="60">Last 60 Days</option>
+          <option value="90">Last 90 Days</option>
+        </select>
+      </div>
+      <button class="refresh" id="refresh" title="Refresh">&#x21bb;</button>
+    </div>
+  </div>
+
+  <div id="loading">Loading…</div>
+
+  <div id="content" class="hidden">
+    <!-- Hero -->
+    <div class="hero">
+      <div class="label">Total users</div>
+      <div class="val" id="heroUsers">—</div>
+      <div class="sub">Real, external accounts who have signed up for PlanPin, all time.</div>
+    </div>
+
+    <h3 class="group">The headline numbers <span>Real, external, unique accounts</span></h3>
+    <div class="kpis" id="kpisUsers"></div>
+
+    <h3 class="group">Growth over time <span>Use the timeframe selector top-right</span></h3>
+    <div class="grid">
+      <div class="card full"><h2>Cumulative Users</h2><div class="csub">Running total of real external accounts</div><div class="chart-box tall"><canvas id="cCumulative"></canvas></div></div>
+      <div class="card"><h2>Daily New Users</h2><div class="csub">New accounts per day</div><div class="chart-box"><canvas id="cUsers"></canvas></div></div>
+      <div class="card"><h2>Active Users</h2><div class="csub">Distinct users with a trip, save or import that day</div><div class="chart-box"><canvas id="cActive"></canvas></div></div>
+    </div>
+
+    <p class="foot" id="foot"></p>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+<script src="max.js"></script>
+</body>
+</html>
