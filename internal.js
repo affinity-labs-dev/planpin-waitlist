@@ -26,6 +26,10 @@ function addDaysISO(iso, n){ const d = new Date(iso+"T00:00:00Z"); d.setUTCDate(
 function rangeDays(startISO, endISO){ const out=[]; let c=startISO; while(c<=endISO){ out.push(c); c=addDaysISO(c,1);} return out; }
 const fmtDay = iso => { const [,m,d]=iso.split("-"); return `${["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"][+m-1]} ${+d}`; };
 const nf = n => (n==null ? "-" : Number(n).toLocaleString("en-US"));
+// Escape attacker-controlled support-ticket fields before inserting as HTML.
+const esc = s => String(s==null ? "" : s).replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const fmtDateTime = ts => { const d = new Date(ts); return isNaN(d) ? "-" :
+  d.toLocaleDateString("en-US",{month:"short",day:"numeric"}) + " " + d.toLocaleTimeString("en-US",{hour:"2-digit",minute:"2-digit"}); };
 
 /* ---------- gate + show/hide password ---------- */
 const gate = document.getElementById("gate");
@@ -180,6 +184,7 @@ const line = (labels,data,color) => ({ type:"line", data:{ labels, datasets:[{ d
 function renderCharts(){
   if (activeTab === "financial") renderFinancialCharts();
   else if (activeTab === "deep") renderDeep();
+  else if (activeTab === "support") renderSupportChart();
   else renderOverviewCharts();
 }
 
@@ -243,6 +248,7 @@ function initTabs(){
       document.getElementById("pane-overview").classList.toggle("hidden", t !== "overview");
       document.getElementById("pane-financial").classList.toggle("hidden", t !== "financial");
       document.getElementById("pane-deep").classList.toggle("hidden", t !== "deep");
+      document.getElementById("pane-support").classList.toggle("hidden", t !== "support");
       if (DATA) renderCharts();   // canvases must be visible to size correctly
     });
   });
@@ -339,12 +345,64 @@ function renderDeep(){
   ].map(tile).join('');
 }
 
+/* ---------- support ---------- */
+function renderSupport(){
+  const su = DATA.support || {};
+  document.getElementById('kpisSupport').innerHTML = [
+    {label:'Genuine requests', val:nf(su.real),        sub:`${nf(su.total)} total received`},
+    {label:'Pending',          val:nf(su.pending),     sub:'awaiting first reply'},
+    {label:'In progress',      val:nf(su.in_progress), sub:'being handled'},
+    {label:'Resolved',         val:nf(su.resolved),    sub:'closed out'},
+    {label:'New · 7d',         val:nf(su.new_7d),      sub:`${nf(su.new_24h)} in last 24h`},
+    {label:'Spam blocked',     val:nf(su.spam),        sub:`${su.spam_pct??0}% of all submissions`},
+  ].map(tile).join('');
+  document.getElementById('supportCategory').innerHTML =
+    tbl(['Category','Tickets'], (su.by_category||[]).map(x => [esc(x.category), nf(x.total)]));
+  renderSupportRecent(su.recent || []);
+}
+
+function renderSupportRecent(rows){
+  const el = document.getElementById('supportRecent');
+  if(!rows.length){ el.innerHTML = '<div class="csub">No genuine tickets yet.</div>'; return; }
+  const badge = s => {
+    const m = { pending:['Pending','#C9A227'], in_progress:['In progress','#0430C2'], resolved:['Resolved','#3B7A3B'] };
+    const [t,c] = m[s] || [s,'#5C5C5C'];
+    return `<span style="font-weight:600;color:${c}">${esc(t)}</span>`;
+  };
+  const td = extra => `style="text-align:left${extra ? ";"+extra : ""}"`;
+  el.innerHTML = '<table class="dtable"><thead><tr>'+
+    ['When','Name','Email','Category','Status','Message'].map(c=>`<th ${td()}>${c}</th>`).join('')+
+    '</tr></thead><tbody>'+
+    rows.map(r=>'<tr>'+
+      `<td ${td("white-space:nowrap")}>${esc(fmtDateTime(r.created_at))}</td>`+
+      `<td ${td()}>${esc(r.name)}</td>`+
+      `<td ${td()}><a href="mailto:${encodeURIComponent(r.email)}" style="color:var(--blue)">${esc(r.email)}</a></td>`+
+      `<td ${td("white-space:nowrap")}>${esc(r.category)}</td>`+
+      `<td ${td()}>${badge(r.status)}</td>`+
+      `<td ${td("max-width:380px;white-space:normal")}>${esc(r.message)}</td>`+
+    '</tr>').join('')+
+    '</tbody></table>';
+}
+
+function renderSupportChart(){
+  const su = DATA.support || {};
+  const { start, end } = currentWindow();
+  const days = rangeDays(start, end);
+  const labels = days.map(fmtDay);
+  const daily = su.daily || [];
+  draw("cSupport", { type:"bar", data:{ labels, datasets:[
+    { label:"Genuine", data:align(days, daily, "real"), backgroundColor:C.olive, maxBarThickness:26 },
+    { label:"Spam",    data:align(days, daily, "spam"), backgroundColor:C.red,   maxBarThickness:26 },
+  ]}, options:legendOpts(baseOpts(true)) });
+}
+
 /* ---------- orchestration ---------- */
 function renderAll(){
   renderKpis();
   renderContent();
   renderBilling();
   renderDeep();
+  renderSupport();
   renderCharts();
   renderFunnel();
   const g = DATA.generated_at ? new Date(DATA.generated_at).toLocaleString() : "-";
