@@ -238,20 +238,29 @@ function renderFinancialCharts(){
   draw("cPaywall", bar(days.map(fmtDay), align(days, DATA.series.paywall_daily || [], "paywall_hits")));
 }
 
+// Switch tabs + keep the URL hash in sync, so links like /internal#support
+// (e.g. the "View in dashboard" link in the Slack support alert) land directly
+// on the right tab. Safe to call before DATA loads — it only re-renders charts
+// once data is present.
+function switchTab(t, updateHash = true){
+  if (!t || t === activeTab) return;
+  if (!document.querySelector(`.tab[data-tab="${t}"]`)) return;   // ignore unknown hashes
+  activeTab = t;
+  document.querySelectorAll(".tab").forEach(b => b.classList.toggle("active", b.dataset.tab === t));
+  document.getElementById("pane-overview").classList.toggle("hidden", t !== "overview");
+  document.getElementById("pane-financial").classList.toggle("hidden", t !== "financial");
+  document.getElementById("pane-deep").classList.toggle("hidden", t !== "deep");
+  document.getElementById("pane-support").classList.toggle("hidden", t !== "support");
+  if (updateHash && location.hash.slice(1) !== t) history.replaceState(null, "", "#" + t);
+  if (DATA) renderCharts();   // canvases must be visible to size correctly
+}
 function initTabs(){
   document.querySelectorAll(".tab").forEach(btn => {
-    btn.addEventListener("click", () => {
-      const t = btn.dataset.tab;
-      if (t === activeTab) return;
-      activeTab = t;
-      document.querySelectorAll(".tab").forEach(b => b.classList.toggle("active", b.dataset.tab === t));
-      document.getElementById("pane-overview").classList.toggle("hidden", t !== "overview");
-      document.getElementById("pane-financial").classList.toggle("hidden", t !== "financial");
-      document.getElementById("pane-deep").classList.toggle("hidden", t !== "deep");
-      document.getElementById("pane-support").classList.toggle("hidden", t !== "support");
-      if (DATA) renderCharts();   // canvases must be visible to size correctly
-    });
+    btn.addEventListener("click", () => switchTab(btn.dataset.tab));
   });
+  window.addEventListener("hashchange", () => switchTab(location.hash.slice(1), false));
+  // Honor an incoming deep-link (#support, #financial, …) on first load.
+  if (location.hash) switchTab(location.hash.slice(1), false);
 }
 
 /* ---------- activation ---------- */
