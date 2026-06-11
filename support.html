@@ -90,6 +90,10 @@ a{color:inherit}
 .footer-links{display:flex;justify-content:center;gap:1.5rem;margin-top:.8rem;flex-wrap:wrap}
 
 @media(max-width:780px){ .support-grid{grid-template-columns:1fr} }
+
+/* Honeypot — visually hidden but present in the DOM for bots to fill. Not
+   display:none (some bots skip those) and not tabbable/announced for humans. */
+.hp{position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden}
 </style>
 <!-- Meta Pixel Code -->
 <script>
@@ -147,6 +151,11 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             </div>
 
             <form id="supportForm" novalidate>
+                <!-- Honeypot: real users never see or fill this; bots auto-fill every field. -->
+                <div class="hp" aria-hidden="true">
+                    <label for="company">Company (leave this empty)</label>
+                    <input type="text" id="company" name="company" tabindex="-1" autocomplete="off">
+                </div>
                 <div class="field">
                     <label for="name">Name</label>
                     <input type="text" id="name" name="name" placeholder="Your full name" required>
@@ -213,6 +222,18 @@ const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBh
 const form = document.getElementById('supportForm');
 const submitBtn = form.querySelector('.btn-submit');
 
+// Bot traps. The honeypot catches bots that fill every field; the timing check
+// catches bots that submit faster than any human could read + type the form.
+// On a hit we show the success UI but never POST, so bots don't learn they failed.
+const formReadyAt = Date.now();
+const MIN_FILL_MS = 2500;
+function looksLikeBot() {
+    const hp = document.getElementById('company');
+    if (hp && hp.value.trim() !== '') return true;
+    if (Date.now() - formReadyAt < MIN_FILL_MS) return true;
+    return false;
+}
+
 function fallbackMailto(name, email, category, message) {
     const subject = '[PlanPin Support] ' + category + ': ' + name;
     const body = 'Name: ' + name + '\nEmail: ' + email + '\nCategory: ' + category + '\n\nMessage:\n' + message;
@@ -228,6 +249,13 @@ form.addEventListener('submit', async function(e) {
 
     if (!name || !email || !category || !message) {
         alert('Please fill in all fields before sending.');
+        return;
+    }
+
+    // Silently absorb bots: show success, skip the insert entirely.
+    if (looksLikeBot()) {
+        form.style.display = 'none';
+        document.getElementById('successMsg').classList.add('show');
         return;
     }
 
