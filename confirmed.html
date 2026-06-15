@@ -149,6 +149,10 @@ const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBh
     try {
         var token = new URLSearchParams(location.search).get('t');
         if (!token) return;
+        // A token means the visitor clicked the confirm link in their email — a real
+        // confirmation event. Fire it to GA4 + Meta (CompleteRegistration) for funnel/attribution.
+        if (typeof gtag === 'function') gtag('event', 'email_confirmed');
+        if (typeof fbq === 'function') fbq('track', 'CompleteRegistration', { content_name: 'email_confirmed' });
         fetch(SUPABASE_URL + '/rest/v1/email_confirmations', {
             method: 'POST',
             headers: {
@@ -180,7 +184,21 @@ function openApp(){
     }
 }
 
-document.getElementById('openBtn').addEventListener('click', function(e){ e.preventDefault(); openApp(); });
+document.getElementById('openBtn').addEventListener('click', function(e){
+    e.preventDefault();
+    if (typeof gtag === 'function') gtag('event', 'app_open_click', { link_location: 'confirmed_page' });
+    if (typeof fbq === 'function') fbq('trackCustom', 'AppOpenClick', { location: 'confirmed_page' });
+    openApp();
+});
+
+// GA4 + Meta Pixel: track store-badge clicks on this page.
+document.querySelectorAll('a[href*="apps.apple.com"], a[href*="play.google.com"]').forEach(function(a){
+    a.addEventListener('click', function(){
+        var store = a.href.indexOf('apps.apple.com') > -1 ? 'ios' : 'android';
+        if (typeof gtag === 'function') gtag('event', 'store_click', { store: store, link_location: 'confirmed_page' });
+        if (typeof fbq === 'function') fbq('trackCustom', 'StoreClick', { store: store, location: 'confirmed_page' });
+    });
+});
 
 // Auto-attempt on mobile once the success state renders. If iOS blocks the
 // automatic hand-off (no user gesture), the "Open PlanPin" button still works.

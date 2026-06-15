@@ -276,6 +276,8 @@ form.addEventListener('submit', async function(e) {
 
         if (!res.ok) throw new Error('HTTP ' + res.status);
 
+        if (typeof gtag === 'function') gtag('event', 'support_submit', { category: category });
+        if (typeof fbq === 'function') fbq('track', 'Contact', { content_category: category });
         form.style.display = 'none';
         document.getElementById('successMsg').classList.add('show');
     } catch (err) {

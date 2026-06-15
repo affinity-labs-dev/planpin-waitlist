@@ -563,13 +563,13 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         if (heroBadges) new IntersectionObserver(function(e){ heroOut = !e[0].isIntersecting; update(); }, { rootMargin: '-8px' }).observe(heroBadges);
         if (finalCta) new IntersectionObserver(function(e){ atFinal = e[0].isIntersecting; update(); }).observe(finalCta);
     }
-    // GA4: track store-badge clicks (which store + where on the page).
+    // GA4 + Meta Pixel: track store-badge clicks (which store + where on the page).
     document.querySelectorAll('a[href*="apps.apple.com"], a[href*="play.google.com"]').forEach(function(a){
         a.addEventListener('click', function(){
-            if (typeof gtag !== 'function') return;
             var store = a.href.indexOf('apps.apple.com') > -1 ? 'ios' : 'android';
             var loc = a.closest('.mobile-cta') ? 'sticky_bar' : (a.closest('.hero') ? 'hero' : (a.closest('.cta') ? 'final_cta' : 'other'));
-            gtag('event', 'store_click', { store: store, link_location: loc });
+            if (typeof gtag === 'function') gtag('event', 'store_click', { store: store, link_location: loc });
+            if (typeof fbq === 'function') fbq('trackCustom', 'StoreClick', { store: store, location: loc });
         });
     });
 })();
@@ -617,12 +617,13 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             .then(function(res){ if (!res.ok) throw new Error(res.status); return res; })
             .then(function(){
                 if (typeof gtag === 'function') gtag('event', 'get_link_submit', { method: 'email' });
+                if (typeof fbq === 'function') fbq('track', 'Lead', { content_name: 'app_link_email' });
                 form.style.display = 'none';
                 setMsg('✓ Sent! Check ' + email + ' for your download links.', 'ok');
             })
             .catch(function(){
                 btn.disabled = false; btn.textContent = label;
-                setMsg('Something went wrong — please try again.', 'err');
+                setMsg('Something went wrong. Please try again.', 'err');
             });
         });
     });

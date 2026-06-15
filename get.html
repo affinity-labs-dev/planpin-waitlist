@@ -53,6 +53,23 @@ h1{font-family:var(--font-h);font-weight:400;font-size:clamp(1.8rem,5vw,2.4rem);
 .home-link{margin-top:1.8rem;font-size:.82rem;color:var(--ash);text-decoration:none}
 .home-link:hover{color:var(--blue)}
 </style>
+<!-- Meta Pixel Code -->
+<script>
+!function(f,b,e,v,n,t,s)
+{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];
+s.parentNode.insertBefore(t,s)}(window, document,'script',
+'https://connect.facebook.net/en_US/fbevents.js');
+fbq('init', '1156313820005622');
+fbq('track', 'PageView');
+</script>
+<noscript><img height="1" width="1" style="display:none"
+src="https://www.facebook.com/tr?id=1156313820005622&ev=PageView&noscript=1"
+/></noscript>
+<!-- End Meta Pixel Code -->
 </head>
 <body>
 <!-- Google Tag Manager (noscript) -->
@@ -85,9 +102,11 @@ var isAndroid = /Android/.test(ua);
 
 if (isIOS) {
     try { gtag('event', 'store_redirect', { store: 'ios' }); } catch (e) {}
+    try { fbq('trackCustom', 'StoreRedirect', { store: 'ios' }); } catch (e) {}
     location.replace(STORE_IOS);
 } else if (isAndroid) {
     try { gtag('event', 'store_redirect', { store: 'android' }); } catch (e) {}
+    try { fbq('trackCustom', 'StoreRedirect', { store: 'android' }); } catch (e) {}
     location.replace(STORE_AND);
 } else {
     // Desktop / unknown: no store to send them to. Show a "grab it on your phone" state.
@@ -95,6 +114,15 @@ if (isIOS) {
     document.getElementById('title').textContent = 'Get PlanPin on your phone';
     document.getElementById('sub').textContent = 'PlanPin is an iOS and Android app. Grab it below.';
 }
+
+// GA4 + Meta Pixel: track manual store-badge clicks (the desktop / fallback path).
+document.querySelectorAll('a[href*="apps.apple.com"], a[href*="play.google.com"]').forEach(function(a){
+    a.addEventListener('click', function(){
+        var store = a.href.indexOf('apps.apple.com') > -1 ? 'ios' : 'android';
+        if (typeof gtag === 'function') gtag('event', 'store_click', { store: store, link_location: 'get_page' });
+        if (typeof fbq === 'function') fbq('trackCustom', 'StoreClick', { store: store, location: 'get_page' });
+    });
+});
 </script>
 
 </body>

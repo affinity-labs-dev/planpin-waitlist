@@ -56,6 +56,23 @@ h1{font-family:var(--font-h);font-weight:400;font-size:clamp(1.8rem,5vw,2.4rem);
 .home-link{margin-top:1.8rem;font-size:.82rem;color:var(--ash);text-decoration:none}
 .home-link:hover{color:var(--blue)}
 </style>
+<!-- Meta Pixel Code -->
+<script>
+!function(f,b,e,v,n,t,s)
+{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];
+s.parentNode.insertBefore(t,s)}(window, document,'script',
+'https://connect.facebook.net/en_US/fbevents.js');
+fbq('init', '1156313820005622');
+fbq('track', 'PageView');
+</script>
+<noscript><img height="1" width="1" style="display:none"
+src="https://www.facebook.com/tr?id=1156313820005622&ev=PageView&noscript=1"
+/></noscript>
+<!-- End Meta Pixel Code -->
 </head>
 <body>
 <!-- Google Tag Manager (noscript) -->
@@ -102,7 +119,21 @@ function openApp(){
     }
 }
 
-document.getElementById('openBtn').addEventListener('click', function(e){ e.preventDefault(); openApp(); });
+document.getElementById('openBtn').addEventListener('click', function(e){
+    e.preventDefault();
+    if (typeof gtag === 'function') gtag('event', 'app_open_click', { link_location: 'open_page' });
+    if (typeof fbq === 'function') fbq('trackCustom', 'AppOpenClick', { location: 'open_page' });
+    openApp();
+});
+
+// GA4 + Meta Pixel: track manual store-badge clicks (fallback when the app isn't installed).
+document.querySelectorAll('a[href*="apps.apple.com"], a[href*="play.google.com"]').forEach(function(a){
+    a.addEventListener('click', function(){
+        var store = a.href.indexOf('apps.apple.com') > -1 ? 'ios' : 'android';
+        if (typeof gtag === 'function') gtag('event', 'store_click', { store: store, link_location: 'open_page' });
+        if (typeof fbq === 'function') fbq('trackCustom', 'StoreClick', { store: store, location: 'open_page' });
+    });
+});
 
 if (isIOS || isAndroid) {
     setTimeout(openApp, 400);
