@@ -283,9 +283,9 @@ document.querySelectorAll('.included .ic').forEach(function(el){ el.innerHTML = 
 
 /* plan catalogue. `pkg` is the RevenueCat package identifier; `trial` is the offer type. */
 var PLANS = [
-  { id:'pro_week',  pkg:'PlanPinProWeb_weektrial',  name:'PlanPin Pro', sub:'10 credits a week · 7 days free',      amt:'$49.99', per:'$0.14 / day', was:'', trial:'free', badge:'' },
-  { id:'pro_month', pkg:'PlanPinProWeb_monthtrial', name:'PlanPin Pro', sub:'10 credits a week · $3.99 first month', amt:'$49.99', per:'$0.14 / day', was:'', trial:'paid', badge:'' },
-  { id:'max',       pkg:'PlanPinMaxWeb',            name:'PlanPin Max', sub:'Unlimited credits',                     amt:'$79.99', per:'$0.22 / day', was:'', trial:'none', badge:'Best value' }
+  { id:'pro_week',  pkg:'PlanPinProWeb_weektrial',  kw:'weektrial',  name:'PlanPin Pro', sub:'10 credits a week · 7 days free',      amt:'$49.99', per:'$0.14 / day', was:'', trial:'free', badge:'' },
+  { id:'pro_month', pkg:'PlanPinProWeb_monthtrial', kw:'monthtrial', name:'PlanPin Pro', sub:'10 credits a week · $3.99 first month', amt:'$49.99', per:'$0.14 / day', was:'', trial:'paid', badge:'' },
+  { id:'max',       pkg:'PlanPinMaxWeb',            kw:'max',        name:'PlanPin Max', sub:'Unlimited credits',                     amt:'$79.99', per:'$0.22 / day', was:'', trial:'none', badge:'Best value' }
 ];
 var selected = 'pro_week';
 
@@ -362,21 +362,24 @@ document.getElementById('checkoutBtn').addEventListener('click', async function(
     var offs = [];
     if(offerings.current) offs.push(offerings.current);
     if(offerings.all) Object.keys(offerings.all).forEach(function(k){ if(offerings.all[k]!==offerings.current) offs.push(offerings.all[k]); });
-    function findPkg(id){
+    function prodId(pk){ var pr=pk.webBillingProduct||pk.rcBillingProduct||pk.product||{}; return pr.identifier||''; }
+    function findPkg(id, kw){
+      // 1) exact match on package id or product id
       for(var i=0;i<offs.length;i++){
         var o=offs[i];
         if(o.packagesById && o.packagesById[id]) return o.packagesById[id];
         var ap=o.availablePackages||[];
-        for(var j=0;j<ap.length;j++){
-          var pk=ap[j];
-          if(pk.identifier===id) return pk;
-          var prod=pk.webBillingProduct||pk.rcBillingProduct||pk.product||{};
-          if(prod.identifier===id) return pk;
-        }
+        for(var j=0;j<ap.length;j++){ var pk=ap[j];
+          if(pk.identifier===id || prodId(pk)===id) return pk; }
       }
+      // 2) fallback: case-insensitive keyword contained in package or product id
+      if(kw){ var k=kw.toLowerCase();
+        for(var a=0;a<offs.length;a++){ var ap2=offs[a].availablePackages||[];
+          for(var b=0;b<ap2.length;b++){ var pk2=ap2[b];
+            if((pk2.identifier||'').toLowerCase().indexOf(k)>-1 || prodId(pk2).toLowerCase().indexOf(k)>-1) return pk2; } } }
       return null;
     }
-    var pkg = findPkg(p.pkg);
+    var pkg = findPkg(p.pkg, p.kw);
     if(!pkg){
       try{ console.warn('[checkout] package "'+p.pkg+'" not found. Available offerings/packages:',
         offs.map(function(o){ return { offering:o.identifier, packages:(o.availablePackages||[]).map(function(x){ var pr=x.webBillingProduct||x.rcBillingProduct||x.product||{}; return { package:x.identifier, product:pr.identifier }; }) }; }),
