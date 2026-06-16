@@ -73,6 +73,11 @@ a{color:inherit;text-decoration:none}
 .btn-pill{display:inline-flex;align-items:center;justify-content:center;background:var(--sunglow);color:var(--ink);font-family:var(--font-b);font-weight:600;font-size:.85rem;padding:.6rem 1.2rem;border-radius:var(--r-pill);white-space:nowrap;transition:transform .15s ease,box-shadow .15s ease}
 .btn-pill:hover{transform:translateY(-1px);box-shadow:0 8px 20px -8px rgba(140,94,16,.5)}
 .btn-pill:active{transform:translateY(0)}
+/* Primary hero "Get started" CTA (larger, drives the onboarding funnel) */
+.btn-lg{font-size:1rem;padding:.95rem 1.9rem}
+.hero-start{margin-bottom:.55rem}
+.start-sub{font-size:.82rem;color:var(--graphite);margin:0 0 1.5rem}
+.start-sub strong{color:var(--ink);font-weight:700}
 
 /* Store badges */
 .badges{display:flex;gap:.8rem;flex-wrap:wrap}
@@ -296,6 +301,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                 <h1>Turn the reels you save <span class="accent">into a real trip.</span></h1>
                 <p class="hero-sub">See a spot on Instagram or TikTok? Share the reel to PlanPin and we'll save the place, then turn your spots into a day-by-day trip.</p>
                 <div id="download">
+                    <a class="btn-pill btn-lg hero-start" href="start.html">Get started - build my trip</a>
+                    <p class="start-sub">Answer a few quick questions and see your personalized plan. <strong>Free to start.</strong></p>
                     <div class="signup-wrap">
                         <form class="signup" data-signup>
                             <input type="email" name="email" placeholder="Enter your email" required autocomplete="email" aria-label="Email address">
@@ -415,7 +422,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                 <h2 class="max-name">Max Zaharenkov</h2>
                 <p class="max-subtitle">Travel Creator &amp; PlanPin Co-Founder</p>
                 <blockquote class="max-quote">"I've saved thousands of places from reels over the years, and lost half of them in my camera roll. I built PlanPin so that never happens again: save a spot from a reel and it's there when you travel, not buried in a folder you forget to open."</blockquote>
-                <p class="max-bio">With 4M+ followers and 400+ travel videos from 70+ destinations, Max built PlanPin so the places you save from reels never get lost before your trip.</p>
+                <p class="max-bio">With 6M+ followers and 400+ travel videos from 70+ destinations, Max built PlanPin so the places you save from reels never get lost before your trip.</p>
                 <div class="max-socials">
                     <a href="https://instagram.com/maxzaharenkov" target="_blank" rel="noopener">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
@@ -437,7 +444,9 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <div class="cta-card reveal">
             <div class="cta-inner">
                 <h2>Your next trip deserves better than a Google Doc.</h2>
-                <p>Download PlanPin free and turn your saved spots into a real trip today.</p>
+                <p>Answer a few questions and see exactly how PlanPin turns your saved spots into a real trip.</p>
+                <a class="btn-pill btn-lg hero-start" href="start.html">Get started - build my trip</a>
+                <p class="start-sub" style="color:rgba(255,255,255,.85)">Free to start. Takes about a minute.</p>
                 <div class="signup-wrap signup-wrap--light">
                     <form class="signup" data-signup>
                         <input type="email" name="email" placeholder="Enter your email" required autocomplete="email" aria-label="Email address">
@@ -570,6 +579,14 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             var loc = a.closest('.mobile-cta') ? 'sticky_bar' : (a.closest('.hero') ? 'hero' : (a.closest('.cta') ? 'final_cta' : 'other'));
             if (typeof gtag === 'function') gtag('event', 'store_click', { store: store, link_location: loc });
             if (typeof fbq === 'function') fbq('trackCustom', 'StoreClick', { store: store, location: loc });
+        });
+    });
+    // Track entry into the onboarding funnel ("Get started" CTAs -> start.html).
+    document.querySelectorAll('a[href="start.html"]').forEach(function(a){
+        a.addEventListener('click', function(){
+            var loc = a.closest('.cta') ? 'final_cta' : (a.closest('.hero') ? 'hero' : 'other');
+            if (typeof gtag === 'function') gtag('event', 'get_started_click', { link_location: loc });
+            if (typeof fbq === 'function') fbq('trackCustom', 'GetStartedClick', { location: loc });
         });
     });
 })();

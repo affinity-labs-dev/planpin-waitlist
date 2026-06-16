@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-KJLH8R58');</script>
+<!-- End Google Tag Manager -->
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-PWNKJ941XQ"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-PWNKJ941XQ');
+</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>You're in · PlanPin</title>
+<meta name="description" content="Your PlanPin plan is active. Open the app to unlock everything on your phone.">
+<meta name="robots" content="noindex,follow">
+<meta name="apple-itunes-app" content="app-id=6767165655">
+<meta name="theme-color" content="#FAFAFA">
+<link rel="canonical" href="https://planpin.com/unlocked.html">
+<link rel="icon" type="image/png" href="favicon.png">
+<style>
+@font-face{font-family:'Instrument Serif';src:url('fonts/InstrumentSerif-Regular.woff2') format('woff2'),url('fonts/InstrumentSerif-Regular.ttf') format('truetype');font-weight:400;font-style:normal;font-display:swap}
+@font-face{font-family:'Bricolage Grotesque';src:url('fonts/BricolageGrotesque-Variable.woff2') format('woff2'),url('fonts/BricolageGrotesque-Variable.ttf') format('truetype');font-weight:300 800;font-style:normal;font-display:swap}
+
+:root{
+    --blue:#0430C2;--sunglow:#FFC752;--gold:#FFDD63;--ink:#0D0D0D;--ash:#8A8A8A;
+    --canvas:#FAFAFA;--white:#FFFFFF;--lilac:#B5A3F3;--amber-ink:#8C5E10;--graphite:#5C5C5C;--border:#D4C8B0;
+    --r-soft:8px;--r-card:16px;--r-sheet:24px;--r-pill:999px;
+    --font-h:'Instrument Serif',Georgia,serif;--font-b:'Bricolage Grotesque',-apple-system,BlinkMacSystemFont,sans-serif;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;overflow-x:hidden}
+body{font-family:var(--font-b);background:var(--canvas);color:var(--ink);-webkit-font-smoothing:antialiased;line-height:1.65}
+a{color:inherit}
+
+.container{max-width:1080px;margin:0 auto;padding:0 clamp(1.4rem,5vw,2.5rem);width:100%}
+
+.nav{position:sticky;top:0;z-index:50;background:rgba(250,250,250,.82);backdrop-filter:blur(16px) saturate(1.5);-webkit-backdrop-filter:blur(16px) saturate(1.5);border-bottom:1px solid rgba(212,200,176,.5)}
+.nav-inner{max-width:1080px;margin:0 auto;padding:.7rem clamp(1.4rem,5vw,2.5rem);display:flex;align-items:center;justify-content:space-between;gap:1rem}
+.nav-logo{height:32px;width:auto;display:block}
+
+.wrap{display:flex;justify-content:center;padding:clamp(2.5rem,7vw,5rem) 0}
+.confirm-card{background:var(--white);border:1px solid var(--border);border-radius:var(--r-card);padding:clamp(2rem,5vw,3rem) clamp(1.6rem,4vw,2.6rem);max-width:520px;width:100%;text-align:center}
+
+.check{width:64px;height:64px;border-radius:var(--r-pill);background:rgba(4,48,194,.08);display:inline-flex;align-items:center;justify-content:center;margin-bottom:1.4rem}
+.check svg{width:30px;height:30px;color:var(--blue)}
+
+.confirm-card h1{font-family:var(--font-h);font-weight:400;font-size:clamp(2.2rem,6vw,3rem);letter-spacing:-.01em;line-height:1.04;margin-bottom:.6rem}
+.confirm-card .lead{font-size:1rem;color:var(--graphite);margin-bottom:1.4rem}
+.confirm-card .step-note{font-size:.9rem;color:var(--ash);margin-top:.4rem}
+
+.btn-pill{display:inline-block;width:100%;background:var(--sunglow);color:var(--ink);font-family:var(--font-b);font-weight:600;font-size:1.05rem;border:none;border-radius:var(--r-pill);padding:1rem 2rem;cursor:pointer;text-decoration:none;transition:transform .1s,box-shadow .15s}
+.btn-pill:hover{box-shadow:0 8px 20px -8px rgba(140,94,16,.5);transform:translateY(-1px)}
+.btn-pill:active{transform:translateY(0)}
+
+.qr{margin:1.6rem auto .4rem;width:148px;height:148px;border:1px solid var(--border);border-radius:var(--r-card);padding:8px;background:#fff;display:none}
+.qr.show{display:block}
+.qr img{width:100%;height:100%;display:block}
+.qr-note{font-size:.82rem;color:var(--ash);display:none}
+.qr-note.show{display:block}
+
+.divider{display:flex;align-items:center;gap:.7rem;color:var(--ash);font-size:.78rem;margin:1.6rem 0 1rem}
+.divider::before,.divider::after{content:'';flex:1;height:1px;background:var(--border)}
+
+.badges{display:flex;justify-content:center;gap:.8rem;flex-wrap:wrap}
+.badges img{height:46px;width:auto;display:block}
+
+.footer{padding:3rem 0;text-align:center;border-top:1px solid var(--border);font-size:.78rem;color:var(--ash);margin-top:1rem}
+.footer a{color:var(--graphite);text-decoration:none;transition:color .2s}
+.footer a:hover{color:var(--blue)}
+.footer-brand{font-family:var(--font-h);font-size:1.1rem;color:var(--ink);margin-bottom:.3rem}
+.footer-links{display:flex;justify-content:center;gap:1.5rem;margin-top:.8rem;flex-wrap:wrap}
+</style>
+<!-- Meta Pixel Code -->
+<script>
+!function(f,b,e,v,n,t,s)
+{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];
+s.parentNode.insertBefore(t,s)}(window, document,'script',
+'https://connect.facebook.net/en_US/fbevents.js');
+fbq('init', '1156313820005622');
+fbq('track', 'PageView');
+</script>
+<noscript><img height="1" width="1" style="display:none"
+src="https://www.facebook.com/tr?id=1156313820005622&ev=PageView&noscript=1"
+/></noscript>
+<!-- End Meta Pixel Code -->
+</head>
+<body>
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-KJLH8R58"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+
+<header class="nav">
+    <div class="nav-inner">
+        <a href="/" aria-label="PlanPin home"><img class="nav-logo" src="assets/logo.png" alt="PlanPin" width="372" height="120"></a>
+    </div>
+</header>
+
+<div class="container">
+    <div class="wrap">
+        <section class="confirm-card">
+            <div class="check">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+            </div>
+            <h1>You're in</h1>
+            <p class="lead">Your PlanPin plan is active. One tap to unlock everything on your phone.</p>
+
+            <a href="#" id="openBtn" class="btn-pill">Open PlanPin</a>
+            <p class="step-note" id="stepNote">If it doesn't open, scan the code below on your phone.</p>
+
+            <div class="qr" id="qr"><img id="qrImg" alt="Scan to open PlanPin on your phone"></div>
+            <p class="qr-note" id="qrNote">Scan with your phone camera to unlock PlanPin.</p>
+
+            <div class="divider">or get the app</div>
+            <div class="badges">
+                <a href="https://apps.apple.com/us/app/planpin-ai-travel-planner/id6767165655" target="_blank" rel="noopener">
+                    <img src="assets/badge-appstore.png" alt="Download on the App Store">
+                </a>
+                <a href="https://play.google.com/store/apps/details?id=ai.affinitylabs.planpin" target="_blank" rel="noopener">
+                    <img src="assets/badge-playstore.png" alt="Get it on Google Play">
+                </a>
+            </div>
+        </section>
+    </div>
+
+    <footer class="footer">
+        <div class="footer-brand">PlanPin</div>
+        <p>By Affinity Labs</p>
+        <div class="footer-links">
+            <a href="/">Home</a>
+            <a href="support.html">Support</a>
+            <a href="privacy.html">Privacy</a>
+            <a href="terms.html">Terms</a>
+        </div>
+    </footer>
+</div>
+
+<script>
+(function(){
+'use strict';
+var params = new URLSearchParams(location.search);
+
+/* === Redemption handoff =================================================
+   RevenueCat Web Billing returns a one-tap "redemption link" after a web
+   purchase that opens the app and grants the entitlement. We accept it via
+   ?redeem=<url> (URL-encoded). If absent we fall back to the planpin://
+   deep link, then to the App Store / Play badges below. */
+var redeem = params.get('redeem');
+var STORE_IOS = 'https://apps.apple.com/us/app/planpin-ai-travel-planner/id6767165655';
+var ua = navigator.userAgent || '';
+var isIOS = /iPad|iPhone|iPod/.test(ua) || (ua.indexOf('Macintosh')>-1 && 'ontouchend' in document);
+var isAndroid = /Android/.test(ua);
+var DEEP_LINK = redeem || 'planpin://';
+
+/* === Purchase conversion ===============================================
+   RevenueCat redirects here on success; treat a success/redeem param as the
+   purchase event. Server-side RC webhooks remain the source of truth for
+   redeemed_in_app / trial_to_paid, but firing here closes the web funnel. */
+var isSuccess = params.get('status')==='success' || params.get('purchase')==='1' || !!redeem;
+if(isSuccess){
+    var plan = params.get('plan') || 'unknown';
+    var value = parseFloat(params.get('value')) || undefined;
+    try { if(typeof gtag==='function') gtag('event','purchase',{ transaction_id: params.get('tx')||undefined, value:value, currency:'USD', items:[{item_id:plan,item_name:'PlanPin '+plan}] }); } catch(e){}
+    try { if(typeof fbq==='function'){ fbq('track','StartTrial',{value:value,currency:'USD'}); fbq('track','Subscribe',{value:value,currency:'USD'}); } } catch(e){}
+}
+
+/* QR for the redemption / deep link (handy when paying on desktop) */
+if(redeem && !isIOS && !isAndroid){
+    var qr = document.getElementById('qr');
+    var img = document.getElementById('qrImg');
+    img.onload = function(){ qr.classList.add('show'); document.getElementById('qrNote').classList.add('show'); };
+    img.onerror = function(){ /* QR is a convenience only */ };
+    img.src = 'https://api.qrserver.com/v1/create-qr-code/?size=180x180&margin=0&data=' + encodeURIComponent(redeem);
+}
+
+function openApp(){
+    if(isIOS || isAndroid){ location.href = DEEP_LINK; }
+    else if(redeem){ location.href = DEEP_LINK; }
+    else { window.open(STORE_IOS, '_blank', 'noopener'); }
+}
+document.getElementById('openBtn').addEventListener('click', function(e){
+    e.preventDefault();
+    if(typeof gtag==='function') gtag('event','app_open_click',{ link_location:'unlocked_page' });
+    if(typeof fbq==='function') fbq('trackCustom','AppOpenClick',{ location:'unlocked_page' });
+    openApp();
+});
+
+/* store-badge click tracking (matches the rest of the site) */
+document.querySelectorAll('a[href*="apps.apple.com"], a[href*="play.google.com"]').forEach(function(a){
+    a.addEventListener('click', function(){
+        var store = a.href.indexOf('apps.apple.com')>-1 ? 'ios' : 'android';
+        if(typeof gtag==='function') gtag('event','store_click',{ store:store, link_location:'unlocked_page' });
+        if(typeof fbq==='function') fbq('trackCustom','StoreClick',{ store:store, location:'unlocked_page' });
+    });
+});
+
+/* auto-attempt the hand-off on mobile */
+if(isIOS || isAndroid){
+    setTimeout(openApp, 600);
+} else {
+    document.getElementById('stepNote').textContent = redeem ? 'Scan the code below on your phone to unlock PlanPin.' : 'Get PlanPin on your phone below.';
+}
+})();
+</script>
+</body>
+</html>
