@@ -179,6 +179,16 @@ input[type=range]::-moz-range-thumb{width:28px;height:28px;border-radius:50%;bac
 .stat .num{font-family:var(--font-h);font-size:clamp(3rem,12vw,4.6rem);color:var(--blue);line-height:1}
 .stat .lbl{font-size:1.05rem;color:var(--graphite);margin-top:.2rem;max-width:24ch}
 
+/* ── feature demo (dispersed "how it works") ── */
+.feature{flex:1;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center}
+.feature-eyebrow{margin-bottom:.9rem}
+.feature-frame{width:100%;display:flex;justify-content:center;margin-bottom:1.2rem;min-height:200px}
+.feature-media{display:block;width:auto;max-width:248px;max-height:min(52vh,460px)}
+.feature-video{object-fit:cover;border-radius:var(--r-sheet);background:#0d0d0d;box-shadow:0 18px 50px -18px rgba(0,0,0,.45)}
+.feature-img{max-width:268px;filter:drop-shadow(0 16px 34px rgba(0,0,0,.18))}
+.feature-title{font-family:var(--font-h);font-weight:400;font-size:clamp(1.8rem,5.2vw,2.5rem);line-height:1.1;letter-spacing:-.01em;max-width:18ch}
+.feature-body{font-size:1rem;color:var(--graphite);margin-top:.6rem;max-width:32ch}
+
 /* ── testimonial ── */
 .testi{background:var(--white);border:1px solid var(--border);border-radius:var(--r-card);padding:1.1rem 1.2rem;text-align:left;max-width:440px;width:100%;margin:0 auto .8rem}
 .testi .stars{color:var(--marigold);font-size:.95rem;margin-bottom:.4rem}
@@ -383,6 +393,12 @@ var STEPS = [
       ['youtube','YouTube'],['google','Google','@badge-googleMaps.png'],['notes','Notes','@badge-notes.png'],
       ['pinterest','Pinterest'],['blogs','Blogs'],['screenshots','Screenshots'],['friends',"Friends' recs"] ] },
 
+  // feature demo (dispersed): anchored right after the inspiration-sources question
+  { type:'feature', key:'feature_reel', eyebrow:'How it works', media:'video',
+    src:'assets/onboarding/video/reel.mp4', poster:'assets/onboarding/video/reel.jpg',
+    title:'DM us a reel, we save every spot.',
+    body:'Send any Instagram or TikTok reel to PlanPin and we pull the places straight onto your map.' },
+
   { type:'choice', key:'saved_unused', phase:'Your travel style', title:'How many saved spots have you never actually used?', options:[
       ['handful','A handful'],['dozens','Dozens'],['hundreds','Hundreds'],['lost','Honestly, lost count'] ] },
 
@@ -394,6 +410,12 @@ var STEPS = [
   { type:'choice', key:'plan_method', phase:'Your travel style', title:'How do you plan trips today?', options:[
       ['notes','Notes app','method-notes'],['sheets','Spreadsheets','method-sheets'],['maps','Google Maps pins','method-maps'],
       ['screenshots','Screenshots','method-screenshots'],['wing','I wing it','method-wing'] ] },
+
+  // feature demo (dispersed): anchored right after the "how you plan today" question (Notes app)
+  { type:'feature', key:'feature_note', eyebrow:'How it works', media:'img',
+    src:'assets/onboarding/save-from-anywhere.png',
+    title:'Drop in a note, get the places out.',
+    body:"Paste a list or a friend's recommendations and PlanPin turns the text into saved spots." },
 
   { type:'recap', phase:'Your starting point' },
 
@@ -537,6 +559,11 @@ if(!state.sid) state.sid = genId();
 var idx = clampIdx(state.idx || 0);
 var posted = state.posted || false;
 
+// autoplay guards: respect reduced-motion and Save-Data / 2g (cold paid mobile traffic)
+var REDUCE_MOTION = false, SAVE_DATA = false;
+try { REDUCE_MOTION = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches; } catch(e){}
+try { var c=navigator.connection; SAVE_DATA = !!(c && (c.saveData || /(^|-)2g$/.test(c.effectiveType||''))); } catch(e){}
+
 var stage = document.getElementById('stage');
 var topbar = document.getElementById('topbar');
 var fill = document.getElementById('progressFill');
@@ -569,6 +596,13 @@ function show(n, instant){
   var screens = stage.children;
   for(var i=0;i<screens.length;i++) screens[i].classList.toggle('active', i===n);
   var step = STEPS[n];
+  // pause + reset every feature video first: display:none does NOT stop HTML5 video decoding
+  var vids = stage.querySelectorAll('.feature-video');
+  for(var vi=0; vi<vids.length; vi++){ try{ vids[vi].pause(); vids[vi].currentTime = 0; }catch(e){} }
+  if(step.type==='feature' && step.media==='video' && !REDUCE_MOTION && !SAVE_DATA){
+    var vid = screens[n].querySelector('.feature-video');
+    if(vid){ try{ vid.muted = true; var pp = vid.play(); if(pp && pp.catch) pp.catch(function(){}); }catch(e){} }
+  }
   topbar.classList.toggle('hidden', step.type==='intro');
   backBtn.disabled = (n<=0) || step.type==='loader' || step.type==='results';
   fill.style.width = Math.round((n/(TOTAL-1))*100) + '%';
@@ -593,6 +627,7 @@ function buildScreen(step,i){
     case 'founder':     s.innerHTML = founderHTML() + actionsHTML('Keep going',false); break;
     case 'stat':        s.innerHTML = statHTML(step) + actionsHTML('Continue',false); break;
     case 'testimonial': s.innerHTML = testiHTML(step) + actionsHTML('Continue',false); break;
+    case 'feature':     s.innerHTML = featureHTML(step) + actionsHTML('Continue',false); break;
     case 'compare':     s.innerHTML = compareShellHTML(step) + actionsHTML('Show my blockers',false); break;
     case 'diagnosis':   s.innerHTML = diagnosisShellHTML(step) + actionsHTML('Show me the fix',false); break;
     case 'email':       s.innerHTML = emailHTML(step); break;
@@ -685,6 +720,21 @@ function testiHTML(step){
   }).join('');
   return '<div class="testi-wrap"><div class="q-head" style="text-align:center"><span class="eyebrow q-phase">Why travelers switch</span>'+
     '<h1 class="q-title">You are in good company.</h1></div>'+ head + cards + '</div>';
+}
+function featureHTML(step){
+  var media;
+  if(step.media==='video'){
+    media = '<video class="feature-media feature-video" muted loop playsinline webkit-playsinline preload="none"'+
+      ' poster="'+step.poster+'" aria-label="'+step.title+'"><source src="'+step.src+'" type="video/mp4"></video>';
+  } else {
+    media = '<img class="feature-media feature-img" src="'+step.src+'" alt="'+step.title+'" loading="lazy" onerror="this.style.display=\'none\'">';
+  }
+  return '<div class="feature">'+
+    (step.eyebrow?'<span class="eyebrow feature-eyebrow">'+step.eyebrow+'</span>':'')+
+    '<div class="feature-frame">'+media+'</div>'+
+    '<h1 class="feature-title">'+step.title+'</h1>'+
+    (step.body?'<p class="feature-body">'+step.body+'</p>':'')+
+    '</div>';
 }
 function compareShellHTML(step){
   return headHTML({phase:step.phase, title:'Today vs with PlanPin', sub:'Same saved spots. Very different trip.'})+
