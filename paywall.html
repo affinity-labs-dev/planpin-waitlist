@@ -264,6 +264,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
    handle the redemption universal link (redeemWebPurchase) with associated
    domains, so tapping the link unlocks the installed app. */
 var RC_WEB_API_KEY = 'rcb_BRuNHpVtVMXGwirAgGYhILLvwBNo';   // RevenueCat Web Billing public key
+var WEB_OFFERING_ID = 'Web offering';   // sell web products from THIS offering, regardless of which offering is Current (the mobile app uses Current)
 var _rc = null, _RC = null;
 function rcConfigured(){ return !!RC_WEB_API_KEY; }
 async function rcInstance(){
@@ -284,9 +285,9 @@ document.querySelectorAll('.included .ic').forEach(function(el){ el.innerHTML = 
 
 /* plan catalogue. `pkg` is the RevenueCat package identifier; `trial` is the offer type. */
 var PLANS = [
-  { id:'pro_week',  pkg:'PlanPinProWeb_weektrial',  kw:'weektrial',  name:'PlanPin Pro', sub:'10 credits a week · 7 days free',      amt:'$49.99', per:'$0.14 / day', was:'', trial:'free', badge:'' },
-  { id:'pro_month', pkg:'PlanPinProWeb_monthtrial', kw:'monthtrial', name:'PlanPin Pro', sub:'10 credits a week · $3.99 first month', amt:'$49.99', per:'$0.14 / day', was:'', trial:'paid', badge:'' },
-  { id:'max',       pkg:'PlanPinMaxWeb',            kw:'max',        name:'PlanPin Max', sub:'Unlimited credits',                     amt:'$79.99', per:'$0.22 / day', was:'', trial:'none', badge:'Best value' }
+  { id:'pro_week',  pkg:'Annual Week trial',  kw:'week',  name:'PlanPin Pro', sub:'10 credits a week · 7 days free',      amt:'$49.99', per:'$0.14 / day', was:'', trial:'free', badge:'' },
+  { id:'pro_month', pkg:'Annual Month trial', kw:'month', name:'PlanPin Pro', sub:'10 credits a week · $3.99 first month', amt:'$49.99', per:'$0.14 / day', was:'', trial:'paid', badge:'' },
+  { id:'max',       pkg:'Annual Max',         kw:'max',   name:'PlanPin Max', sub:'Unlimited credits',                     amt:'$79.99', per:'$0.22 / day', was:'', trial:'none', badge:'Best value' }
 ];
 var selected = 'pro_week';
 
@@ -357,12 +358,15 @@ document.getElementById('checkoutBtn').addEventListener('click', async function(
   try {
     var rc = await rcInstance();
     var offerings = await rc.getOfferings();
-    // Search the current offering first, then every offering in `all`. Match by
-    // package identifier OR the underlying product identifier (the ids you set in
-    // RevenueCat may be product ids, and these are distinct from package ids).
+    // Sell from the "Web offering" first (the mobile app owns the Current offering),
+    // then fall back to current + every other offering. Match by package id OR the
+    // underlying product identifier (package id != product id in RevenueCat).
+    var webOff = (offerings.all && offerings.all[WEB_OFFERING_ID]) || null;
     var offs = [];
-    if(offerings.current) offs.push(offerings.current);
-    if(offerings.all) Object.keys(offerings.all).forEach(function(k){ if(offerings.all[k]!==offerings.current) offs.push(offerings.all[k]); });
+    if(webOff) offs.push(webOff);
+    if(offerings.current && offerings.current!==webOff) offs.push(offerings.current);
+    if(offerings.all) Object.keys(offerings.all).forEach(function(k){ var o=offerings.all[k]; if(o!==webOff && o!==offerings.current) offs.push(o); });
+    if(!webOff){ try{ console.warn('[checkout] offering "'+WEB_OFFERING_ID+'" not returned by getOfferings(); using current+all instead. Offerings available:', Object.keys(offerings.all||{})); }catch(_){ } }
     function prodId(pk){ var pr=pk.webBillingProduct||pk.rcBillingProduct||pk.product||{}; return pr.identifier||''; }
     function findPkg(id, kw){
       // 1) exact match on package id or product id
