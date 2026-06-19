@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-KJLH8R58');</script>
+<!-- End Google Tag Manager -->
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-PWNKJ941XQ"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-PWNKJ941XQ');
+</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Unlock your plan · PlanPin</title>
+<meta name="description" content="Start your PlanPin plan and turn the spots you save into a day-by-day trip.">
+<meta name="robots" content="noindex,follow">
+<meta name="theme-color" content="#FAFAFA">
+<link rel="canonical" href="https://planpin.com/paywall.html">
+<link rel="icon" type="image/png" href="favicon.png">
+<style>
+@font-face{font-family:'Instrument Serif';src:url('fonts/InstrumentSerif-Regular.woff2') format('woff2'),url('fonts/InstrumentSerif-Regular.ttf') format('truetype');font-weight:400;font-style:normal;font-display:swap}
+@font-face{font-family:'Bricolage Grotesque';src:url('fonts/BricolageGrotesque-Variable.woff2') format('woff2'),url('fonts/BricolageGrotesque-Variable.ttf') format('truetype');font-weight:300 800;font-style:normal;font-display:swap}
+
+:root{
+    --blue:#0430C2;--sunglow:#FFC752;--gold:#FFDD63;
+    --ink:#0D0D0D;--black:#080808;--ash:#8A8A8A;
+    --canvas:#FAFAFA;--white:#FFFFFF;
+    --sky:#B5DEF0;--blush:#EDAEB3;--peach:#EEA381;--cream:#FFE9D6;--marigold:#FFD06E;--lilac:#B5A3F3;--mist:#B8CFE1;
+    --amber-ink:#8C5E10;--graphite:#5C5C5C;--border:#D4C8B0;
+    --r-soft:8px;--r-card:16px;--r-sheet:24px;--r-pill:999px;
+    --font-h:'Instrument Serif',Georgia,serif;--font-b:'Bricolage Grotesque',-apple-system,BlinkMacSystemFont,sans-serif;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;overflow-x:hidden}
+body{font-family:var(--font-b);background:var(--canvas);color:var(--ink);-webkit-font-smoothing:antialiased;line-height:1.6}
+a{color:inherit;text-decoration:none}
+img{max-width:100%}
+.eyebrow{font-size:.74rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--blue)}
+
+.nav{position:sticky;top:0;z-index:50;background:rgba(250,250,250,.86);backdrop-filter:blur(16px) saturate(1.5);-webkit-backdrop-filter:blur(16px) saturate(1.5);border-bottom:1px solid rgba(212,200,176,.5)}
+.nav-inner{max-width:620px;margin:0 auto;padding:.7rem clamp(1.1rem,5vw,1.6rem);display:flex;align-items:center;justify-content:space-between;gap:1rem}
+.nav-logo{height:30px;width:auto;display:block}
+.back-link{display:inline-flex;align-items:center;gap:.4rem;font-size:.85rem;color:var(--graphite);font-weight:600;transition:color .2s}
+.back-link:hover{color:var(--blue)}
+.back-link svg{width:15px;height:15px}
+
+.wrap{max-width:620px;margin:0 auto;padding:clamp(1.6rem,5vw,2.6rem) clamp(1.1rem,5vw,1.6rem) calc(2.5rem + env(safe-area-inset-bottom))}
+
+.pw-head{text-align:center;margin-bottom:1.6rem}
+.pw-head .stars{color:var(--marigold);font-size:1.05rem;letter-spacing:.06em}
+.pw-head h1{font-family:var(--font-h);font-weight:400;font-size:clamp(2.1rem,6vw,3rem);line-height:1.06;letter-spacing:-.01em;margin:.5rem 0 .5rem}
+.pw-head h1 .accent{color:var(--blue)}
+.pw-head p{font-size:1rem;color:var(--graphite);max-width:36ch;margin:0 auto}
+
+/* included list */
+.included{background:var(--white);border:1px solid var(--border);border-radius:var(--r-card);padding:1.2rem 1.3rem;margin-bottom:1.6rem}
+.included li{list-style:none;display:flex;gap:.65rem;align-items:flex-start;padding:.35rem 0;font-size:.95rem}
+.included li .ic{flex-shrink:0;width:22px;height:22px;border-radius:var(--r-pill);background:rgba(4,48,194,.08);display:inline-flex;align-items:center;justify-content:center}
+.included li .ic svg{width:13px;height:13px;color:var(--blue)}
+
+/* plan ladder */
+.plans{display:flex;flex-direction:column;gap:.7rem;margin-bottom:.4rem}
+.plan{position:relative;display:flex;align-items:center;gap:.9rem;background:var(--white);border:1.5px solid var(--border);border-radius:var(--r-card);padding:1.05rem 1.2rem;cursor:pointer;transition:border-color .15s,background .15s}
+.plan:hover{border-color:var(--blue)}
+.plan.selected{border-color:var(--blue);background:rgba(4,48,194,.05)}
+.plan .radio{flex-shrink:0;width:22px;height:22px;border-radius:50%;border:2px solid var(--border);display:inline-flex;align-items:center;justify-content:center;transition:all .15s}
+.plan.selected .radio{border-color:var(--blue)}
+.plan.selected .radio::after{content:'';width:11px;height:11px;border-radius:50%;background:var(--blue)}
+.plan-main{flex:1}
+.plan-name{font-weight:600;font-size:1rem}
+.plan-sub{font-size:.82rem;color:var(--graphite);margin-top:.15rem}
+.plan-price{text-align:right;flex-shrink:0}
+.plan-price .amt{font-weight:700;font-size:1.05rem}
+.plan-price .per{font-size:.78rem;color:var(--ash)}
+.plan-price .was{font-size:.78rem;color:var(--ash);text-decoration:line-through;display:block}
+.badge{position:absolute;top:-10px;right:14px;background:var(--blue);color:#fff;font-size:.66rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:.25rem .6rem;border-radius:var(--r-pill)}
+
+.cta-wrap{margin-top:1.4rem}
+.btn-pill{display:flex;align-items:center;justify-content:center;width:100%;background:var(--sunglow);color:var(--ink);font-family:var(--font-b);font-weight:600;font-size:1.05rem;padding:1.05rem 1.4rem;border:none;border-radius:var(--r-pill);cursor:pointer;transition:transform .15s ease,box-shadow .15s ease}
+.btn-pill:hover{transform:translateY(-1px);box-shadow:0 8px 20px -8px rgba(140,94,16,.5)}
+.btn-pill:active{transform:translateY(0)}
+.renew-note{font-size:.8rem;color:var(--graphite);text-align:center;margin-top:.9rem;line-height:1.5}
+.checkout-err{display:none;font-size:.85rem;color:#b3261e;text-align:center;margin-top:.7rem;line-height:1.5}
+.checkout-err.show{display:block}
+.checkout-err a{color:var(--blue);font-weight:600;text-decoration:underline}
+.credit-note{font-size:.82rem;color:var(--graphite);text-align:center;line-height:1.5;margin:.9rem auto 0;max-width:42ch}
+.trust-row{display:flex;justify-content:center;gap:1.3rem;margin-top:1.1rem;flex-wrap:wrap}
+.trust-row span{font-size:.8rem;color:var(--graphite);display:inline-flex;align-items:center;gap:.4rem}
+.trust-row svg{width:14px;height:14px;color:var(--blue)}
+
+.exit-link{display:block;text-align:center;margin-top:1.4rem;font-size:.88rem;font-weight:600;color:var(--graphite);text-decoration:underline;cursor:pointer}
+.exit-link:hover{color:var(--blue)}
+
+/* social proof */
+.social{text-align:center;margin:2.4rem 0 .5rem}
+.social .num{font-family:var(--font-h);font-size:2.2rem;color:var(--blue);line-height:1}
+.social .lbl{font-size:.9rem;color:var(--graphite);margin-top:.2rem}
+.testi{background:var(--white);border:1px solid var(--border);border-radius:var(--r-card);padding:1rem 1.2rem;text-align:left;margin-top:1rem}
+.testi p{font-size:.95rem;line-height:1.5}
+.testi .who{font-size:.8rem;color:var(--ash);font-weight:600;margin-top:.5rem}
+
+/* FAQ */
+.faq{margin-top:2.4rem}
+.faq h2{font-family:var(--font-h);font-weight:400;font-size:1.7rem;text-align:center;margin-bottom:1rem}
+.faq details{background:var(--white);border:1px solid var(--border);border-radius:var(--r-card);padding:.2rem 1.1rem;margin-bottom:.6rem}
+.faq summary{cursor:pointer;list-style:none;padding:.9rem 0;font-weight:600;font-size:.95rem;display:flex;justify-content:space-between;align-items:center;gap:1rem}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:'+';color:var(--blue);font-size:1.3rem;font-weight:400;line-height:1}
+.faq details[open] summary::after{content:'\2013'}
+.faq details p{font-size:.92rem;color:var(--graphite);line-height:1.55;padding:0 0 1rem}
+
+.footer{padding:3rem 0;text-align:center;border-top:1px solid var(--border);font-size:.78rem;color:var(--ash);margin-top:2.5rem}
+.footer a{color:var(--graphite);transition:color .2s}
+.footer a:hover{color:var(--blue)}
+.footer-brand{font-family:var(--font-h);font-size:1.1rem;color:var(--ink);margin-bottom:.3rem}
+.footer-links{display:flex;justify-content:center;gap:1.5rem;margin-top:.8rem;flex-wrap:wrap}
+
+/* exit modal */
+.modal{position:fixed;inset:0;z-index:200;display:none;align-items:center;justify-content:center;padding:1.2rem}
+.modal.open{display:flex}
+.modal-bg{position:absolute;inset:0;background:rgba(8,8,8,.55);backdrop-filter:blur(4px)}
+.modal-card{position:relative;background:var(--white);border-radius:var(--r-sheet);padding:1.8rem 1.6rem;max-width:400px;width:100%;text-align:center}
+.modal-card h3{font-family:var(--font-h);font-weight:400;font-size:1.7rem;margin-bottom:.4rem}
+.modal-card p{font-size:.95rem;color:var(--graphite);margin-bottom:1.1rem}
+.modal-card input{width:100%;background:var(--canvas);border:1.5px solid var(--border);border-radius:var(--r-card);padding:.85rem 1rem;font-family:var(--font-b);font-size:1rem;outline:none;margin-bottom:.7rem}
+.modal-card input:focus{border-color:var(--blue);box-shadow:0 0 0 3px rgba(4,48,194,.12)}
+.modal-close{position:absolute;top:.7rem;right:1rem;background:none;border:none;font-size:1.6rem;color:var(--ash);cursor:pointer;line-height:1}
+.modal-msg{font-size:.9rem;font-weight:600;color:var(--blue);display:none;margin-top:.3rem}
+.modal-msg.show{display:block}
+</style>
+<!-- Meta Pixel Code -->
+<script>
+!function(f,b,e,v,n,t,s)
+{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];
+s.parentNode.insertBefore(t,s)}(window, document,'script',
+'https://connect.facebook.net/en_US/fbevents.js');
+fbq('init', '1156313820005622');
+fbq('track', 'PageView');
+</script>
+<noscript><img height="1" width="1" style="display:none"
+src="https://www.facebook.com/tr?id=1156313820005622&ev=PageView&noscript=1"
+/></noscript>
+<!-- End Meta Pixel Code -->
+<!-- PostHog (EU region) -->
+<script>
+window.PH_KEY='phc_AkDgALLoqo9ou5qvc5QESHXWf5bExQiXw569huG7qnjt';
+!function(t,e){var o,n,p,r;e.__SV||(window.posthog && window.posthog.__loaded)||(window.posthog=e,e._i=[],e.init=function(i,s,a){function g(t,e){var o=e.split(".");2==o.length&&(t=t[o[0]],e=o[1]),t[e]=function(){t.push([e].concat(Array.prototype.slice.call(arguments,0)))}}(p=t.createElement("script")).type="text/javascript",p.crossOrigin="anonymous",p.async=!0,p.src=s.api_host.replace(".i.posthog.com","-assets.i.posthog.com")+"/static/array.js",(r=t.getElementsByTagName("script")[0]).parentNode.insertBefore(p,r);var u=e;for(void 0!==a?u=e[a]=[]:a="posthog",u.people=u.people||[],u.toString=function(t){var e="posthog";return"posthog"!==a&&(e+="."+a),t||(e+=" (stub)"),e},u.people.toString=function(){return u.toString(1)+".people (stub)"},o="rn sn init kn Qr wn Cn yn capture calculateEventProperties Rn register register_once register_for_session unregister unregister_for_session Fn getFeatureFlag getFeatureFlagPayload getFeatureFlagResult isFeatureEnabled reloadFeatureFlags updateFlags updateEarlyAccessFeatureEnrollment getEarlyAccessFeatures on onFeatureFlags onSurveysLoaded onSessionId getSurveys getActiveMatchingSurveys renderSurvey displaySurvey cancelPendingSurvey canRenderSurvey canRenderSurveyAsync An identify setPersonProperties unsetPersonProperties group resetGroups setPersonPropertiesForFlags resetPersonPropertiesForFlags setGroupPropertiesForFlags resetGroupPropertiesForFlags reset setIdentity clearIdentity get_distinct_id getGroups get_session_id get_session_replay_url alias set_config startSessionRecording stopSessionRecording sessionRecordingStarted captureException addExceptionStep captureLog startExceptionAutocapture stopExceptionAutocapture loadToolbar get_property getSessionProperty On En createPersonProfile setInternalOrTestUser Ln gn $n opt_in_capturing opt_out_capturing has_opted_in_capturing has_opted_out_capturing get_explicit_consent_status is_capturing clear_opt_in_out_capturing In debug Kr Pn getPageViewId captureTraceFeedback captureTraceMetric vn".split(" "),n=0;n<o.length;n++)g(u,o[n]);e._i.push([i,s,a])},e.__SV=1)}(document,window.posthog||[]);
+posthog.init(window.PH_KEY,{api_host:'https://eu.i.posthog.com',defaults:'2026-05-30',person_profiles:'identified_only'});
+</script>
+<!-- End PostHog -->
+</head>
+<body>
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-KJLH8R58"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+<div style="position:sticky;top:0;z-index:9999;background:#b3261e;color:#fff;text-align:center;font:600 13px/1.5 system-ui,sans-serif;padding:6px 12px">⚠ SANDBOX TEST PAGE — Stripe test mode. Use card 4242 4242 4242 4242. No real charges. Not for customers.</div>
+
+<header class="nav">
+    <div class="nav-inner">
+        <a href="/" aria-label="PlanPin home"><img class="nav-logo" src="assets/logo.png" alt="PlanPin" width="372" height="120"></a>
+        <a href="start.html" class="back-link">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+            Back to my plan
+        </a>
+    </div>
+</header>
+
+<main class="wrap">
+    <div class="pw-head">
+        <div class="stars">★★★★★</div>
+        <h1 id="pwTitle">Your plan is ready. <span class="accent">Unlock it.</span></h1>
+        <p>Turn the spots you save into a day-by-day trip, built around how you travel.</p>
+    </div>
+
+    <ul class="included">
+        <li><span class="ic" aria-hidden="true"></span> Import spots from reels, TikTok, Google and notes into one place</li>
+        <li><span class="ic" aria-hidden="true"></span> AI builds your day-by-day itinerary in seconds</li>
+        <li><span class="ic" aria-hidden="true"></span> Every spot on a live map, grouped by day</li>
+        <li><span class="ic" aria-hidden="true"></span> Shared trips so your crew plans together</li>
+    </ul>
+
+    <div class="plans" id="plans" role="radiogroup" aria-label="Choose a plan">
+        <!-- plans injected -->
+    </div>
+    <p class="credit-note">Credits are yours to spend however suits your week - import from reels, TikTok, Google and notes, or build full day-by-day itineraries. Pro includes 10 a week; Max is unlimited.</p>
+
+    <div class="cta-wrap">
+        <button class="btn-pill" id="checkoutBtn">Start my free trial</button>
+        <p class="renew-note" id="renewNote"></p>
+        <div class="checkout-err" id="checkoutErr"></div>
+        <div class="trust-row">
+            <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg> Secure checkout</span>
+            <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Cancel anytime</span>
+        </div>
+        <a class="exit-link" id="exitLink">Not ready? Email me my plan instead</a>
+    </div>
+
+    <div class="social">
+        <div class="num">50,000+</div>
+        <div class="lbl">trips planned with PlanPin</div>
+        <div class="testi"><p>"Paid on the web, opened the app and my whole Japan plan was already there. Worth it."</p><div class="who">Daniel K.</div></div>
+    </div>
+
+    <section class="faq">
+        <h2>Good to know</h2>
+        <details><summary>How does the free trial work?</summary><p>Pro starts with a 7 day free trial. You will not be charged until the trial ends, and you can cancel anytime before then at no cost.</p></details>
+        <details><summary>What is a credit?</summary><p>A credit is one action in PlanPin - import a batch of spots from a reel, TikTok, Google or your notes, or generate a full day-by-day itinerary. Pro gives you 10 credits a week; Max is unlimited.</p></details>
+        <details><summary>Pro or Max?</summary><p>Pro (10 credits a week) is plenty for planning a trip or two at a time. Max removes the weekly limit - best if you are always importing and planning. Max includes everything in Pro.</p></details>
+        <details><summary>What happens after I pay on the web?</summary><p>You will get a one tap link to open PlanPin on your phone with everything already unlocked. The link also lands in your inbox, so you can open it whenever you install the app.</p></details>
+        <details><summary>What does it renew at?</summary><p id="faqRenew">After any trial, your plan renews at the price shown above until you cancel. No hidden increases, and you can cancel anytime from your account.</p></details>
+        <details><summary>Can I use it on iPhone and Android?</summary><p>Yes. Your subscription works across iOS and Android with a single account, so your saved spots and trips stay in sync.</p></details>
+    </section>
+
+    <footer class="footer">
+        <div class="footer-brand">PlanPin</div>
+        <p>By Affinity Labs</p>
+        <div class="footer-links">
+            <a href="/">Home</a>
+            <a href="support.html">Support</a>
+            <a href="privacy.html">Privacy</a>
+            <a href="terms.html">Terms</a>
+        </div>
+    </footer>
+</main>
+
+<!-- Exit-intent lead capture (ethical: no fake discount, just save the plan) -->
+<div class="modal" id="exitModal" aria-hidden="true">
+    <div class="modal-bg" data-exitclose></div>
+    <div class="modal-card" role="dialog" aria-modal="true" aria-label="Email me my plan">
+        <button class="modal-close" data-exitclose aria-label="Close">&times;</button>
+        <h3>Want your plan for later?</h3>
+        <p>Drop your email and we will send your personalized plan so you can pick it up anytime.</p>
+        <input type="email" id="exitEmail" placeholder="you@email.com" autocomplete="email" inputmode="email" aria-label="Email address">
+        <button class="btn-pill" id="exitSend">Email me my plan</button>
+        <div class="modal-msg" id="exitMsg">Sent. Check your inbox.</div>
+    </div>
+</div>
+
+<script>
+(function(){
+'use strict';
+
+/* === RevenueCat Web Billing — embedded Web SDK ===========================
+   The app runs on RevenueCat, so web purchases go through RevenueCat Web
+   Billing (Stripe under the hood): one subscriber + entitlements, and the
+   purchase hands off into the app via a redemption link.
+
+   Package identifiers live on each PLAN below (p.pkg). The redemption link is
+   only returned for ANONYMOUS web purchases, so we configure with an anonymous
+   app-user-id and send the quiz session id as purchase metadata for attribution.
+
+   App-side requirement (the only non-web piece): the iOS/Android app must
+   handle the redemption universal link (redeemWebPurchase) with associated
+   domains, so tapping the link unlocks the installed app. */
+var RC_WEB_API_KEY = 'rcb_sb_HEbAznKTndstPlXHARpuwJpXp';   // RevenueCat Web Billing SANDBOX key — test mode only, NOT for customers
+var WEB_OFFERING_ID = 'Web offering';   // sell web products from THIS offering, regardless of which offering is Current (the mobile app uses Current)
+var _rc = null, _RC = null;
+function rcConfigured(){ return !!RC_WEB_API_KEY; }
+async function rcInstance(){
+  if(_rc) return _rc;
+  var mod = await import('https://cdn.jsdelivr.net/npm/@revenuecat/purchases-js@1/+esm');
+  _RC = mod.Purchases;
+  _rc = _RC.configure({ apiKey: RC_WEB_API_KEY, appUserId: _RC.generateRevenueCatAnonymousAppUserId() });
+  return _rc;
+}
+
+var SUPABASE_URL = 'https://jszwnlyrvpuiiifdqtyn.supabase.co';
+var SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImpzendubHlydnB1aWlpZmRxdHluIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzU3MjQ3MDIsImV4cCI6MjA5MTMwMDcwMn0.E24UDFVtjZAisLyybTKoOlZwFokenTxyw1hcAPgJ1Wk';
+var EMAIL_RE = /^[^@\s]+@[^@\s]+\.[^@\s]+$/;
+var CHECK = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>';
+
+// fill the included-list check icons
+document.querySelectorAll('.included .ic').forEach(function(el){ el.innerHTML = CHECK; });
+
+/* plan catalogue. `pkg` is the RevenueCat package identifier; `trial` is the offer type. */
+var PLANS = [
+  { id:'pro_week',  pkg:'Annual Week trial',  kw:'week',  name:'PlanPin Pro', sub:'10 credits a week · 7 days free',      amt:'$49.99', per:'$0.14 / day', was:'', trial:'free', badge:'' },
+  { id:'pro_month', pkg:'Annual Month trial', kw:'month', name:'PlanPin Pro', sub:'10 credits a week · $3.99 first month', amt:'$49.99', per:'$0.14 / day', was:'', trial:'paid', badge:'' },
+  { id:'max',       pkg:'Annual Max',         kw:'max',   name:'PlanPin Max', sub:'Unlimited credits',                     amt:'$79.99', per:'$0.22 / day', was:'', trial:'none', badge:'Best value' }
+];
+var selected = 'pro_week';
+
+var CITY = { japan:'Tokyo', italy:'Rome', france:'Paris', thailand:'Bangkok', spain:'Barcelona', usa:'New York' };
+
+/* personalize headline from the quiz answers */
+var onb = readOnb();
+if(onb && onb.answers){
+  var city = CITY[onb.answers.region];
+  if(city){ document.getElementById('pwTitle').innerHTML = 'Your <span class="accent">'+city+'</span> plan is ready.'; }
+}
+
+/* render plans */
+var plansEl = document.getElementById('plans');
+plansEl.innerHTML = PLANS.map(function(p){
+  return '<div class="plan'+(p.id===selected?' selected':'')+'" data-plan="'+p.id+'" role="radio" aria-checked="'+(p.id===selected)+'" tabindex="0">'+
+    (p.badge?'<span class="badge">'+p.badge+'</span>':'')+
+    '<span class="radio" aria-hidden="true"></span>'+
+    '<div class="plan-main"><div class="plan-name">'+p.name+'</div><div class="plan-sub">'+p.sub+'</div></div>'+
+    '<div class="plan-price">'+(p.was?'<span class="was">'+p.was+'</span>':'')+'<span class="amt">'+p.amt+'</span> <span class="per">'+p.per+'</span></div>'+
+  '</div>';
+}).join('');
+
+function selectPlan(id){
+  selected = id;
+  plansEl.querySelectorAll('.plan').forEach(function(el){
+    var on = el.getAttribute('data-plan')===id;
+    el.classList.toggle('selected', on); el.setAttribute('aria-checked', on);
+  });
+  var p = planById(id);
+  document.getElementById('checkoutBtn').textContent =
+    p.trial==='free' ? 'Start my 7-day free trial' : (p.trial==='paid' ? 'Start for $3.99' : 'Get PlanPin Max');
+  document.getElementById('renewNote').textContent =
+    p.trial==='free' ? '7 days free, then '+p.amt+' per year. Cancel anytime before the trial ends and you pay nothing.'
+    : p.trial==='paid' ? '$3.99 for your first month, then '+p.amt+' per year. Cancel anytime.'
+    : p.amt+' per year, billed today. Cancel anytime.';
+  document.getElementById('faqRenew').textContent = 'After any trial, your plan renews at '+p.amt+' per year until you cancel. No hidden increases, and you can cancel anytime from your account.';
+}
+plansEl.querySelectorAll('.plan').forEach(function(el){
+  el.addEventListener('click', function(){ selectPlan(el.getAttribute('data-plan')); });
+  el.addEventListener('keydown', function(e){ if(e.key===' '||e.key==='Enter'){ e.preventDefault(); selectPlan(el.getAttribute('data-plan')); } });
+});
+selectPlan('pro_week');
+
+/* view_paywall on load */
+fire('view_paywall', {content_name:'paywall'}, 'ViewContent', {content_name:'paywall'});
+
+/* checkout — embedded RevenueCat Web SDK, with an app-store fallback until live */
+document.getElementById('checkoutBtn').addEventListener('click', async function(){
+  var p = planById(selected);
+  var email = (onb && onb.answers && onb.answers.email) ? onb.answers.email : '';
+  var appUserId = (onb && onb.sid) ? onb.sid : '';
+  fire('begin_checkout', {plan:selected, value:priceNum(p.amt), currency:'USD'}, 'InitiateCheckout', {content_name:'plan_'+selected, value:priceNum(p.amt), currency:'USD'});
+
+  var errEl = document.getElementById('checkoutErr');
+  if(errEl){ errEl.classList.remove('show'); errEl.textContent=''; }
+
+  if(!rcConfigured()){ location.href = 'get.html'; return; }   // not wired yet -> hand off to the app
+
+  // RevenueCat / Stripe checkout needs a secure (https) context - it cannot run from a local file://.
+  if(location.protocol === 'file:'){
+    if(errEl){ errEl.innerHTML = 'Checkout runs on the live https site, not a local file. <a href="get.html">Get the app instead</a>.'; errEl.classList.add('show'); }
+    return;
+  }
+
+  var btn = this, label = btn.textContent;
+  btn.disabled = true; btn.textContent = 'Opening secure checkout…';
+  try {
+    var rc = await rcInstance();
+    var offerings = await rc.getOfferings();
+    // Sell from the "Web offering" first (the mobile app owns the Current offering),
+    // then fall back to current + every other offering. Match by package id OR the
+    // underlying product identifier (package id != product id in RevenueCat).
+    var webOff = (offerings.all && offerings.all[WEB_OFFERING_ID]) || null;
+    var offs = [];
+    if(webOff) offs.push(webOff);
+    if(offerings.current && offerings.current!==webOff) offs.push(offerings.current);
+    if(offerings.all) Object.keys(offerings.all).forEach(function(k){ var o=offerings.all[k]; if(o!==webOff && o!==offerings.current) offs.push(o); });
+    if(!webOff){ try{ console.warn('[checkout] offering "'+WEB_OFFERING_ID+'" not returned by getOfferings(); using current+all instead. Offerings available:', Object.keys(offerings.all||{})); }catch(_){ } }
+    function prodId(pk){ var pr=pk.webBillingProduct||pk.rcBillingProduct||pk.product||{}; return pr.identifier||''; }
+    function findPkg(id, kw){
+      // 1) exact match on package id or product id
+      for(var i=0;i<offs.length;i++){
+        var o=offs[i];
+        if(o.packagesById && o.packagesById[id]) return o.packagesById[id];
+        var ap=o.availablePackages||[];
+        for(var j=0;j<ap.length;j++){ var pk=ap[j];
+          if(pk.identifier===id || prodId(pk)===id) return pk; }
+      }
+      // 2) fallback: case-insensitive keyword contained in package or product id
+      if(kw){ var k=kw.toLowerCase();
+        for(var a=0;a<offs.length;a++){ var ap2=offs[a].availablePackages||[];
+          for(var b=0;b<ap2.length;b++){ var pk2=ap2[b];
+            if((pk2.identifier||'').toLowerCase().indexOf(k)>-1 || prodId(pk2).toLowerCase().indexOf(k)>-1) return pk2; } } }
+      return null;
+    }
+    var pkg = findPkg(p.pkg, p.kw);
+    if(!pkg){
+      try{ console.warn('[checkout] package "'+p.pkg+'" not found. Available offerings/packages:',
+        offs.map(function(o){ return { offering:o.identifier, packages:(o.availablePackages||[]).map(function(x){ var pr=x.webBillingProduct||x.rcBillingProduct||x.product||{}; return { package:x.identifier, product:pr.identifier }; }) }; }),
+        '| current offering set?', !!offerings.current); }catch(_){}
+      throw new Error('Package "'+p.pkg+'" not found in any offering');
+    }
+
+    var result = await rc.purchase({ rcPackage: pkg, customerEmail: email, metadata: appUserId ? { quiz_sid: appUserId } : undefined });
+    // Redemption link deep-links the anonymous web purchase into the app.
+    var redeem = (result && result.redemptionInfo && (result.redemptionInfo.redeemUrl || result.redemptionInfo.url)) || '';
+    fire('purchase', { plan:selected, value:priceNum(p.amt), currency:'USD' }, 'StartTrial', { value:priceNum(p.amt), currency:'USD' });
+    location.href = 'unlocked.html?status=success&plan=' + encodeURIComponent(selected) + '&value=' + priceNum(p.amt) + (redeem ? '&redeem=' + encodeURIComponent(redeem) : '');
+  } catch(e) {
+    console.error('[checkout]', e);
+    btn.disabled = false; btn.textContent = label;
+    if (e && /cancel|closed|dismiss/i.test(String(e.message || e))) return;   // user closed the sheet
+    // Show what went wrong instead of silently bouncing to the app-store page.
+    var notFound = /not found|offering|package/i.test(String(e.message || e));
+    if(errEl){
+      errEl.innerHTML = (notFound
+        ? 'This plan is not live yet in checkout. '
+        : 'Checkout could not start. ') + '<a href="get.html">Get the app instead</a>.';
+      errEl.classList.add('show');
+    }
+  }
+});
+
+/* === Ethical exit-intent: email me my plan =============================== */
+var modal = document.getElementById('exitModal');
+var exitShown = false;
+function openExit(){ if(exitShown) return; exitShown=true; modal.classList.add('open'); modal.setAttribute('aria-hidden','false'); var i=document.getElementById('exitEmail'); if(onb&&onb.answers&&onb.answers.email) i.value=onb.answers.email; setTimeout(function(){i.focus();},50); }
+function closeExit(){ modal.classList.remove('open'); modal.setAttribute('aria-hidden','true'); }
+document.getElementById('exitLink').addEventListener('click', openExit);
+modal.querySelectorAll('[data-exitclose]').forEach(function(b){ b.addEventListener('click', closeExit); });
+// desktop exit-intent: pointer leaves through the top of the viewport
+document.addEventListener('mouseout', function(e){ if(!e.relatedTarget && e.clientY<=0) openExit(); });
+
+document.getElementById('exitSend').addEventListener('click', function(){
+  var input = document.getElementById('exitEmail');
+  var email = (input.value||'').trim();
+  if(!EMAIL_RE.test(email)){ input.style.borderColor='#b3261e'; input.focus(); return; }
+  var btn = this; btn.disabled=true; btn.textContent='Sending…';
+  fire('paywall_exit_lead', {method:'email'}, 'Lead', {content_name:'exit_plan'});
+  var a = (onb && onb.answers) ? onb.answers : {};
+  fetch(SUPABASE_URL + '/rest/v1/onboarding_responses', {
+    method:'POST',
+    headers:{ 'apikey':SUPABASE_ANON_KEY, 'Authorization':'Bearer '+SUPABASE_ANON_KEY, 'Content-Type':'application/json', 'Prefer':'return=minimal' },
+    body: JSON.stringify({ email:email, traveler_type:a.traveler_type||null, biggest_pain:a.biggest_pain||null, next_trip:a.next_trip||null, region:a.region||null, session_id:(onb&&onb.sid)||null, answers:a, source:'paywall_exit' })
+  }).catch(function(){}).finally(function(){
+    document.getElementById('exitMsg').classList.add('show');
+    btn.textContent='Sent ✓';
+  });
+});
+
+/* === helpers ============================================================= */
+function planById(id){ for(var i=0;i<PLANS.length;i++){ if(PLANS[i].id===id) return PLANS[i]; } return PLANS[0]; }
+function priceNum(s){ return parseFloat((s||'').replace(/[^0-9.]/g,''))||0; }
+function readOnb(){ try{ return JSON.parse(localStorage.getItem('pp_onb_v1')||'null'); }catch(e){ return null; } }
+function fire(gaName, gaParams, fbName, fbParams){
+  try{ if(typeof gtag==='function') gtag('event', gaName, gaParams||{}); }catch(e){}
+  try{
+    if(typeof fbq==='function' && fbName){
+      var standard = {Lead:1,ViewContent:1,InitiateCheckout:1,CompleteRegistration:1,StartTrial:1,Subscribe:1};
+      if(standard[fbName]) fbq('track', fbName, fbParams||{}); else fbq('trackCustom', fbName, fbParams||{});
+    }
+  }catch(e){}
+  try{ if(window.PH_KEY && typeof posthog!=='undefined' && posthog.capture) posthog.capture(gaName, gaParams||{}); }catch(e){}
+}
+})();
+</script>
+</body>
+</html>
