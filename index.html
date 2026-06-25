@@ -158,21 +158,6 @@ a{color:inherit;text-decoration:none}
 .feature-row:nth-of-type(even) .feature-frame{order:2}
 .feature-text .lead{font-size:clamp(1.05rem,1.5vw,1.22rem);line-height:1.55;color:var(--graphite);margin-top:.6rem}
 
-/* ───────── MAX SECTION ───────── */
-.max-section{padding:clamp(4rem,8vh,7rem) 0;background:var(--white);border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
-.max-inner{display:grid;grid-template-columns:auto 1fr;gap:clamp(2.5rem,5vw,5rem);align-items:center;max-width:1000px;margin:0 auto}
-.max-photo{width:clamp(200px,24vw,300px);height:clamp(200px,24vw,300px);border-radius:50%;flex-shrink:0;overflow:hidden}
-.max-photo img{width:100%;height:100%;object-fit:cover;display:block}
-.max-label{color:var(--lilac);font-weight:700}
-.max-name{font-family:var(--font-h);font-weight:400;font-size:clamp(1.7rem,3vw,2.4rem);line-height:1.1;margin:.5rem 0 .25rem}
-.max-subtitle{font-size:.92rem;color:var(--graphite);margin-bottom:1.3rem}
-.max-quote{font-size:clamp(1rem,1.4vw,1.12rem);color:var(--ink);line-height:1.6;border-left:3px solid var(--lilac);padding-left:1.3rem;margin-bottom:1.2rem}
-.max-bio{font-size:.95rem;color:var(--graphite);line-height:1.6;margin-bottom:1.2rem}
-.max-socials{display:flex;gap:1.4rem;font-size:.9rem}
-.max-socials a{color:var(--graphite);display:inline-flex;align-items:center;gap:.4rem;transition:color .2s;padding:.4rem .15rem}
-.max-socials a:hover{color:var(--blue)}
-.max-socials svg{width:17px;height:17px}
-
 /* ───────── FINAL CTA ───────── */
 .cta{padding:clamp(2rem,5vh,4rem) 0 clamp(4rem,9vh,7rem)}
 .cta-card{position:relative;overflow:hidden;border-radius:var(--r-sheet);padding:clamp(3rem,7vw,5.5rem) clamp(1.5rem,5vw,4rem);text-align:center;color:#fff}
@@ -235,10 +220,6 @@ a{color:inherit;text-decoration:none}
     .feature-row:nth-of-type(even) .feature-frame{order:0}
     .feature-frame img{max-width:clamp(210px,58vw,290px)}
     .feature-text{max-width:38ch;margin:0 auto;order:-1}
-    .max-inner{grid-template-columns:1fr;text-align:center;gap:2rem}
-    .max-photo{margin:0 auto;width:190px;height:190px}
-    .max-quote{border-left:none;padding-left:0}
-    .max-socials{justify-content:center}
 }
 @media(max-width:520px){
     .container{padding:0 1.15rem}
@@ -403,32 +384,6 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                 <div class="feature-text">
                     <h3>All your spots in one place</h3>
                     <p class="lead">Every place you've ever saved, in one organized, searchable home base.</p>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-
-<!-- ───────── MAX SECTION ───────── -->
-<section class="max-section">
-    <div class="container">
-        <div class="max-inner reveal">
-            <div class="max-photo"><picture><source srcset="max-image.webp" type="image/webp"><img src="max image.png" alt="Max Zaharenkov" width="640" height="640" loading="lazy"></picture></div>
-            <div>
-                <div class="max-label eyebrow">Built by</div>
-                <h2 class="max-name">Max Zaharenkov</h2>
-                <p class="max-subtitle">Travel Creator &amp; PlanPin Co-Founder</p>
-                <blockquote class="max-quote">"I've saved thousands of places from reels over the years, and lost half of them in my camera roll. I built PlanPin so that never happens again: save a spot from a reel and it's there when you travel, not buried in a folder you forget to open."</blockquote>
-                <p class="max-bio">With 6M+ followers and 400+ travel videos from 70+ destinations, Max built PlanPin so the places you save from reels never get lost before your trip.</p>
-                <div class="max-socials">
-                    <a href="https://instagram.com/maxzaharenkov" target="_blank" rel="noopener">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
-                        @maxzaharenkov
-                    </a>
-                    <a href="https://www.tiktok.com/@maxzaharenkov" target="_blank" rel="noopener">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 12a4 4 0 1 0 4 4V4a5 5 0 0 0 5 5"/></svg>
-                        @maxzaharenkov
-                    </a>
                 </div>
             </div>
         </div>
